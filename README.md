@@ -64,3 +64,10 @@ _Los requerimientos no funcionales definen cómo debe comportarse el sistema en 
 ## 5. Arquitectura del Sistema
 
 _Describe brevemente la arquitectura utilizada. Ejemplo: El sistema utilizará una arquitectura cliente-servidor, donde el frontend estará construido con [framework/lenguaje] y el backend con [framework/lenguaje], conectado a una base de datos relacional/no relacional._
+
+## Desarrollado por:
+
+- [AgustinRebechi](https://github.com/AgustinRebechi)
+- [aecheverri](https://github.com/aecheverri)
+- [dabaron13](https://github.com/dabaron13)
+- [rriveraro](https://github.com/rriveraro)
