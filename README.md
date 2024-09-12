@@ -71,3 +71,4 @@ _Describe brevemente la arquitectura utilizada. Ejemplo: El sistema utilizará u
 - [aecheverri](https://github.com/aecheverri)
 - [dabaron13](https://github.com/dabaron13)
 - [rriveraro](https://github.com/rriveraro)
+- [cvidalsastre](https://github.com/cvidalsastre)
