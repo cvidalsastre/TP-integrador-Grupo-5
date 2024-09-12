@@ -1,18 +1,49 @@
-## Getting Started
+# Proyecto: **Nombre del Proyecto**
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## 1. Objetivo y Alcance
 
-## Folder Structure
+**Objetivo:**  
+_Describe aquí el propósito general del proyecto. Ejemplo: El objetivo es desarrollar un sistema que automatice el manejo de inventarios, reduciendo errores y mejorando la eficiencia._
 
-The workspace contains two folders by default, where:
+**Alcance:**  
+_Explica los límites y las funcionalidades que estarán incluidas en el proyecto. Ejemplo: El sistema gestionará el stock, generará informes y permitirá la administración de usuarios, pero no incluirá integración con sistemas externos como software contable._
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## 2. Descripción de Alto Nivel del Sistema
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+_Proporciona una descripción general del sistema. Ejemplo: El sistema estará compuesto por tres módulos principales: gestión de inventarios, gestión de usuarios y procesamiento de órdenes de compra. Cada módulo interactuará con una base de datos central para registrar, actualizar y eliminar información._
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## 3. Requerimientos Funcionales
 
-## Dependency Management
+_Los principales requerimientos funcionales del sistema incluyen:_
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+- **Macro-requerimiento 1: Gestión de Inventario**
+
+  - RF 1.1: Registrar productos en inventario
+  - RF 1.2: Editar productos existentes
+  - RF 1.3: Eliminar productos del inventario
+  - RF 1.4: Generar reportes de inventario
+
+- **Macro-requerimiento 2: Gestión de Usuarios**
+
+  - RF 2.1: Crear cuentas de usuario
+  - RF 2.2: Editar cuentas de usuario
+  - RF 2.3: Asignar roles y permisos
+  - RF 2.4: Eliminar cuentas de usuario
+
+- **Macro-requerimiento 3: Procesamiento de Órdenes**
+  - RF 3.1: Crear órdenes de compra
+  - RF 3.2: Actualizar estado de las órdenes
+  - RF 3.3: Generar reportes de órdenes
+
+## 4. Requerimientos No Funcionales
+
+_Los requerimientos no funcionales definen cómo debe comportarse el sistema en términos de rendimiento, seguridad y usabilidad._
+
+- **RNF 1:** Requerimiento 1
+- **RNF 2:** Requerimiento 2
+- **RNF 3:** ...
+- **RNF 4:** Requerimiento n
+
+## 5. Arquitectura del Sistema
+
+_Describe brevemente la arquitectura utilizada. Ejemplo: El sistema utilizará una arquitectura cliente-servidor, donde el frontend estará construido con [framework/lenguaje] y el backend con [framework/lenguaje], conectado a una base de datos relacional/no relacional._
