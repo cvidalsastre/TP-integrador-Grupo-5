@@ -25,21 +25,28 @@ _COMPLETAR_
 
 _Los principales requerimientos funcionales del sistema incluyen:_
 
-- **Macro-requerimiento 1: el mejor requerimiento**
+- **Macro-requerimiento 1: Implementación de estructuras de datos**
 
   - RF 1.1: requerimiento funcional 1
   - RF 1.2: requerimiento funcional 2
   - RF 1.3: requerimiento funcional n
   - RF 1.4: ...
 
-- **Macro-requerimiento 2: el mejor requerimiento**
+- **Macro-requerimiento 2: Operaciones sobre las estructuras de datos**
 
   - RF 2.1: requerimiento funcional 1
   - RF 2.2: requerimiento funcional 2
   - RF 2.3: requerimiento funcional n
   - RF 2.4: ...
 
-- **Macro-requerimiento 3: mejor que el anterior**
+- **Macro-requerimiento 3: Extensibilidad**
+
+  - RF 3.1: requerimiento funcional 1
+  - RF 3.2: requerimiento funcional 2
+  - RF 3.3: requerimiento funcional n
+  - RF 3.4: ...
+
+- **Macro-requerimiento 4: Medición de costo temporal**
   - RF 3.1: requerimiento funcional 1
   - RF 3.2: requerimiento funcional 2
   - RF 3.3: requerimiento funcional n
