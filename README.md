@@ -2,8 +2,20 @@
 
 ## 1. Objetivo y Alcance
 
-**Objetivo:**  
-_Describe aquí el propósito general del proyecto. Ejemplo: El objetivo es desarrollar un sistema que automatice el manejo de inventarios, reduciendo errores y mejorando la eficiencia._
+# Objetivo del Proyecto
+
+El proyecto tiene como objetivo desarrollar una **librería en Java** que permita manipular y analizar datos en forma tabular (2 dimensiones). La librería debe proporcionar estructuras de datos y operaciones que faciliten la manipulación de datos tabulares, como lectura, modificación y análisis de los mismos, sin depender de librerías externas.
+
+Además, el proyecto contempla la posibilidad de **futuras extensiones** y debe minimizar el impacto de futuras modificaciones en la arquitectura del sistema. Aunque no se hará foco en la eficiencia de las operaciones inicialmente, se considerará la inclusión de mecanismos para medir el **costo temporal** de la ejecución de las mismas.
+
+# Alcance del Proyecto
+
+El proyecto abarcará los siguientes aspectos:
+
+1. **Implementación de estructuras de datos**: Que permitan almacenar y manipular datos en dos dimensiones.
+2. **Operaciones sobre las estructuras de datos**: Como agregar, eliminar, modificar datos, filtrado, y operaciones básicas de análisis.
+3. **Extensibilidad**: Se deberá diseñar una arquitectura que permita agregar nuevas funcionalidades en el futuro con mínimo impacto.
+4. **Medición de costo temporal**: Incorporación de una función que permita medir el tiempo de ejecución de las operaciones más relevantes.
 
 **Alcance:**  
 _Explica los límites y las funcionalidades que estarán incluidas en el proyecto. Ejemplo: El sistema gestionará el stock, generará informes y permitirá la administración de usuarios, pero no incluirá integración con sistemas externos como software contable._
