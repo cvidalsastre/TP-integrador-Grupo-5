@@ -19,7 +19,7 @@ El proyecto abarcará los siguientes aspectos:
 
 ## 2. Descripción de Alto Nivel del Sistema
 
-_COMPLETAR_
+_La libreria consiste en una biblioteca de java para poder manipular estructuras tabulares de 2 dimensiones, el usuario podra importar esta libreria en su propio proyecto y acceder a los metodos implementados para poder leer, agregar, modificar, filtrar y ordenar los datos provistos por el usuario_
 
 ## 3. Requerimientos Funcionales
 
@@ -27,24 +27,27 @@ _Los principales requerimientos funcionales del sistema incluyen:_
 
 - **Macro-requerimiento 1: Implementación de estructuras de datos**
 
-  - RF 1.1: requerimiento funcional 1
-  - RF 1.2: requerimiento funcional 2
-  - RF 1.3: requerimiento funcional n
-  - RF 1.4: ...
+  - RF 1.1: La libreria deberia tener un tipo de dato abstracto que represente una instancia de datos de 2 dimensiones con n filas y m columnas
+  - RF 1.2: La libreria deberia implementar etiquetas(labels) para poder indexar filas y columnas
+  - RF 1.3: La libreria deberia tener un tipo de dato abstracto para una fila
+  - RF 1.4: La libreria deberia tener un tipo de dato abstracto para una columna
 
 - **Macro-requerimiento 2: Operaciones sobre las estructuras de datos**
 
-  - RF 2.1: requerimiento funcional 1
-  - RF 2.2: requerimiento funcional 2
-  - RF 2.3: requerimiento funcional n
-  - RF 2.4: ...
+  - RF 2.1: La libreria debe poder aceptar datos null o NA
+  - RF 2.2: La libreria debe poder permitir cambiar los datos null
+  - RF 2.3: La libreria debe poder permitir cambiar el dato de una celda
+  - RF 2.4: La libreria debe mostrar la cantidad de filas y columnas de la tabla
+  - RF 2.5: La libreria debe poder permitir agregar y eliminar filas y columnas de una tabla
+  - RF 2.6: La libreria debe permitir saber los tipos de datos de cada columna
+  - RF 2.6: La libreria debe permitir saber cuales son las etiquetas de las filas y las columnas
 
 - **Macro-requerimiento 3: Extensibilidad**
 
-  - RF 3.1: requerimiento funcional 1
-  - RF 3.2: requerimiento funcional 2
-  - RF 3.3: requerimiento funcional n
-  - RF 3.4: ...
+  - RF 3.1: Que pueda permitir agregar nuevos tipos de datos para las celdas
+  - RF 3.2: Que se pueda cambiar el formato de la visualizacion de las tablas
+  - RF 3.3:
+  - RF 3.4:
 
 - **Macro-requerimiento 4: Medición de costo temporal**
   - RF 3.1: requerimiento funcional 1
