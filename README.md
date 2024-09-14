@@ -1,3 +1,15 @@
+## Índice
+
+- [Proyecto: **Nombre del Proyecto**](#proyecto-nombre-del-proyecto)
+  - [1. Objetivo y Alcance](#1-objetivo-y-alcance)
+- [Objetivo del Proyecto](#objetivo-del-proyecto)
+- [Alcance del Proyecto](#alcance-del-proyecto)
+  - [2. Descripción de Alto Nivel del Sistema](#2-descripción-de-alto-nivel-del-sistema)
+  - [3. Requerimientos Funcionales](#3-requerimientos-funcionales)
+  - [4. Requerimientos No Funcionales](#4-requerimientos-no-funcionales)
+  - [5. Arquitectura del Sistema](#5-arquitectura-del-sistema)
+  - [Desarrollado por:](#desarrollado-por)
+
 # Proyecto: **Nombre del Proyecto**
 
 ## 1. Objetivo y Alcance
@@ -27,24 +39,24 @@ _Los principales requerimientos funcionales del sistema incluyen:_
 
 - **Macro-requerimiento 1: Implementación de estructuras de datos**
 
-  - RF 1.1: La libreria deberia tener un tipo de dato abstracto que represente una instancia de datos de 2 dimensiones con n filas y m columnas
+  - RF 1.1: La libreria deberia tener un tipo de dato abstracto que represente una instancia de datos de 2 dimensiones con n filas y m columnas,
   - RF 1.2: La libreria deberia implementar etiquetas(labels) para poder indexar filas y columnas
   - RF 1.3: La libreria deberia tener un tipo de dato abstracto para una fila
-  - RF 1.4: La libreria deberia tener un tipo de dato abstracto para una columna
+  - RF 1.4: tipo de dato abstracto para una columna
 
 - **Macro-requerimiento 2: Operaciones sobre las estructuras de datos**
 
-  - RF 2.1: La libreria debe poder aceptar datos null o NA
-  - RF 2.2: La libreria debe poder permitir cambiar los datos null
-  - RF 2.3: La libreria debe poder permitir cambiar el dato de una celda
-  - RF 2.4: La libreria debe mostrar la cantidad de filas y columnas de la tabla
-  - RF 2.5: La libreria debe poder permitir agregar y eliminar filas y columnas de una tabla
-  - RF 2.6: La libreria debe permitir saber los tipos de datos de cada columna
-  - RF 2.7: La libreria debe permitir saber cuales son las etiquetas de las filas y las columnas
-  - RF 2.8: La libreria debe poder permitir cargar desde el disco una tabla en formato csv
-  - RF 2.9: La libreria debe poder permitir definir el carácter delimitador de columnas y si se utilizaran las etiquetas
-  - RF 3.0: La libreria debe poder permitir visualizar la tabla en una forma comprensible
-  - RF 3.1: La libreria debe poder definir un maximo de columnas y filas cuando se quieran visualizar
+  - RF 2.1: ingresar celdas null o NA
+  - RF 2.2: modificar las celdas null
+  - RF 2.3: cambiar el dato de una celda
+  - RF 2.4: mostrar la cantidad de filas y columnas de la tabla
+  - RF 2.5: agregar y eliminar filas y columnas de una tabla
+  - RF 2.6: mostrar los tipos de datos de cada columna
+  - RF 2.7: mostrar cuales son las etiquetas de las filas y las columnas
+  - RF 2.8: cargar desde el disco una tabla en formato csv
+  - RF 2.9: definir el carácter delimitador de columnas y si se utilizaran las etiquetas
+  - RF 2.10: visualizar la tabla en una forma comprensible
+  - RF 2.11: definir un maximo de columnas y filas cuando se quieran visualizar
 
 - **Macro-requerimiento 3: Extensibilidad**
 
@@ -52,10 +64,10 @@ _Los principales requerimientos funcionales del sistema incluyen:_
   - RF 3.2: Que se pueda cambiar el formato de la visualizacion de las tablas
 
 - **Macro-requerimiento 4: Medición de costo temporal**
-  - RF 3.1: requerimiento funcional 1
-  - RF 3.2: requerimiento funcional 2
-  - RF 3.3:
-  - RF 3.4:
+  - RF 4.1: Escalabilidad, probar si puede cargar un csv mayor a 1gb,
+  - RF 4.2: Rendimiento, probar cuanto tarda en cargar un csv de 1mb, 10mb, 100mb, 1gb, 10gb
+  - RF 4.3:
+  - RF 4.4:
 
 ## 4. Requerimientos No Funcionales
 
