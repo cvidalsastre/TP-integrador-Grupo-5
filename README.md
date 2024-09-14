@@ -75,10 +75,10 @@ _Los principales requerimientos funcionales del sistema incluyen:_
 
 _Los requerimientos no funcionales definen cómo debe comportarse el sistema en términos de rendimiento, seguridad y usabilidad._
 
-- **RNF 1:** La libreria debe poder ser usada en java 8 o superior
+- **RNF 1:** La librería debe poder ser usada en java 8 o superior
 - **RNF 2:** El procesamiento de archivos de hasta 10,000 filas debe completarse en menos de 1 segundo.
 - **RNF 3:** Seguridad, permitir seleccionar columnas privadas para que no sean accesibles para el usuario
-- **RNF 4:** Rendimiento, benchmarking de metodos
+- **RNF 4:** Rendimiento, benchmarking de métodos
 
 ## Desarrollado por:
 
