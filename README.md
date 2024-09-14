@@ -40,33 +40,33 @@ _Los principales requerimientos funcionales del sistema incluyen:_
   - RF 2.4: La libreria debe mostrar la cantidad de filas y columnas de la tabla
   - RF 2.5: La libreria debe poder permitir agregar y eliminar filas y columnas de una tabla
   - RF 2.6: La libreria debe permitir saber los tipos de datos de cada columna
-  - RF 2.6: La libreria debe permitir saber cuales son las etiquetas de las filas y las columnas
+  - RF 2.7: La libreria debe permitir saber cuales son las etiquetas de las filas y las columnas
+  - RF 2.8: La libreria debe poder permitir cargar desde el disco una tabla en formato csv
+  - RF 2.9: La libreria debe poder permitir definir el carácter delimitador de columnas y si se utilizaran las etiquetas
+  - RF 3.0: La libreria debe poder permitir visualizar la tabla en una forma comprensible
+  - RF 3.1: La libreria debe poder definir un maximo de columnas y filas cuando se quieran visualizar
 
 - **Macro-requerimiento 3: Extensibilidad**
 
   - RF 3.1: Que pueda permitir agregar nuevos tipos de datos para las celdas
   - RF 3.2: Que se pueda cambiar el formato de la visualizacion de las tablas
-  - RF 3.3:
-  - RF 3.4:
 
 - **Macro-requerimiento 4: Medición de costo temporal**
   - RF 3.1: requerimiento funcional 1
   - RF 3.2: requerimiento funcional 2
-  - RF 3.3: requerimiento funcional n
-  - RF 3.4: ...
+  - RF 3.3:
+  - RF 3.4:
 
 ## 4. Requerimientos No Funcionales
 
 _Los requerimientos no funcionales definen cómo debe comportarse el sistema en términos de rendimiento, seguridad y usabilidad._
 
-- **RNF 1:** Requerimiento no funcional 1
+- **RNF 1:** La libreria debe poder ser usada en java 8 o superior
 - **RNF 2:** Requerimiento no funcional 2
 - **RNF 3:** Requerimiento n
 - **RNF 4:** ...
 
 ## 5. Arquitectura del Sistema
-
-_Describe brevemente la arquitectura utilizada. Ejemplo: El sistema utilizará una arquitectura cliente-servidor, donde el frontend estará construido con [framework/lenguaje] y el backend con [framework/lenguaje], conectado a una base de datos relacional/no relacional._
 
 ## Desarrollado por:
 
