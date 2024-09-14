@@ -45,22 +45,22 @@ _Los principales requerimientos funcionales del sistema incluyen:_
 
 - **Macro-requerimiento 2: Operaciones sobre las estructuras de datos**
 
-  - RF 2.1: ingresar celdas null o NA
-  - RF 2.2: modificar las celdas null
-  - RF 2.3: cambiar el dato de una celda
-  - RF 2.4: agregar y eliminar filas y columnas de una tabla
-  - RF 2.5: mostrar la cantidad de filas y columnas de la tabla
-  - RF 2.6: mostrar los tipos de datos de cada columna
-  - RF 2.7: mostrar cuales son las etiquetas de las filas y las columnas
-  - RF 2.8: cargar desde el disco una tabla en formato csv
-  - RF 2.9: definir el carácter delimitador de columnas y si se utilizaran las etiquetas
-  - RF 2.10: visualizar la tabla en una forma comprensible
-  - RF 2.11: definir un maximo de columnas y filas cuando se quieran visualizar
-  - RF 2.12 debe rechazar archivos con formatos incorrectos y proporcionar mensajes de error claros.
-  - RF 2.13 filtrar por columna y valor de celda
-  - RF 2.14generar una tabla nueva a partir de una copia profunda de otra previamente creada.
-  - RF 2.15 generar una tabla nueva a partir de una estructura de 2 dimensiones nativa de Java.
-  - RF 2.16 mostrar las n primeras o n ultimas filas
+  - RF 2.1: Ingresar celdas null o NA
+  - RF 2.2: Modificar las celdas null
+  - RF 2.3: Cambiar el dato de una celda
+  - RF 2.4: Agregar y eliminar filas y columnas de una tabla
+  - RF 2.5: Mostrar la cantidad de filas y columnas de la tabla
+  - RF 2.6: Mostrar los tipos de datos de cada columna
+  - RF 2.7: Mostrar cuales son las etiquetas de las filas y las columnas
+  - RF 2.8: Cargar desde el disco una tabla en formato csv
+  - RF 2.9: Definir el carácter delimitador de columnas y si se utilizaran las etiquetas
+  - RF 2.10: Visualizar la tabla en una forma comprensible
+  - RF 2.11: Definir un maximo de columnas y filas cuando se quieran visualizar
+  - RF 2.12 Debe rechazar archivos con formatos incorrectos y proporcionar mensajes de error claros.
+  - RF 2.13 Filtrar por columna y valor de celda
+  - RF 2.14 Generar una tabla nueva a partir de una copia profunda de otra previamente creada.
+  - RF 2.15 Generar una tabla nueva a partir de una estructura de 2 dimensiones nativa de Java.
+  - RF 2.16 Mostrar las n primeras o n ultimas filas
   - RF 2.17 Generar una copia profunda de una tabla
 
 - **Macro-requerimiento 3: Extensibilidad**
@@ -69,7 +69,7 @@ _Los principales requerimientos funcionales del sistema incluyen:_
   - RF 3.2: Que se pueda cambiar el formato de la visualizacion de las tablas
 
 - **Macro-requerimiento 4: Medición de costo temporal**
-  - RF 4.1: mostrar en pantalla cuanto tardo el programa en cargar un csv
+  - RF 4.1: Mostrar en pantalla cuanto tardo el programa en cargar un csv
 
 ## 4. Requerimientos No Funcionales
 
