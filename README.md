@@ -30,7 +30,7 @@ El proyecto abarcará los siguientes aspectos:
 
 ## 2. Descripción de Alto Nivel del Sistema
 
-_La libreria consiste en una biblioteca de java para poder manipular estructuras tabulares de 2 dimensiones, el usuario podra importar esta libreria en su propio proyecto y acceder a los metodos implementados para poder leer, agregar, modificar, filtrar y ordenar los datos provistos por el usuario_
+_La librería consiste en una biblioteca de Java para poder manipular estructuras tabulares de 2 dimensiones, el usuario podrá importar esta librería en su propio proyecto y acceder a los metodos implementados para poder leer, agregar, modificar, filtrar y ordenar los datos provistos por el usuario_
 
 ## 3. Requerimientos Funcionales
 
@@ -53,7 +53,7 @@ _Los principales requerimientos funcionales del sistema incluyen:_
   - RF 2.6: Mostrar los tipos de datos de cada columna
   - RF 2.7: Mostrar cuales son las etiquetas de las filas y las columnas
   - RF 2.8: Cargar desde el disco una tabla en formato csv
-  - RF 2.9: Definir el carácter delimitador de columnas y si se utilizaran las etiquetas
+  - RF 2.9: Definir el carácter delimitador de columnas y si se utilizarán las etiquetas
   - RF 2.10: Visualizar la tabla en una forma comprensible
   - RF 2.11: Definir un maximo de columnas y filas cuando se quieran visualizar
   - RF 2.12 Debe rechazar archivos con formatos incorrectos y proporcionar mensajes de error claros.
@@ -66,7 +66,7 @@ _Los principales requerimientos funcionales del sistema incluyen:_
 - **Macro-requerimiento 3: Extensibilidad**
 
   - RF 3.1: Que pueda permitir agregar nuevos tipos de datos para las celdas
-  - RF 3.2: Que se pueda cambiar el formato de la visualizacion de las tablas
+  - RF 3.2: Que se pueda cambiar el formato de la visualización de las tablas
 
 - **Macro-requerimiento 4: Medición de costo temporal**
   - RF 4.1: Mostrar en pantalla cuanto tardo el programa en cargar un csv
@@ -75,10 +75,10 @@ _Los principales requerimientos funcionales del sistema incluyen:_
 
 _Los requerimientos no funcionales definen cómo debe comportarse el sistema en términos de rendimiento, seguridad y usabilidad._
 
-- **RNF 1:** La libreria debe poder ser usada en java 8 o superior
+- **RNF 1:** La librería debe poder ser usada en Java 8 o superior
 - **RNF 2:** El procesamiento de archivos de hasta 10,000 filas debe completarse en menos de 1 segundo.
 - **RNF 3:** Seguridad, permitir seleccionar columnas privadas para que no sean accesibles para el usuario
-- **RNF 4:** Rendimiento, benchmarking de metodos
+- **RNF 4:** Rendimiento, benchmarking de métodos
 
 ## Desarrollado por:
 
