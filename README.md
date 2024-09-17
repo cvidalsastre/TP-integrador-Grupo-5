@@ -30,7 +30,7 @@ El proyecto abarcará los siguientes aspectos:
 
 ## 2. Descripción de Alto Nivel del Sistema
 
-_La librería consiste en una biblioteca de Java para poder manipular estructuras tabulares de 2 dimensiones, el usuario podrá importar esta librería en su propio proyecto y acceder a los metodos implementados para poder leer, agregar, modificar, filtrar y ordenar los datos provistos por el usuario_
+_La librería consiste en una biblioteca de Java para poder manipular estructuras tabulares de 2 dimensiones, el usuario podrá importar esta librería en su propio proyecto y acceder a los métodos implementados para poder leer, agregar, modificar, filtrar y ordenar los datos provistos por el usuario_
 
 ## 3. Requerimientos Funcionales
 
@@ -69,7 +69,7 @@ _Los principales requerimientos funcionales del sistema incluyen:_
   - RF 3.2: Que se pueda cambiar el formato de la visualización de las tablas
 
 - **Macro-requerimiento 4: Medición de costo temporal**
-  - RF 4.1: Mostrar en pantalla cuanto tardo el programa en cargar un csv
+  - RF 4.1: Mostrar en pantalla cuanto tardó el programa en cargar un csv
 
 ## 4. Requerimientos No Funcionales
 
