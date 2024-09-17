@@ -1,6 +1,6 @@
 ## Índice
 
-- [Proyecto: **Nombre del Proyecto**](#proyecto-nombre-del-proyecto)
+- [Proyecto: **Librería de Java**](#proyecto-librería-de-java)
   - [1. Objetivo y Alcance](#1-objetivo-y-alcance)
 - [Objetivo del Proyecto](#objetivo-del-proyecto)
 - [Alcance del Proyecto](#alcance-del-proyecto)
@@ -9,7 +9,7 @@
   - [4. Requerimientos No Funcionales](#4-requerimientos-no-funcionales)
   - [Desarrollado por:](#desarrollado-por)
 
-# Proyecto: **Nombre del Proyecto**
+# Proyecto: **Librería de Java**
 
 ## 1. Objetivo y Alcance
 
@@ -21,16 +21,16 @@ _Además, el proyecto contempla la posibilidad de **futuras extensiones** y debe
 
 # Alcance del Proyecto
 
-El proyecto abarcará los siguientes aspectos:
+El proyecto abarca los siguientes aspectos:
 
 1. **Implementación de estructuras de datos**: Que permitan almacenar y manipular datos en dos dimensiones.
-2. **Operaciones sobre las estructuras de datos**: Como agregar, eliminar, modificar datos, filtrado, y operaciones básicas de análisis.
+2. **Operaciones sobre las estructuras de datos**: agregar, eliminar y modificar celdas, filtrado, y operaciones básicas de análisis.
 3. **Extensibilidad**: Se deberá diseñar una arquitectura que permita agregar nuevas funcionalidades en el futuro con mínimo impacto.
 4. **Medición de costo temporal**: Incorporación de una función que permita medir el tiempo de ejecución de las operaciones más relevantes.
 
 ## 2. Descripción de Alto Nivel del Sistema
 
-_La librería consiste en una biblioteca de Java para poder manipular estructuras tabulares de 2 dimensiones, el usuario podrá importar esta librería en su propio proyecto y acceder a los metodos implementados para poder leer, agregar, modificar, filtrar y ordenar los datos provistos por el usuario_
+_La librería consiste en una biblioteca de Java para poder manipular estructuras tabulares de 2 dimensiones, el usuario podrá importar esta librería en su propio proyecto y acceder a los métodos implementados para poder leer, agregar, modificar, filtrar y ordenar los datos provistos por el usuario_
 
 ## 3. Requerimientos Funcionales
 
@@ -55,12 +55,12 @@ _Los principales requerimientos funcionales del sistema incluyen:_
   - RF 2.8: Cargar desde el disco una tabla en formato csv
   - RF 2.9: Definir el carácter delimitador de columnas y si se utilizarán las etiquetas
   - RF 2.10: Visualizar la tabla en una forma comprensible
-  - RF 2.11: Definir un maximo de columnas y filas cuando se quieran visualizar
+  - RF 2.11: Definir un máximo de columnas y filas cuando se quieran visualizar
   - RF 2.12 Debe rechazar archivos con formatos incorrectos y proporcionar mensajes de error claros.
   - RF 2.13 Filtrar por columna y valor de celda
   - RF 2.14 Generar una tabla nueva a partir de una copia profunda de otra previamente creada.
   - RF 2.15 Generar una tabla nueva a partir de una estructura de 2 dimensiones nativa de Java.
-  - RF 2.16 Mostrar las n primeras o n ultimas filas
+  - RF 2.16 Mostrar las n primeras o n últimas filas
   - RF 2.17 Generar una copia profunda de una tabla
 
 - **Macro-requerimiento 3: Extensibilidad**
@@ -69,7 +69,7 @@ _Los principales requerimientos funcionales del sistema incluyen:_
   - RF 3.2: Que se pueda cambiar el formato de la visualización de las tablas
 
 - **Macro-requerimiento 4: Medición de costo temporal**
-  - RF 4.1: Mostrar en pantalla cuanto tardo el programa en cargar un csv
+  - RF 4.1: Mostrar en pantalla cuanto tarda el programa en cargar un csv
 
 ## 4. Requerimientos No Funcionales
 
