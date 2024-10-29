@@ -22,7 +22,7 @@ public class Celda<T> {
     }
 
     public String getTipo() {
-        if (valor == null){
+        if (esNA()){
             return "NA";
         }
         return valor.getClass().getSimpleName();
@@ -40,7 +40,7 @@ public class Celda<T> {
         this.valor = null;
     }
 
-
+    
 
     //PROBAMOS
     public static void main(String[] args) {
