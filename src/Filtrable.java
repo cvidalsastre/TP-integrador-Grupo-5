@@ -1,3 +1,4 @@
-public interface Filtrable {
+
+public interface Filtrable{
 
 }
