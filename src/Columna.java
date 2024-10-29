@@ -18,12 +18,10 @@ public class Columna<T> {
         }        
     }
 
-    public Columna(List<T> columna, String label){
-        this.columna = new ArrayList<>();
-        for(T elemento : columna){
-            columna.add(elemento);
-        }        
-    }
+    
+
+
+    
 
 
 
