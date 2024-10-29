@@ -33,7 +33,11 @@ public class Celda<T> {
     }
 
     public void cambiarValor(T valorNuevo){
-        this.valor=valorNuevo;
+        this.valor = valorNuevo;
+    }
+
+    public void volverNA(){
+        this.valor = null;
     }
 
 
