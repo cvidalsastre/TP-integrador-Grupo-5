@@ -1,0 +1,7 @@
+Martes 29 de octubre
+Estuvimos hablando sobre:
++ Dejamos o no la clase Celda? Definimos que sí, ya que es más facil manejar los valores NA de esta manera 
++ ¿Como vamos a trabajar con los labels? Estos deben ser tanto para las filas como para las columnas. Deben poder ser de tipo numericos, integer o string. En su defecto deben ser numericos de 0 a n. Pensamos en trabajarlos como hash maps <int, L> . No logramos concluir en como implementarlo todavia.
++ Cuando agregamos una fila, esta se va colocando debajo de la ultima fila añadida. Con el Sorting despues el usuario podria decidir ordenador por una o más categorias.
++ Agregamos metodos y atributos a Celda, Columna y Tabla.
++GroupBy
