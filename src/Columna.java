@@ -1,25 +1,21 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 public class Columna<T> {
     
-    private List<Celda<T>> tirita;
+    private List<Celda<T>> listaDeCeldas;
     private String etiquetaColumna;
 
     //Constructor
-    public Columna(s) {
-        this.columna = new ArrayList<>();
-        this.etiquetaColumna = new String("");
+    public Columna() {
+        this.listaDeCeldas = new ArrayList<>();
     }
 
     public Columna(List<T> columna){
-        this.columna = new ArrayList<>();
+        this.listaDeCeldas = new ArrayList<>();
         for(T elemento : columna){
             columna.add(elemento);
         }
-        this.etiquetaColumna = new String();        
     }
 
     public void cambiarNombreEtiqueta(String etiqueta){
@@ -27,13 +23,16 @@ public class Columna<T> {
     }
 
     public T verContenidoCelda(int pos){
-        return columna.get(pos).getValor();
+        return listaDeCeldas.get(pos).getValor();
     }
 
-    public String tipoDato
+    //public String tipoDeDato(){
+        
+        //algo
+    //}
 
     public int cantidadElementos(){
-        return this.columna.size();
+        return this.listaDeCeldas.size();
     }
 
     

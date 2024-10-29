@@ -1,7 +1,7 @@
 import java.util.List;
 
-public class Tabla {
-    private List<Columna> columna;
+public class Tabla<T> {
+    private List<Columna<T>> columna;
     
     //Sobrecarga de constructores
 
@@ -36,11 +36,4 @@ public class Tabla {
     public void guardarTabla(){
         
     }
-
-
-
-
-
-
-
 }
