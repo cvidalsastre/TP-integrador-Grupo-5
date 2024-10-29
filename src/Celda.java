@@ -1,10 +1,20 @@
 public class Celda<T> {
     private T valor;
 
+
+
     //Constructor 
     public Celda(T valor){
         this.valor = valor;
     }
+
+    
+
+    public Celda() {
+        this.valor = null;
+    }
+
+
 
     //Metodos
     public T getValor(){
@@ -12,11 +22,14 @@ public class Celda<T> {
     }
 
     public String getTipo() {
+        if (valor == null){
+            return "NA";
+        }
         return valor.getClass().getSimpleName();
     }
 
     public boolean esNA(){
-        return valor==null;
+        return valor == null;
     }
 
     public void cambiarValor(T valorNuevo){
@@ -27,7 +40,7 @@ public class Celda<T> {
 
     //PROBAMOS
     public static void main(String[] args) {
-        Celda<Integer> celda = new Celda(0);
+        Celda<Integer> celda = new Celda<>();
 
         System.out.println("Valor: " + celda.getValor());
         System.out.println("Tipo de dato: " + celda.getTipo());
@@ -35,9 +48,9 @@ public class Celda<T> {
         celda.cambiarValor(4);
         System.out.println("Valor: " + celda.getValor());
         
-        //String cadena;
-        //Celda<String> celda2 = new Celda<String>(cadena);
-        //System.out.println("V");
+        //Celda<String> celda2 = new Celda<String>();
+
+        //System.out.println("es Na?" + celda2.esNA());
 
 
     }
