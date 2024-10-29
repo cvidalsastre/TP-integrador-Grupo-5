@@ -1,3 +1,5 @@
-public class Celda {
+public class Celda<T> {
+    private T valor;
+
     
 }
