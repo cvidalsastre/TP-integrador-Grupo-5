@@ -3,43 +3,35 @@ import java.util.List;
 
 public class Columna<T> {
     
-    private List<Celda<T>> listaDeCeldas;
-    private String etiquetaColumna;
+    private List<Celda<T>> celdas;
+    private Etiqueta etiqueta;
+    private Class<T> tipoDeDato;
 
     //Constructor
-    public Columna() {
-        this.listaDeCeldas = new ArrayList<>();
+    public Columna(String etiqueta, Class<T> tipoDeDato){
+        this.etiqueta = etiqueta;
+        this.tipoDeDato=tipoDeDato;
+        this.celdas=new ArrayList<>();
     }
 
-    public Columna(List<T> columna){
-        this.listaDeCeldas = new ArrayList<>();
-        for(T elemento : columna){
-            columna.add(elemento);
+    public void agregarCelda(Celda<T> celda){
+        // Validar el tipo de dato antes de agregar
+        if (celda.getValor() != null && !tipoDeDato.isInstance(celda.getValor())) {
+            throw new IllegalArgumentException("El valor de la celda no corresponde al tipo de dato de la columna");
         }
+        celdas.add(celda);
     }
 
-    public void cambiarNombreEtiqueta(String etiqueta){
-        this.etiquetaColumna = etiqueta;
+    public String getEtiqueta(){
+        return etiqueta;
     }
 
-    public T verContenidoCelda(int pos){
-        return listaDeCeldas.get(pos).getValor();
+    public List<Celda<T>> getCeldas(){
+        return celdas;
     }
 
-    //public String tipoDeDato(){
-        
-        //algo
-    //}
-
-    public int cantidadElementos(){
-        return this.listaDeCeldas.size();
+    public Class<T> getTipoDeDato(){
+        return tipoDeDato;
     }
-
-    
-
-
-    
-
-
 
 }

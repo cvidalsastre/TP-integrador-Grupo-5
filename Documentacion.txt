@@ -1,3 +1,6 @@
+Miercoles 30 de octubre
+Cree una clase abstracta Etiqueta de la cual se desprenden etiquetaFila y etiquetaColumna. Estas seran gestionadas en la clase Tabla para poder aceptar int, String o default (0 a n) por sobrecarga de metodos. Agregue metodos para agregar filas y columnas, un constructor de tabla, obtener una fila, una columna y una celda.  
+
 Martes 29 de octubre
 Estuvimos hablando sobre:
 + Dejamos o no la clase Celda? Definimos que sí, ya que es más facil manejar los valores NA de esta manera 
@@ -5,3 +8,4 @@ Estuvimos hablando sobre:
 + Cuando agregamos una fila, esta se va colocando debajo de la ultima fila añadida. Con el Sorting despues el usuario podria decidir ordenador por una o más categorias.
 + Agregamos metodos y atributos a Celda, Columna y Tabla.
 +GroupBy. Combinacion.
+
