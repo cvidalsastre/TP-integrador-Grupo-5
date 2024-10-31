@@ -56,7 +56,8 @@ public class App {
         System.out.println("Chequeando valores de las celdas en las columnas:");
 
         for (Columna<?> columna : tabla1.getColumnas()) {
-            System.out.println("Columna: " + columna.getEtiqueta().getValor() + " con " + columna.getCeldas().size() + " celdas");
+            System.out.println(
+                    "Columna: " + columna.getEtiqueta().getValor() + " con " + columna.getCeldas().size() + " celdas");
             for (Celda<?> celda : columna.getCeldas()) {
                 System.out.print("Valor celda: " + celda.getValor() + " "); // Debe imprimir null
                 System.out.println();
@@ -64,8 +65,43 @@ public class App {
             System.out.println(); // Nueva línea para la siguiente columna
         }
 
-        // TODO habria que chequear ahora agregando filas con valores de cierto tipo de dato
+        // TODO habria que chequear ahora agregando filas con valores de cierto tipo de
+        // dato
+
+        // Creación de la tabla
+        Tabla tabla = new Tabla();
+
+        tabla.agregarColumna(String.class, new EtiquetaCadena("Nombre")); // Columna 0: Nombre
+        tabla.agregarColumna(Integer.class, new EtiquetaCadena("edad")); // Columna 1: Edad
+
+        List<Celda<?>> fila1 = new ArrayList<>();
+        fila1.add(new Celda<>("Alice")); // Nombre - debe ser String
+        fila1.add(new Celda<>(30));
+        tabla.agregarFila(fila1);
+        List<Celda<?>> fila2 = new ArrayList<>();
+        fila2.add(new Celda<>("bob")); // Nombre - debe ser String
+        fila2.add(new Celda<>(300));
+        tabla.agregarFila(fila2);
+
+        for (Celda<?> celda : fila1) {
+            System.out.println("Valor: " + celda.getValor() + ", Tipo: "
+                    + (celda.getValor() != null ? celda.getValor().getClass().getSimpleName() : "null"));
+        }
+
+        // Chequeo los valores de todas las celdas de las columnas
+        System.out.println();
+        System.out.println("Chequeando valores de las celdas en las columnas:");
+        System.out.println();
+
+        for (Columna<?> columna : tabla.getColumnas()) {
+            System.out.println(
+                    "Columna: " + columna.getEtiqueta().getValor() + " con " + columna.getCeldas().size() + " celdas");
+            for (Celda<?> celda : columna.getCeldas()) {
+                System.out.print("Valor celda: " + celda.getValor() + " "); // Debe imprimir null
+                System.out.println();
+            }
+            System.out.println(); // Nueva línea para la siguiente columna
+        }
 
     }
-
 }

@@ -57,18 +57,34 @@ public class Tabla {
         contadorFilas++;
     }
     
-    public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
-        etiquetasFilas.add(etiquetaFila);
+// Método para agregar una fila sin necesidad de especificar etiqueta
+public void agregarFila(List<Celda<?>> celdas) {
+    Etiqueta etiquetaFila = new EtiquetaNumerica(contadorFilas); // Generar automáticamente la etiqueta
+    agregarFila(celdas, etiquetaFila); // Llama al método sobrecargado
+    contadorFilas++; // Incrementar contador de filas
+}
 
-        while (celdas.size() < columnas.size()) {
-            celdas.add(new Celda<>(null));
-        }
-
-        for (int i = 0; i < columnas.size(); i++) {
-            Columna<?> columna = columnas.get(i);
-            columna.agregarCelda(celdas.get(i));
-        }
+    
+public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
+    if (celdas.size() != columnas.size()) {
+        throw new IllegalArgumentException("El número de celdas no coincide con el número de columnas");
     }
+
+    etiquetasFilas.add(etiquetaFila);
+
+    for (int i = 0; i < columnas.size(); i++) {
+        Columna<?> columna = columnas.get(i);
+        Celda<?> celda = celdas.get(i);
+
+        // Verifica si el tipo de la celda es correcto
+        if (celda.getValor() != null && !columna.getTipoDeDato().isInstance(celda.getValor())) {
+            throw new IllegalArgumentException("El valor de la celda no corresponde al tipo de dato de la columna");
+        }
+
+        columna.agregarCelda(celda);
+    }
+}
+
     
      // Método auxiliar para crear una celda nula de un tipo específico
      private <T> Celda<T> crearCeldaNula(Class<T> tipo) {
@@ -98,7 +114,6 @@ public class Tabla {
     }
 
     
-    @SuppressWarnings("unchecked")
     public <T> Columna<T> getColumna(Etiqueta etiquetaColumna) {
         for (Columna<?> col : columnas) {
             if (col.getEtiqueta().equals(etiquetaColumna)) {
