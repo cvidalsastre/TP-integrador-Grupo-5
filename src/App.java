@@ -83,6 +83,11 @@ public class App {
         fila2.add(new Celda<>(300));
         tabla.agregarFila(fila2);
 
+
+        
+        System.out.println();
+        System.out.println("Chequeando valores de y tipo de la primer fila");
+        System.out.println();
         for (Celda<?> celda : fila1) {
             System.out.println("Valor: " + celda.getValor() + ", Tipo: "
                     + (celda.getValor() != null ? celda.getValor().getClass().getSimpleName() : "null"));
