@@ -1,4 +1,4 @@
-// Etiqueta numérica (por defecto)
+// Etiqueta numérica 
 public class EtiquetaNumerica extends Etiqueta {
     private int valor;
 

@@ -21,12 +21,14 @@ public class Tabla<T> {
     //Metodos
 
     // Agregar una columna nueva
-     public <T> void agregarColumna(Class<T> tipoDeDato) {
+     @SuppressWarnings("hiding")
+    public <T> void agregarColumna(Class<T> tipoDeDato) {
         Etiqueta etiquetaColumna = new EtiquetaNumerica(contadorColumnas);  // Etiqueta secuencial automática
         agregarColumna(tipoDeDato, etiquetaColumna);
         contadorColumnas++;
     }
     // Sobrecarga de método para agregar columna con etiqueta específica
+    @SuppressWarnings("hiding")
     public <T> void agregarColumna(Class<T> tipoDeDato, Etiqueta etiquetaColumna) {
         Columna<T> nuevaColumna = new Columna<>(etiquetaColumna, tipoDeDato);
         columnas.add(nuevaColumna);
@@ -37,8 +39,10 @@ public class Tabla<T> {
             nuevaColumna.agregarCelda(new Celda<>(null));  // Asignar NA
         }
     }
+    
+    //*****************agregar una columna con celdas ya creadas***********************
 
-    public void eliminarColumna(Columna columna){
+    public void eliminarColumna(Columna<T> columna){
 
     }
 
@@ -50,17 +54,9 @@ public class Tabla<T> {
     }
     // Sobrecarga de método para agregar fila con etiqueta específica
     public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
-        if (celdas.size() != columnas.size()) {
-            throw new IllegalArgumentException("La cantidad de celdas debe coincidir con el número de columnas");
-        }
 
-        etiquetasFilas.add(etiquetaFila);
-
-        for (int i = 0; i < columnas.size(); i++) {
-            Columna<?> columna = columnas.get(i);
-            columna.agregarCelda(celdas.get(i));
-        }
     }
+    
 
     public void eliminarFila(){
 
@@ -84,15 +80,15 @@ public class Tabla<T> {
         return fila;
     }
 
-    public Columna<?> getColumna(Etiqueta etiquetaColumna) {
-        int indexColumna = getIndex(etiquetaColumna, etiquetasColumnas);
-        return columnas.get(indexColumna);
-    }
-
-    public Celda getCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna) {
-        int indexFila = getIndex(etiquetaFila, etiquetasFilas);
-        Columna<?> columna = getColumna(etiquetaColumna);
-        return columna.getCeldas().get(indexFila);
+    
+    @SuppressWarnings("unchecked")
+    public <T> Columna<T> getColumna(Etiqueta etiquetaColumna) {
+        for (Columna<?> col : columnas) {
+            if (col.getEtiqueta().equals(etiquetaColumna)) {
+                return (Columna<T>) col;  // Cast explícito pero con supresión de warnings
+            }
+        }
+        throw new IllegalArgumentException("Columna no encontrada");
     }
 
     // Método auxiliar para obtener el índice basado en la etiqueta
@@ -113,7 +109,8 @@ public class Tabla<T> {
         return columnas;
     }
 
-    public int getCantidadFilas(){
+    public void getCantidadFilas(){
+
     }
 
     public int getCantidadColumnas() {
