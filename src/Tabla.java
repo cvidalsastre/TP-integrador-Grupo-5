@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tabla<T> {
+public class Tabla {
     private List<Columna<?>> columnas;
     private List<Etiqueta> etiquetasFilas;
     private List<Etiqueta> etiquetasColumnas;
@@ -21,16 +21,14 @@ public class Tabla<T> {
     //Metodos
 
     // Agregar una columna nueva
-     @SuppressWarnings("hiding")
-    public <T> void agregarColumna(Class<T> tipoDeDato) {
+    public void agregarColumna(Class<?> tipoDeDato) {
         Etiqueta etiquetaColumna = new EtiquetaNumerica(contadorColumnas);  // Etiqueta secuencial automática
         agregarColumna(tipoDeDato, etiquetaColumna);
         contadorColumnas++;
     }
     // Sobrecarga de método para agregar columna con etiqueta específica
-    @SuppressWarnings("hiding")
-    public <T> void agregarColumna(Class<T> tipoDeDato, Etiqueta etiquetaColumna) {
-        Columna<T> nuevaColumna = new Columna<>(etiquetaColumna, tipoDeDato);
+    public void agregarColumna(Class<?> tipoDeDato, Etiqueta etiquetaColumna) {
+        Columna<?> nuevaColumna = new Columna<>(etiquetaColumna, tipoDeDato);
         columnas.add(nuevaColumna);
         etiquetasColumnas.add(etiquetaColumna);
 
@@ -47,16 +45,35 @@ public class Tabla<T> {
     }
 
     // Agregar una fila nueva con etiqueta automática si no se especifica
-    public void agregarFila(List<Celda<?>> celdas) {
-        Etiqueta etiquetaFila = new EtiquetaNumerica(contadorFilas);  // Etiqueta secuencial automática
+    public void agregarFila() {
+        Etiqueta etiquetaFila = new EtiquetaNumerica(contadorFilas);
+        List<Celda<?>> celdas = new ArrayList<>();
+
+        for (Columna<?> columna : columnas) {
+            celdas.add(crearCeldaNula(columna.getTipoDeDato()));
+        }
+        
         agregarFila(celdas, etiquetaFila);
         contadorFilas++;
     }
-    // Sobrecarga de método para agregar fila con etiqueta específica
+    
     public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
+        etiquetasFilas.add(etiquetaFila);
 
+        while (celdas.size() < columnas.size()) {
+            celdas.add(new Celda<>(null));
+        }
+
+        for (int i = 0; i < columnas.size(); i++) {
+            Columna<?> columna = columnas.get(i);
+            columna.agregarCelda(celdas.get(i));
+        }
     }
     
+     // Método auxiliar para crear una celda nula de un tipo específico
+     private <T> Celda<T> crearCeldaNula(Class<T> tipo) {
+        return new Celda<>(null); // Crea una celda nula del tipo adecuado
+    }
 
     public void eliminarFila(){
 
@@ -109,10 +126,14 @@ public class Tabla<T> {
         return columnas;
     }
 
-    public void getCantidadFilas(){
-
+    public int getCantidadFilas() {
+        return etiquetasFilas.size();
     }
 
+
+    public List<Etiqueta> getEtiquetasColumnas() {
+        return etiquetasColumnas;
+    }
     public int getCantidadColumnas() {
         return columnas.size();
     }
