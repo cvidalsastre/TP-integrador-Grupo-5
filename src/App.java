@@ -9,6 +9,10 @@ public class App {
         // Prueba de instanciar una tabla vacia
         Tabla tabla1 = new Tabla();
 
+        System.out.println();
+        System.out.println("Chequeando cantidad de filas y columnas de una tabla vacia");
+        System.out.println();
+
         System.out.println("deberia imprimir 0 = " + tabla1.getCantidadColumnas());
         System.out.println("deberia imprimir 0 = " + tabla1.getCantidadFilas());
 
@@ -17,13 +21,18 @@ public class App {
         tabla1.agregarColumna(int.class);
         tabla1.agregarColumna(boolean.class);
 
+        System.out.println();
+        System.out.println("Chequeando cantidad de columnas de una tabla despues de agregar 3 columnas");
+        System.out.println();
+
         System.out.println("deberia cumplir 3 = " + tabla1.getCantidadColumnas());
 
         int contadorPrintEtiqueta = 0;
 
         // ejemplo de print de etiquetas numericas
-
+        System.out.println();
         System.out.println("Chequeando etiquetas de columnas de la tabla sin sobrecarga de parametros");
+        System.out.println();
 
         for (Etiqueta etiqueta : tabla1.getEtiquetasColumnas()) {
             System.out
@@ -31,20 +40,28 @@ public class App {
             contadorPrintEtiqueta++;
         }
 
+
+        System.out.println();
+        System.out.println("Chequeando etiquetas de filas de la tabla sin filas");
+        System.out.println(); 
         // como aca no agregué filas todavia deberia estar vacia
         System.out.println("deberia cumplir [] = " + tabla1.getEtiquetasFilas());
 
         // pruebo agregando algunas filas sin sobrecarga de parametros
-
+        System.out.println();
+        System.out.println("Chequeando cantidad etiquetas de filas de la tabla generadas  sin sobrecarga de parametros");
+        System.out.println();
         tabla1.agregarFila();
         tabla1.agregarFila();
         tabla1.agregarFila();
 
         System.out.println("Deberia cumplir 3 = " + tabla1.getCantidadFilas());
 
-        contadorPrintEtiqueta = 0;
 
+        contadorPrintEtiqueta = 0;
+      System.out.println();
         System.out.println("Chequeando etiquetas de filas de la tabla sin sobrecarga de parametros");
+        System.out.println();
 
         for (Etiqueta etiqueta : tabla1.getEtiquetasFilas()) {
             System.out
@@ -53,9 +70,12 @@ public class App {
         }
 
         // Chequeo los valores de todas las celdas de las columnas
+        System.out.println();
         System.out.println("Chequeando valores de las celdas en las columnas:");
+        System.out.println();
 
         for (Columna<?> columna : tabla1.getColumnas()) {
+            System.out.println();
             System.out.println(
                     "Columna: " + columna.getEtiqueta().getValor() + " con " + columna.getCeldas().size() + " celdas");
             for (Celda<?> celda : columna.getCeldas()) {
