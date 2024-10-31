@@ -8,13 +8,9 @@ public class Celda<T> {
         this.valor = valor;
     }
 
-    
-
     public Celda() {
         this.valor = null;
     }
-
-
 
     //Metodos
     public T getValor(){
@@ -40,24 +36,4 @@ public class Celda<T> {
         this.valor = null;
     }
 
-    
-
-    //PROBAMOS
-    public static void main(String[] args) {
-        Celda<Integer> celda = new Celda<>();
-
-        System.out.println("Valor: " + celda.getValor());
-        System.out.println("Tipo de dato: " + celda.getTipo());
-        System.out.println("Es NA?" + celda.esNA());
-        celda.cambiarValor(4);
-        System.out.println("Valor: " + celda.getValor());
-        
-        //Celda<String> celda2 = new Celda<String>();
-
-        //System.out.println("es Na?" + celda2.esNA());
-
-
-    }
 }
-
-
