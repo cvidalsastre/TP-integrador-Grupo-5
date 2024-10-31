@@ -14,12 +14,14 @@ public class Columna<T> {
         this.celdas=new ArrayList<>();
     }
 
-    public void agregarCelda(Celda<T> celda){
-        // Validar el tipo de dato antes de agregar
+    public void agregarCelda(Celda<?> celda){
         if (celda.getValor() != null && !tipoDeDato.isInstance(celda.getValor())) {
             throw new IllegalArgumentException("El valor de la celda no corresponde al tipo de dato de la columna");
         }
-        celdas.add(celda);
+        // Cast seguro, ya que hemos verificado el tipo en tiempo de ejecución
+        @SuppressWarnings("unchecked")
+        Celda<T> celdaCast = (Celda<T>) celda;
+        celdas.add(celdaCast);
     }
 
     public Etiqueta getEtiqueta(){
