@@ -128,10 +128,15 @@ public class App {
             System.out.println(); // Nueva línea para la siguiente columna
         }
 
-        // probando EliminarFila 
-
         Etiqueta labelFila = new EtiquetaNumerica(0);
 
+
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println(tabla.getFila(labelFila));
+
+        // probando EliminarFila 
+
+        
         tabla.eliminarFila(labelFila);
 
         for (Columna<?> columna : tabla.getColumnas()) {

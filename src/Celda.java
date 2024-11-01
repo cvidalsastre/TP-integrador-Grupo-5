@@ -36,4 +36,16 @@ public class Celda<T> {
         this.valor = null;
     }
 
+    @Override
+    public String toString() {
+        String salida = "";
+        if (esNA()){
+            salida = "NA";
+        }else{
+            salida = String.valueOf(valor);
+        }
+        return salida;
+    }
+
+    
 }
