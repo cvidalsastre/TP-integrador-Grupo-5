@@ -1,3 +1,17 @@
+Jueves 31 octubre
+
+hice funcionar todo hasta q llege a lo de filas jajaja
+Exception in thread "main" java.lang.Error: Unresolved compilation problem:
+        Type mismatch: cannot convert from List<Celda<T>> to List<Celda>
+habria q ver q onda con eso, no llego a enteder q seria una lista de celdas T en una columna
+osea si es una lista dentro de la columna deberia ser un tipo de dato especifico y no generico
+sino la otra seria usar wildcards pero creo que queda bastante falopa
+bueno segun chatgpt lleamos a esto por q no nos dejan usar object jajajaja
+osea q si hay q usar wildcards
+q seria casi lo mismo q usar object por q es super generico, no entiendo ese requerimiento la vd
+bueno voy a pushear cambios, si llegan a querar cambiar algo hagan pull antes
+Por ahora lo q funciona es instanciar una tabla y agregar columnas y fijas sin sobrecarga de parametros
+
 Miercoles 30 de octubre
 Cree una clase abstracta Etiqueta de la cual se desprenden etiquetaFila y etiquetaColumna. Estas seran gestionadas en la clase Tabla para poder aceptar int, String o default (0 a n) por sobrecarga de metodos. Agregue metodos para agregar filas y columnas, un constructor de tabla, obtener una fila, una columna y una celda.  
 
