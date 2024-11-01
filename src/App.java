@@ -128,5 +128,21 @@ public class App {
             System.out.println(); // Nueva línea para la siguiente columna
         }
 
+        // probando EliminarFila 
+
+        Etiqueta labelFila = new EtiquetaNumerica(0);
+
+        tabla.eliminarFila(labelFila);
+
+        for (Columna<?> columna : tabla.getColumnas()) {
+            System.out.println(
+                    "Columna: " + columna.getEtiqueta().getValor() + " con " + columna.getCeldas().size() + " celdas");
+            for (Celda<?> celda : columna.getCeldas()) {
+                System.out.print("Valor celda: " + celda.getValor() + " "); // Debe imprimir null
+                System.out.println();
+            }
+            System.out.println(); // Nueva línea para la siguiente columna
+        }
+
     }
 }

@@ -90,8 +90,13 @@ public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
         return new Celda<>(null); // Crea una celda nula del tipo adecuado
     }
 
-    public void eliminarFila(){
-
+    public void eliminarFila(Etiqueta e){
+        // Si la etiqueta e no existe getIndex tira excepción
+        System.out.println(etiquetasFilas); // hacer toString para Etiqueta
+        int indiceFilaABorrar = getIndex(e, etiquetasFilas);
+        for (int nroColumna = 0; nroColumna < columnas.size(); nroColumna ++ ){
+            columnas.get(nroColumna).getCeldas().remove(indiceFilaABorrar);
+        }
     }
 
     public void editarCelda(){
