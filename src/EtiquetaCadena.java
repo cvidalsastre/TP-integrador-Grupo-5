@@ -10,4 +10,11 @@ public class EtiquetaCadena extends Etiqueta {
     public String getValor() {
         return valor;
     }
+
+    @Override
+    public String toString() {
+        return  valor;
+    }
+
+    
 }

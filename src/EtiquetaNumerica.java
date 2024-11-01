@@ -10,5 +10,12 @@ public class EtiquetaNumerica extends Etiqueta {
     public Integer getValor() {
         return valor;
     }
+
+    @Override
+    public String toString() {
+        return Integer.toString(valor);
+    }
+
+    
 }
 
