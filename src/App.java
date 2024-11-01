@@ -131,9 +131,9 @@ public class App {
         Etiqueta labelFila = new EtiquetaNumerica(0);
 
 
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println("Prueba de get fila " + labelFila );
         System.out.println(tabla.getFila(labelFila));
-
+        System.out.println();
         // probando EliminarFila 
 
         
@@ -143,10 +143,10 @@ public class App {
             System.out.println(
                     "Columna: " + columna.getEtiqueta().getValor() + " con " + columna.getCeldas().size() + " celdas");
             for (Celda<?> celda : columna.getCeldas()) {
-                System.out.print("Valor celda: " + celda.getValor() + " "); // Debe imprimir null
+                System.out.print("Valor celda: " + celda.getValor() + " "); 
                 System.out.println();
             }
-            System.out.println(); // Nueva línea para la siguiente columna
+            System.out.println(); 
         }
 
     }
