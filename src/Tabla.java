@@ -38,9 +38,8 @@ public class Tabla {
         }
     }
     
-    //*****************agregar una columna con celdas ya creadas***********************
 
-    public void eliminarColumna(Columna<T> columna){
+    public void eliminarColumna(Columna<?> columna){
 
     }
 
