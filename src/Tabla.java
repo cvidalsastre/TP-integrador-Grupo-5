@@ -5,27 +5,22 @@ public class Tabla {
     private List<Columna<?>> columnas;
     private List<Etiqueta> etiquetasFilas;
     private List<Etiqueta> etiquetasColumnas;
-    private int contadorFilas;  // Contador para etiquetas numéricas automáticas en filas
-    private int contadorColumnas;  // Contador para etiquetas numéricas automáticas en columnas
 
-    //Constructores
-    public Tabla(){
+    // Constructores
+    public Tabla() {
         this.columnas = new ArrayList<>();
         this.etiquetasFilas = new ArrayList<>();
         this.etiquetasColumnas = new ArrayList<>();
-        this.contadorFilas = 0;
-        this.contadorColumnas = 0;
     }
 
-
-    //Metodos
+    // Metodos
 
     // Agregar una columna nueva
     public void agregarColumna(Class<?> tipoDeDato) {
-        Etiqueta etiquetaColumna = new EtiquetaNumerica(contadorColumnas);  // Etiqueta secuencial automática
+        Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas() + 1); // Etiqueta secuencial automática
         agregarColumna(tipoDeDato, etiquetaColumna);
-        contadorColumnas++;
     }
+
     // Sobrecarga de método para agregar columna con etiqueta específica
     public void agregarColumna(Class<?> tipoDeDato, Etiqueta etiquetaColumna) {
         Columna<?> nuevaColumna = new Columna<>(etiquetaColumna, tipoDeDato);
@@ -34,76 +29,74 @@ public class Tabla {
 
         // Añadir celdas "NA" en la nueva columna si ya existen filas
         for (int i = 0; i < etiquetasFilas.size(); i++) {
-            nuevaColumna.agregarCelda(new Celda<>(null));  // Asignar NA
+            nuevaColumna.agregarCelda(new Celda<>(null)); // Asignar NA
         }
     }
-    
 
-    public void eliminarColumna(Columna<?> columna){
+    public void eliminarColumna(Etiqueta e) {
+        int indiceColumnaABorrar = getIndex(e, etiquetasColumnas);
+        columnas.remove(indiceColumnaABorrar);
 
     }
 
     // Agregar una fila nueva con etiqueta automática si no se especifica
     public void agregarFila() {
-        Etiqueta etiquetaFila = new EtiquetaNumerica(contadorFilas);
+
+        Etiqueta etiquetaFila = new EtiquetaNumerica(getCantidadFilas());
         List<Celda<?>> celdas = new ArrayList<>();
 
         for (Columna<?> columna : columnas) {
             celdas.add(crearCeldaNula(columna.getTipoDeDato()));
         }
-        
+
         agregarFila(celdas, etiquetaFila);
-        contadorFilas++;
-    }
-    
-// Método para agregar una fila sin necesidad de especificar etiqueta
-public void agregarFila(List<Celda<?>> celdas) {
-    Etiqueta etiquetaFila = new EtiquetaNumerica(contadorFilas); // Generar automáticamente la etiqueta
-    agregarFila(celdas, etiquetaFila); // Llama al método sobrecargado
-    contadorFilas++; // Incrementar contador de filas
-}
-
-    
-public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
-    if (celdas.size() != columnas.size()) {
-        throw new IllegalArgumentException("El número de celdas no coincide con el número de columnas");
     }
 
-    etiquetasFilas.add(etiquetaFila);
+    // Método para agregar una fila sin necesidad de especificar etiqueta
+    public void agregarFila(List<Celda<?>> celdas) {
+        Etiqueta etiquetaFila = new EtiquetaNumerica(getCantidadFilas()); // Generar automáticamente la etiqueta
+        agregarFila(celdas, etiquetaFila); // Llama al método sobrecargado
+    }
 
-    for (int i = 0; i < columnas.size(); i++) {
-        Columna<?> columna = columnas.get(i);
-        Celda<?> celda = celdas.get(i);
-
-        // Verifica si el tipo de la celda es correcto
-        if (celda.getValor() != null && !columna.getTipoDeDato().isInstance(celda.getValor())) {
-            throw new IllegalArgumentException("El valor de la celda no corresponde al tipo de dato de la columna");
+    public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
+        if (celdas.size() != columnas.size()) {
+            throw new IllegalArgumentException("El número de celdas no coincide con el número de columnas");
         }
 
-        columna.agregarCelda(celda);
-    }
-}
+        etiquetasFilas.add(etiquetaFila);
 
-    
-     // Método auxiliar para crear una celda nula de un tipo específico
-     private <T> Celda<T> crearCeldaNula(Class<T> tipo) {
+        for (int i = 0; i < columnas.size(); i++) {
+            Columna<?> columna = columnas.get(i);
+            Celda<?> celda = celdas.get(i);
+
+            // Verifica si el tipo de la celda es correcto
+            if (celda.getValor() != null && !columna.getTipoDeDato().isInstance(celda.getValor())) {
+                throw new IllegalArgumentException("El valor de la celda no corresponde al tipo de dato de la columna");
+            }
+
+            columna.agregarCelda(celda);
+        }
+    }
+
+    // Método auxiliar para crear una celda nula de un tipo específico
+    private <T> Celda<T> crearCeldaNula(Class<T> tipo) {
         return new Celda<>(null); // Crea una celda nula del tipo adecuado
     }
 
-    public void eliminarFila(Etiqueta e){
+    public void eliminarFila(Etiqueta e) {
         // Si la etiqueta e no existe getIndex tira excepción
         int indiceFilaABorrar = getIndex(e, etiquetasFilas);
-        for (int nroColumna = 0; nroColumna < columnas.size(); nroColumna ++ ){
+        for (int nroColumna = 0; nroColumna < columnas.size(); nroColumna++) {
             columnas.get(nroColumna).getCeldas().remove(indiceFilaABorrar);
         }
     }
 
-    public void editarCelda(){
-        
+    public void editarCelda() {
+
     }
 
-    public void guardarTabla(){
-        
+    public void guardarTabla() {
+
     }
 
     // Obtener una fila completa
@@ -116,11 +109,10 @@ public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
         return fila;
     }
 
-    
     public <T> Columna<T> getColumna(Etiqueta etiquetaColumna) {
         for (Columna<?> col : columnas) {
             if (col.getEtiqueta().equals(etiquetaColumna)) {
-                return (Columna<T>) col;  // Cast explícito pero con supresión de warnings
+                return (Columna<T>) col; // Cast explícito pero con supresión de warnings
             }
         }
         throw new IllegalArgumentException("Columna no encontrada");
@@ -148,10 +140,10 @@ public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
         return etiquetasFilas.size();
     }
 
-
     public List<Etiqueta> getEtiquetasColumnas() {
         return etiquetasColumnas;
     }
+
     public int getCantidadColumnas() {
         return columnas.size();
     }
