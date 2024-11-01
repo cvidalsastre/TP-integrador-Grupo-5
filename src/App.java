@@ -146,8 +146,16 @@ public class App {
         System.out.println();
         // probando EliminarFila 
 
+        System.out.println("visual 1");
+        tabla.visualizar();
         
+
         tabla.eliminarFila(labelFila);
+
+        
+        System.out.println("visual 2");
+
+        tabla.visualizar();
 
         for (Columna<?> columna : tabla.getColumnas()) {
             System.out.println(

@@ -36,6 +36,7 @@ public class Tabla implements Visualizable {
     public void eliminarColumna(Etiqueta e) {
         int indiceColumnaABorrar = getIndex(e, etiquetasColumnas);
         columnas.remove(indiceColumnaABorrar);
+        etiquetasColumnas.remove(indiceColumnaABorrar);
 
     }
 
@@ -89,8 +90,15 @@ public class Tabla implements Visualizable {
         for (int nroColumna = 0; nroColumna < columnas.size(); nroColumna++) {
             columnas.get(nroColumna).getCeldas().remove(indiceFilaABorrar);
         }
+        //FALTA BORRAR ETIQUETA FILA
+        //int indiceFila = 
     }
 
+    public void visualizar(){
+        for(Etiqueta e: etiquetasFilas){
+            System.out.println(getFila(e));
+        }
+    }
 
     
     public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, String valor ) {
