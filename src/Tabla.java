@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tabla {
+public class Tabla implements Visualizable {
     private List<Columna<?>> columnas;
     private List<Etiqueta> etiquetasFilas;
     private List<Etiqueta> etiquetasColumnas;
@@ -92,9 +92,15 @@ public class Tabla {
     }
 
 
-    // arreglar ESTO
+    
     public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, String valor ) {
         // falta validar que tipoValor sea = al de la columna
+            // Obtener el tipo de dato de la columna
+        Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
+
+        if (valor != null && !tipoColumna.isInstance(valor)) {
+            throw new IllegalArgumentException("El tipo de dato de la celda no es el mismo que el del nuevo valor.");
+        }
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
         
@@ -102,6 +108,11 @@ public class Tabla {
     }
     public void  editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, Number valor){
         // falta validar que tipoValor sea = al de la columna
+        Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
+
+        if (valor != null && !tipoColumna.isInstance(valor)) {
+            throw new IllegalArgumentException("El tipo de dato de la celda no es el mismo que el del nuevo valor.");
+        }
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
         
@@ -109,6 +120,11 @@ public class Tabla {
 
     public void  editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, boolean valor){
         // falta validar que tipoValor sea = al de la columna
+        Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
+
+        if (!tipoColumna.isInstance(valor)) {
+            throw new IllegalArgumentException("El tipo de dato de la celda no es el mismo que el del nuevo valor.");
+        }
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
         
@@ -127,6 +143,8 @@ public class Tabla {
     public void guardarTabla() {
 
     }
+
+    
 
     // Obtener una fila completa
     public List<Celda<?>> getFila(Etiqueta etiquetaFila) {

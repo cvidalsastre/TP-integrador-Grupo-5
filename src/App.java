@@ -138,6 +138,7 @@ public class App {
         tabla.volverNACelda(labelFila, labelColumna);
         System.out.println(tabla.getCelda(labelFila, labelColumna).getValor());
 
+        tabla.editarCelda(labelFila, labelColumna, "32432");
 
 
         System.out.println("Prueba de get fila " + labelFila );
