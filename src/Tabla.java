@@ -93,11 +93,35 @@ public class Tabla {
 
 
     // arreglar ESTO
-    public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, <?> valor ) {
+    public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, String valor ) {
+        // falta validar que tipoValor sea = al de la columna
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
         
 
+    }
+    public void  editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, Number valor){
+        // falta validar que tipoValor sea = al de la columna
+        int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
+        getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
+        
+    }
+
+    public void  editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, boolean valor){
+        // falta validar que tipoValor sea = al de la columna
+        int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
+        getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
+        
+    }
+
+    public void volverNACelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna){
+        int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
+        getColumna(etiquetaColumna).getCeldas().get(indiceFila).volverNA();
+    }
+
+    public Celda<?> getCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna){
+        int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
+        return getColumna(etiquetaColumna).getCeldas().get(indiceFila);
     }
 
     public void guardarTabla() {
@@ -116,7 +140,7 @@ public class Tabla {
 
     public <T> Columna<T> getColumna(Etiqueta etiquetaColumna) {
         for (Columna<?> col : columnas) {
-            if (col.getEtiqueta().equals(etiquetaColumna)) {
+            if (col.getEtiqueta().getValor().equals(etiquetaColumna.getValor())) {
                 return (Columna<T>) col; // Cast explícito pero con supresión de warnings
             }
         }

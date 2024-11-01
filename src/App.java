@@ -129,6 +129,15 @@ public class App {
         }
 
         Etiqueta labelFila = new EtiquetaNumerica(0);
+        Etiqueta labelColumna = new EtiquetaCadena("Nombre");
+
+        System.out.println("MODIFICANDO CELDA");
+        tabla.volverNACelda(labelFila, labelColumna);
+        System.out.println(tabla.getCelda(labelFila, labelColumna).getValor());
+
+        tabla.volverNACelda(labelFila, labelColumna);
+        System.out.println(tabla.getCelda(labelFila, labelColumna).getValor());
+
 
 
         System.out.println("Prueba de get fila " + labelFila );
