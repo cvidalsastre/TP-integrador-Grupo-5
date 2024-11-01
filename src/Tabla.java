@@ -91,7 +91,12 @@ public class Tabla {
         }
     }
 
-    public void editarCelda() {
+
+    // arreglar ESTO
+    public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, <?> valor ) {
+        int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
+        getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
+        
 
     }
 
