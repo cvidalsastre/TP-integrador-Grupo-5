@@ -100,7 +100,7 @@ public class Tabla implements Visualizable {
 
      public List<Celda<?>> getFilaAcotada(Etiqueta etiquetaFila, int cantColumnas) {
         if (cantColumnas > getCantidadColumnas() || cantColumnas <= 0){
-            throw new IllegalArgumentException("La cantidad de columnnas debe ser mayor que 0 y menor que la cantidad de columnas de la tabla.");
+            throw new IllegalArgumentException("La cantidad de columnnas debe ser mayor que 0 y menor o igual que la cantidad de columnas de la tabla.");
         }
         int indexFila = getIndex(etiquetaFila, etiquetasFilas);
         List<Celda<?>> fila = new ArrayList<>();
