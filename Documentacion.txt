@@ -1,3 +1,11 @@
+Viernes 1 Noviembre
+Hicimos:
++ eliminarFila
++ editarCelda
++ volverNACelda
++ visualizar (faltaría alinear de forma bonita)
+
+
 Jueves 31 octubre
 
 hice funcionar todo hasta q llege a lo de filas jajaja
