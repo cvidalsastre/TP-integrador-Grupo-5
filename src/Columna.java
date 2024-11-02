@@ -10,8 +10,8 @@ public class Columna<T> {
     //Constructor
     public Columna(Etiqueta etiqueta, Class<T> tipoDeDato){
         this.etiqueta = etiqueta;
-        this.tipoDeDato=tipoDeDato;
-        this.celdas=new ArrayList<>();
+        this.tipoDeDato = tipoDeDato;
+        this.celdas = new ArrayList<>();
     }
 
     public void agregarCelda(Celda<?> celda){
