@@ -1,3 +1,3 @@
 public interface Visualizable {
-    public void visualizar();
+    public void visualizar(int maxFilas, int maxColumnas, int maxLargoCadena);
 }

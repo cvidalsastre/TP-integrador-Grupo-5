@@ -147,7 +147,7 @@ public class App {
         // probando EliminarFila 
 
         System.out.println("visual 1");
-        tabla.visualizar();
+        tabla.visualizar(1,2,2);
         
 
         tabla.eliminarFila(labelFila);
@@ -155,7 +155,7 @@ public class App {
         
         System.out.println("visual 2");
 
-        tabla.visualizar();
+        tabla.visualizar(1,1,3);
 
         for (Columna<?> columna : tabla.getColumnas()) {
             System.out.println(

@@ -79,6 +79,8 @@ public class Tabla implements Visualizable {
         }
     }
 
+    
+
     // Método auxiliar para crear una celda nula de un tipo específico
     private <T> Celda<T> crearCeldaNula(Class<T> tipo) {
         return new Celda<>(null); // Crea una celda nula del tipo adecuado
@@ -93,16 +95,50 @@ public class Tabla implements Visualizable {
         etiquetasFilas.remove(indiceFilaABorrar); 
     }
 
-    public void visualizar(){
-        for(Etiqueta e: etiquetasFilas){
-            System.out.println(getFila(e));
+     // Obtener una fila con los N primeras columnas
+     // Ver si getFila puede llamarla con columnas.size()
+
+     public List<Celda<?>> getFilaAcotada(Etiqueta etiquetaFila, int cantColumnas) {
+        if (cantColumnas > getCantidadColumnas() || cantColumnas <= 0){
+            throw new IllegalArgumentException("La cantidad de columnnas debe ser mayor que 0 y menor que la cantidad de columnas de la tabla.");
+        }
+        int indexFila = getIndex(etiquetaFila, etiquetasFilas);
+        List<Celda<?>> fila = new ArrayList<>();
+        for (Columna<?> col : columnas.subList(0, cantColumnas)) {
+            fila.add(col.getCeldas().get(indexFila));
+        }
+        return fila;
+    }
+
+    private String filaACadena(List<Celda<?>> fila, int maxLargoCadena){
+        String salida = " | ";
+        for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++){
+            Celda<?> celda = fila.get(nroColumna);
+            if (celda.getTipo().equals("String")){
+                int longitudMenor = Math.min(celda.toString().length(), maxLargoCadena);
+                salida += celda.toString().substring(0, longitudMenor);
+            }else{
+                salida += celda.toString();
+            }
+            salida += " | ";
+        }
+        return salida;
+    }
+
+    public void visualizar(int maxFilas, int maxColumnas, int maxLargoCadena){
+        boolean columnasOk = maxColumnas > 0 && maxColumnas <= getCantidadColumnas();
+        boolean filasOk = maxFilas > 0 && maxFilas <= getCantidadFilas();
+        boolean largoCadenaOk = maxLargoCadena > 0;
+        if (!columnasOk || !filasOk || !largoCadenaOk){
+            throw new IllegalArgumentException("Los parámetros ingresados no permiten visualizar la tabla");
+        }
+        for(Etiqueta e: etiquetasFilas.subList(0, maxColumnas)){
+            System.out.println(filaACadena(getFila(e), maxLargoCadena));
         }
     }
 
     
     public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, String valor ) {
-        // falta validar que tipoValor sea = al de la columna
-            // Obtener el tipo de dato de la columna
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
         if (valor != null && !tipoColumna.isInstance(valor)) {
@@ -114,7 +150,6 @@ public class Tabla implements Visualizable {
 
     }
     public void  editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, Number valor){
-        // falta validar que tipoValor sea = al de la columna
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
         if (valor != null && !tipoColumna.isInstance(valor)) {
@@ -126,7 +161,6 @@ public class Tabla implements Visualizable {
     }
 
     public void  editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, boolean valor){
-        // falta validar que tipoValor sea = al de la columna
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
         if (!tipoColumna.isInstance(valor)) {
