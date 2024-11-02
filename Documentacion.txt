@@ -1,3 +1,14 @@
+Sábado 2 Noviembre
+Dudas:
++ Celda debería tener como atributo la clase . Hay un caso en si la celda es NA tiene tipo NA puede agregarse
+un columna de cualquier tipo de los soportados. Constructores Celda(Class<T> clase) para crear la celda NA y
+Celda(Class<T> clase, T valor)
++ Raro que Columna getTipoDato dé todo el nombre completo de la clase mientras que Celda usa getSimpleName 
++ No pude hacer un directorio separado para los tests sin que se pinche el test
+
+Las 2 primeras consulto para no tocar y que se rompa lo de Tabla
+
+
 Viernes 1 Noviembre
 Hicimos:
 + eliminarFila
