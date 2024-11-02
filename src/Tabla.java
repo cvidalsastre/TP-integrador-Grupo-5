@@ -132,8 +132,8 @@ public class Tabla implements Visualizable {
         if (!columnasOk || !filasOk || !largoCadenaOk){
             throw new IllegalArgumentException("Los parámetros ingresados no permiten visualizar la tabla");
         }
-        for(Etiqueta e: etiquetasFilas.subList(0, maxColumnas)){
-            System.out.println(filaACadena(getFila(e), maxLargoCadena));
+        for(Etiqueta e: etiquetasFilas.subList(0, maxFilas)){
+            System.out.println(filaACadena(getFilaAcotada(e,maxColumnas), maxLargoCadena));
         }
     }
 
