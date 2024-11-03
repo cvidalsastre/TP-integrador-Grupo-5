@@ -3,10 +3,19 @@ Dudas:
 + Celda debería tener como atributo la clase . Hay un caso en si la celda es NA tiene tipo NA puede agregarse
 un columna de cualquier tipo de los soportados. Constructores Celda(Class<T> clase) para crear la celda NA y
 Celda(Class<T> clase, T valor)
-+ Raro que Columna getTipoDato dé todo el nombre completo de la clase mientras que Celda usa getSimpleName 
++ Raro que Columna getTipoDato dé todo el nombre completo de la clase mientras que Celda usa getSimpleName
++ Si tenés una columna armada(ejemplo sueldo) no se puede agregar la columna, sólo se puede agregar Filas (???????) 
+Se puede implementar un método agregarColumna que reciba una columna ya con celdas???
 + No pude hacer un directorio separado para los tests sin que se pinche el test
++ Hacer el toString de la clase Columna
 
 Las 2 primeras consulto para no tocar y que se rompa lo de Tabla
+
+--------------------
+Hicimos:
++ TestColumna
++ TestTabla (faltan testear varios métodos ya implementados)
++ muestreo
 
 
 Viernes 1 Noviembre

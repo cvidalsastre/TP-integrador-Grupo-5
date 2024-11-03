@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Tabla implements Visualizable {
@@ -126,6 +127,7 @@ public class Tabla implements Visualizable {
     }
 
     public void visualizar(int maxFilas, int maxColumnas, int maxLargoCadena){
+        // limita la cantidad de filas, columnas y el largo de los Strings
         boolean columnasOk = maxColumnas > 0 && maxColumnas <= getCantidadColumnas();
         boolean filasOk = maxFilas > 0 && maxFilas <= getCantidadFilas();
         boolean largoCadenaOk = maxLargoCadena > 0;
@@ -180,6 +182,31 @@ public class Tabla implements Visualizable {
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         return getColumna(etiquetaColumna).getCeldas().get(indiceFila);
     }
+
+    public List< List<Celda<?> > > muestreo(float porcentaje){
+        if (porcentaje < 0.0 || porcentaje > 100.0){
+            throw new IllegalArgumentException("El porcentaje va de 0 a 100.");
+        }
+        int tamanioMuesta = (int) ( ( porcentaje / 100) * getCantidadFilas() );
+        return elegirNFilas(tamanioMuesta, etiquetasFilas);
+    }
+
+    private List< List<Celda<?> > > elegirNFilas(int tamanio, List<Etiqueta> etiquetasFilas){
+        List< List<Celda<?> > > filasRandom = new ArrayList<>();
+        // se copia la lista de etiqueta de las filas
+        List<Etiqueta> copiaEtiquetasFilas = new ArrayList<>(etiquetasFilas);
+        
+        // mezcla
+        Collections.shuffle(copiaEtiquetasFilas);
+        
+        copiaEtiquetasFilas = copiaEtiquetasFilas.subList(0, Math.min(tamanio, copiaEtiquetasFilas.size()));
+      
+        for(Etiqueta e : copiaEtiquetasFilas){
+            filasRandom.add(getFila(e));
+        }
+        return filasRandom;
+    }
+
 
     public void guardarTabla() {
 
