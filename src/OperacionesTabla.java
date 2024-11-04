@@ -93,4 +93,52 @@ public class OperacionesTabla {
         }
     }
 
+    /**
+     * Método para concatenar dos tablas.
+     *
+     * @param tabla1 La primera tabla.
+     * @param tabla2 La segunda tabla.
+     * @return Una nueva tabla que contiene todas las filas de ambas tablas.
+     * @throws IllegalArgumentException si las tablas no son compatibles para la
+     *                                  concatenación.
+     */
+    public static Tabla concatenar(Tabla tabla1, Tabla tabla2) {
+        // Verificar compatibilidad de las tablas
+        if (tabla1.getCantidadColumnas() != tabla2.getCantidadColumnas()) {
+            throw new IllegalArgumentException("Las tablas no tienen el mismo número de columnas.");
+        }
+
+        for (int i = 0; i < tabla1.getCantidadColumnas(); i++) {
+            Columna<?> columna1 = tabla1.getColumna(tabla1.getEtiquetasColumnas().get(i));
+            Columna<?> columna2 = tabla2.getColumna(tabla2.getEtiquetasColumnas().get(i));
+
+            if (!columna1.getEtiqueta().getValor().equals(columna2.getEtiqueta().getValor()) ||
+                    !columna1.getTipoDeDato().equals(columna2.getTipoDeDato())) {
+                throw new IllegalArgumentException("Las columnas no coinciden en etiquetas o tipos de datos.");
+            }
+        }
+
+        // Crear una nueva tabla para el resultado
+        Tabla resultado = new Tabla();
+
+        // Copiar las columnas
+        for (Columna<?> columna : tabla1.getColumnas()) {
+            resultado.agregarColumna(columna.getTipoDeDato(), columna.getEtiqueta());
+        }
+
+        // Copiar las filas de la primera tabla
+        for (int i = 0; i < tabla1.getCantidadFilas(); i++) {
+            List<Celda<?>> fila = tabla1.getFila(tabla1.getEtiquetasFilas().get(i));
+            resultado.agregarFila(fila);
+        }
+
+        // Copiar las filas de la segunda tabla
+        for (int i = 0; i < tabla2.getCantidadFilas(); i++) {
+            List<Celda<?>> fila = tabla2.getFila(tabla2.getEtiquetasFilas().get(i));
+            resultado.agregarFila(fila);
+        }
+
+        return resultado;
+    }
+
 }
