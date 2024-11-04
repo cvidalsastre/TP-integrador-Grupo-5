@@ -333,4 +333,34 @@ public class Tabla implements Visualizable, Agrupable {
         columna.setCeldas((List<Celda<T>>) (List<?>) celdasOrdenadas);
     }
 
+    // método filtrar en Tabla debe trabajar con la clase Filtro parametrizada
+    public <T extends Comparable<T>> Tabla filtrar(List<Filtro<T>> filtros) {
+        Tabla resultado = new Tabla();
+        // Copiar la estructura de columnas a la tabla resultado
+        for (Columna<?> columna : this.columnas) {
+            resultado.agregarColumna(columna.getTipoDeDato(), columna.getEtiqueta());
+        }
+
+        for (int i = 0; i < getCantidadFilas(); i++) {
+            boolean cumpleTodos = true;
+            for (Filtro<T> filtro : filtros) {
+                Columna<T> columna = (Columna<T>) getColumna(filtro.getColumna());
+                Celda<T> celda = columna.getCeldas().get(i);
+                if (!filtro.evaluar(celda)) {
+                    cumpleTodos = false;
+                    break;
+                }
+            }
+
+            if (cumpleTodos) {
+                List<Celda<?>> nuevaFila = new ArrayList<>();
+                for (Columna<?> columna : this.columnas) {
+                    nuevaFila.add(columna.getCeldas().get(i));
+                }
+                resultado.agregarFila(nuevaFila);
+            }
+        }
+        return resultado;
+    }
+
 }
