@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -128,25 +129,28 @@ public class Tabla implements Visualizable, Agrupable {
         return salida;
     }
 
+    // Verificación simplificada: Ahora hay una única verificación al inicio para
+    // asegurarse de que maxFilas, maxColumnas, y maxLargoCadena son mayores que 0.
     public void visualizar(int maxFilas, int maxColumnas, int maxLargoCadena) {
-
-        // Asegúrate de que maxFilas no sea mayor que la cantidad de filas reales,
-        // maxColumnas no sea mayor que la cantidad de columnas reales y que
-        // maxLargoCadena sea mayor que 0.
-
         System.out.println("maxFilas: " + maxFilas);
         System.out.println("maxColumnas: " + maxColumnas);
         System.out.println("maxLargoCadena: " + maxLargoCadena);
         System.out.println("Cantidad de filas: " + getCantidadFilas());
         System.out.println("Cantidad de columnas: " + getCantidadColumnas());
 
-        // limita la cantidad de filas, columnas y el largo de los Strings
-        boolean columnasOk = maxColumnas > 0 && maxColumnas <= getCantidadColumnas();
-        boolean filasOk = maxFilas > 0 && maxFilas <= getCantidadFilas();
-        boolean largoCadenaOk = maxLargoCadena > 0;
-        if (!columnasOk || !filasOk || !largoCadenaOk) {
-            throw new IllegalArgumentException("Los parámetros ingresados no permiten visualizar la tabla");
+        if (maxFilas <= 0 || maxColumnas <= 0 || maxLargoCadena <= 0) {
+            throw new IllegalArgumentException(
+                    "Los parámetros maxFilas, maxColumnas y maxLargoCadena deben ser mayores que 0.");
         }
+
+        if (maxFilas > getCantidadFilas()) {
+            maxFilas = getCantidadFilas(); // Ajustar para mostrar todas las filas disponibles
+        }
+
+        if (maxColumnas > getCantidadColumnas()) {
+            maxColumnas = getCantidadColumnas(); // Ajustar para mostrar todas las columnas disponibles
+        }
+
         for (Etiqueta e : etiquetasFilas.subList(0, maxFilas)) {
             System.out.println(filaACadena(getFilaAcotada(e, maxColumnas), maxLargoCadena));
         }
@@ -272,6 +276,7 @@ public class Tabla implements Visualizable, Agrupable {
         return columnas.size();
     }
 
+    // metodos para agrupamiento
     @Override
     public Map<List<Object>, List<Integer>> agruparPor(List<Etiqueta> etiquetasColumnas) {
         return OperacionesTabla.agruparPor(this, etiquetasColumnas);
@@ -280,6 +285,52 @@ public class Tabla implements Visualizable, Agrupable {
     @Override
     public Tabla aplicarOperaciones(Map<List<Object>, List<Integer>> grupos, String operacion) {
         return OperacionesTabla.aplicarOperaciones(this, grupos, operacion);
+    }
+
+    // Implementar un Método de Ordenación
+    public void ordenarPor(List<Etiqueta> etiquetasColumnas, boolean ascendente) {
+        List<Integer> indices = new ArrayList<>();
+        for (int i = 0; i < etiquetasFilas.size(); i++) {
+            indices.add(i);
+        }
+
+        indices.sort((indice1, indice2) -> {
+            for (Etiqueta etiqueta : etiquetasColumnas) {
+                Columna<?> columna = getColumna(etiqueta);
+                Comparable<Object> valor1 = (Comparable<Object>) columna.getCeldas().get(indice1).getValor();
+                Comparable<Object> valor2 = (Comparable<Object>) columna.getCeldas().get(indice2).getValor();
+
+                int comparacion = (valor1 == null ? (valor2 == null ? 0 : -1)
+                        : (valor2 == null ? 1 : valor1.compareTo(valor2)));
+                if (comparacion != 0) {
+                    return ascendente ? comparacion : -comparacion;
+                }
+            }
+            return 0;
+        });
+
+        // Reordenar las celdas en cada columna según los nuevos índices
+        for (Columna<?> columna : columnas) {
+            List<Celda<?>> celdasOrdenadas = new ArrayList<>();
+            for (int indice : indices) {
+                celdasOrdenadas.add(columna.getCeldas().get(indice));
+            }
+
+            // Aquí aseguramos el tipo genérico correcto para cada columna
+            setCeldasGenerico(columna, celdasOrdenadas);
+        }
+
+        // Reordenar etiquetas de filas
+        List<Etiqueta> etiquetasFilasOrdenadas = new ArrayList<>();
+        for (int indice : indices) {
+            etiquetasFilasOrdenadas.add(etiquetasFilas.get(indice));
+        }
+        etiquetasFilas = etiquetasFilasOrdenadas;
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> void setCeldasGenerico(Columna<T> columna, List<Celda<?>> celdasOrdenadas) {
+        columna.setCeldas((List<Celda<T>>) (List<?>) celdasOrdenadas);
     }
 
 }
