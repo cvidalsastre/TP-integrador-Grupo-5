@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Tabla implements Visualizable {
+public class Tabla implements Visualizable, Agrupable {
+
     private List<Columna<?>> columnas;
     private List<Etiqueta> etiquetasFilas;
     private List<Etiqueta> etiquetasColumnas;
@@ -80,8 +83,6 @@ public class Tabla implements Visualizable {
         }
     }
 
-    
-
     // Método auxiliar para crear una celda nula de un tipo específico
     private <T> Celda<T> crearCeldaNula(Class<T> tipo) {
         return new Celda<>(null); // Crea una celda nula del tipo adecuado
@@ -93,15 +94,16 @@ public class Tabla implements Visualizable {
         for (int nroColumna = 0; nroColumna < columnas.size(); nroColumna++) {
             columnas.get(nroColumna).getCeldas().remove(indiceFilaABorrar);
         }
-        etiquetasFilas.remove(indiceFilaABorrar); 
+        etiquetasFilas.remove(indiceFilaABorrar);
     }
 
-     // Obtener una fila con los N primeras columnas
-     // Ver si getFila puede llamarla con columnas.size()
+    // Obtener una fila con los N primeras columnas
+    // Ver si getFila puede llamarla con columnas.size()
 
-     public List<Celda<?>> getFilaAcotada(Etiqueta etiquetaFila, int cantColumnas) {
-        if (cantColumnas > getCantidadColumnas() || cantColumnas <= 0){
-            throw new IllegalArgumentException("La cantidad de columnnas debe ser mayor que 0 y menor o igual que la cantidad de columnas de la tabla.");
+    public List<Celda<?>> getFilaAcotada(Etiqueta etiquetaFila, int cantColumnas) {
+        if (cantColumnas > getCantidadColumnas() || cantColumnas <= 0) {
+            throw new IllegalArgumentException(
+                    "La cantidad de columnnas debe ser mayor que 0 y menor o igual que la cantidad de columnas de la tabla.");
         }
         int indexFila = getIndex(etiquetaFila, etiquetasFilas);
         List<Celda<?>> fila = new ArrayList<>();
@@ -111,14 +113,14 @@ public class Tabla implements Visualizable {
         return fila;
     }
 
-    private String filaACadena(List<Celda<?>> fila, int maxLargoCadena){
+    private String filaACadena(List<Celda<?>> fila, int maxLargoCadena) {
         String salida = " | ";
-        for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++){
+        for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
             Celda<?> celda = fila.get(nroColumna);
-            if (celda.getTipo().equals("String")){
+            if (celda.getTipo().equals("String")) {
                 int longitudMenor = Math.min(celda.toString().length(), maxLargoCadena);
                 salida += celda.toString().substring(0, longitudMenor);
-            }else{
+            } else {
                 salida += celda.toString();
             }
             salida += " | ";
@@ -126,21 +128,31 @@ public class Tabla implements Visualizable {
         return salida;
     }
 
-    public void visualizar(int maxFilas, int maxColumnas, int maxLargoCadena){
+    public void visualizar(int maxFilas, int maxColumnas, int maxLargoCadena) {
+
+        // Asegúrate de que maxFilas no sea mayor que la cantidad de filas reales,
+        // maxColumnas no sea mayor que la cantidad de columnas reales y que
+        // maxLargoCadena sea mayor que 0.
+
+        System.out.println("maxFilas: " + maxFilas);
+        System.out.println("maxColumnas: " + maxColumnas);
+        System.out.println("maxLargoCadena: " + maxLargoCadena);
+        System.out.println("Cantidad de filas: " + getCantidadFilas());
+        System.out.println("Cantidad de columnas: " + getCantidadColumnas());
+
         // limita la cantidad de filas, columnas y el largo de los Strings
         boolean columnasOk = maxColumnas > 0 && maxColumnas <= getCantidadColumnas();
         boolean filasOk = maxFilas > 0 && maxFilas <= getCantidadFilas();
         boolean largoCadenaOk = maxLargoCadena > 0;
-        if (!columnasOk || !filasOk || !largoCadenaOk){
+        if (!columnasOk || !filasOk || !largoCadenaOk) {
             throw new IllegalArgumentException("Los parámetros ingresados no permiten visualizar la tabla");
         }
-        for(Etiqueta e: etiquetasFilas.subList(0, maxFilas)){
-            System.out.println(filaACadena(getFilaAcotada(e,maxColumnas), maxLargoCadena));
+        for (Etiqueta e : etiquetasFilas.subList(0, maxFilas)) {
+            System.out.println(filaACadena(getFilaAcotada(e, maxColumnas), maxLargoCadena));
         }
     }
 
-    
-    public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, String valor ) {
+    public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, String valor) {
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
         if (valor != null && !tipoColumna.isInstance(valor)) {
@@ -148,10 +160,10 @@ public class Tabla implements Visualizable {
         }
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
-        
 
     }
-    public void  editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, Number valor){
+
+    public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, Number valor) {
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
         if (valor != null && !tipoColumna.isInstance(valor)) {
@@ -159,10 +171,10 @@ public class Tabla implements Visualizable {
         }
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
-        
+
     }
 
-    public void  editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, boolean valor){
+    public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, boolean valor) {
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
         if (!tipoColumna.isInstance(valor)) {
@@ -170,49 +182,46 @@ public class Tabla implements Visualizable {
         }
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         getColumna(etiquetaColumna).getCeldas().get(indiceFila).cambiarValor(valor);
-        
+
     }
 
-    public void volverNACelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna){
+    public void volverNACelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna) {
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         getColumna(etiquetaColumna).getCeldas().get(indiceFila).volverNA();
     }
 
-    public Celda<?> getCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna){
+    public Celda<?> getCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna) {
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         return getColumna(etiquetaColumna).getCeldas().get(indiceFila);
     }
 
-    public List< List<Celda<?> > > muestreo(float porcentaje){
-        if (porcentaje < 0.0 || porcentaje > 100.0){
+    public List<List<Celda<?>>> muestreo(float porcentaje) {
+        if (porcentaje < 0.0 || porcentaje > 100.0) {
             throw new IllegalArgumentException("El porcentaje va de 0 a 100.");
         }
-        int tamanioMuesta = (int) ( ( porcentaje / 100) * getCantidadFilas() );
+        int tamanioMuesta = (int) ((porcentaje / 100) * getCantidadFilas());
         return elegirNFilas(tamanioMuesta, etiquetasFilas);
     }
 
-    private List< List<Celda<?> > > elegirNFilas(int tamanio, List<Etiqueta> etiquetasFilas){
-        List< List<Celda<?> > > filasRandom = new ArrayList<>();
+    private List<List<Celda<?>>> elegirNFilas(int tamanio, List<Etiqueta> etiquetasFilas) {
+        List<List<Celda<?>>> filasRandom = new ArrayList<>();
         // se copia la lista de etiqueta de las filas
         List<Etiqueta> copiaEtiquetasFilas = new ArrayList<>(etiquetasFilas);
-        
+
         // mezcla
         Collections.shuffle(copiaEtiquetasFilas);
-        
+
         copiaEtiquetasFilas = copiaEtiquetasFilas.subList(0, Math.min(tamanio, copiaEtiquetasFilas.size()));
-      
-        for(Etiqueta e : copiaEtiquetasFilas){
+
+        for (Etiqueta e : copiaEtiquetasFilas) {
             filasRandom.add(getFila(e));
         }
         return filasRandom;
     }
 
-
     public void guardarTabla() {
 
     }
-
-    
 
     // Obtener una fila completa
     public List<Celda<?>> getFila(Etiqueta etiquetaFila) {
@@ -262,4 +271,15 @@ public class Tabla implements Visualizable {
     public int getCantidadColumnas() {
         return columnas.size();
     }
+
+    @Override
+    public Map<List<Object>, List<Integer>> agruparPor(List<Etiqueta> etiquetasColumnas) {
+        return OperacionesTabla.agruparPor(this, etiquetasColumnas);
+    }
+
+    @Override
+    public Tabla aplicarOperaciones(Map<List<Object>, List<Integer>> grupos, String operacion) {
+        return OperacionesTabla.aplicarOperaciones(this, grupos, operacion);
+    }
+
 }

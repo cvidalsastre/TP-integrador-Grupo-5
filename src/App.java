@@ -2,12 +2,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class App {
 
     public static void main(String[] args) {
         // Prueba de instanciar una tabla vacia
         Tabla tabla1 = new Tabla();
+        // Agregar columnas y filas a la tabla...
+
+        List<Etiqueta> columnasClave = Arrays.asList(new EtiquetaCadena("Categoria"), new EtiquetaCadena("Region"));
+        Map<List<Object>, List<Integer>> grupos = tabla1.agruparPor(columnasClave);
+
+        Tabla resultado = tabla1.aplicarOperaciones(grupos, "suma");
+        resultado.visualizar(10, 5, 15);
 
         System.out.println();
         System.out.println("Chequeando cantidad de filas y columnas de una tabla vacia");
@@ -40,16 +48,16 @@ public class App {
             contadorPrintEtiqueta++;
         }
 
-
         System.out.println();
         System.out.println("Chequeando etiquetas de filas de la tabla sin filas");
-        System.out.println(); 
+        System.out.println();
         // como aca no agregué filas todavia deberia estar vacia
         System.out.println("deberia cumplir [] = " + tabla1.getEtiquetasFilas());
 
         // pruebo agregando algunas filas sin sobrecarga de parametros
         System.out.println();
-        System.out.println("Chequeando cantidad etiquetas de filas de la tabla generadas  sin sobrecarga de parametros");
+        System.out
+                .println("Chequeando cantidad etiquetas de filas de la tabla generadas  sin sobrecarga de parametros");
         System.out.println();
         tabla1.agregarFila();
         tabla1.agregarFila();
@@ -57,9 +65,8 @@ public class App {
 
         System.out.println("Deberia cumplir 3 = " + tabla1.getCantidadFilas());
 
-
         contadorPrintEtiqueta = 0;
-      System.out.println();
+        System.out.println();
         System.out.println("Chequeando etiquetas de filas de la tabla sin sobrecarga de parametros");
         System.out.println();
 
@@ -103,8 +110,6 @@ public class App {
         fila2.add(new Celda<>(300));
         tabla.agregarFila(fila2);
 
-
-        
         System.out.println();
         System.out.println("Chequeando valores de y tipo de la primer fila");
         System.out.println();
@@ -140,31 +145,28 @@ public class App {
 
         tabla.editarCelda(labelFila, labelColumna, "32432");
 
-
-        System.out.println("Prueba de get fila " + labelFila );
+        System.out.println("Prueba de get fila " + labelFila);
         System.out.println(tabla.getFila(labelFila));
         System.out.println();
-        // probando EliminarFila 
+        // probando EliminarFila
 
         System.out.println("visual 1");
-        tabla.visualizar(1,2,2);
-        
+        tabla.visualizar(1, 2, 2);
 
         tabla.eliminarFila(labelFila);
 
-        
         System.out.println("visual 2");
 
-        tabla.visualizar(1,1,3);
+        tabla.visualizar(1, 1, 3);
 
         for (Columna<?> columna : tabla.getColumnas()) {
             System.out.println(
                     "Columna: " + columna.getEtiqueta().getValor() + " con " + columna.getCeldas().size() + " celdas");
             for (Celda<?> celda : columna.getCeldas()) {
-                System.out.print("Valor celda: " + celda.getValor() + " "); 
+                System.out.print("Valor celda: " + celda.getValor() + " ");
                 System.out.println();
             }
-            System.out.println(); 
+            System.out.println();
         }
 
     }
