@@ -223,6 +223,60 @@ public class Tabla implements Visualizable, Agrupable {
         return filasRandom;
     }
 
+    private boolean estanTodasLasEtiquetas(List<Etiqueta> seleccion, List<Etiquietas> etiquetas){
+        for(Etiqueta e : seleccion){
+            if (!tieneLaEtiqueta(e, etiquetas)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean tieneLaEtiqueta(Etiqueta e, List<Etiqueta> etiquetas){
+        for(Etiqueta label: etiquetas){
+            if (e.getValor().equals(label)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Suponemos que las etiquetas podrían tener un orden distinto al de la tabla
+    public List<List<Celda<?>>> seleccionParcial(List<Etiqueta> seleccionEtiquetasFilas, List<Etiqueta> seleccionEtiquetasColumnas){
+        if( !estanTodasLasEtiquetas(seleccionEtiquetasFilas ,etiquetasFilas) || 
+            !estanTodasLasEtiquetas(seleccionEtiquetasColumnas ,etiquetasColumnas) ){
+            throw new IllegalArgumentException("Alguna/s de la/s etiqueta/s seleccionada no pertenece/n a la tabla.");
+        }
+    }
+
+    // Puede ser 0?
+    // 
+    public List<List<Celda<?>>> head(int cantidadFilas){ 
+        if (cantidadFilas < 0){
+            throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
+        }
+        List<List<Celda<?>>> primerasFilas = new ArrayList<>();
+        List<Etiqueta> etiquetasPrimFilas = etiquetasFilas.subList(0, Math.min(cantidadFilas, etiquetasFilas.size()));
+        for (Etiqueta e : etiquetasPrimFilas){
+            primerasFilas.add(getFila(e));
+        }
+        return primerasFilas;
+    }
+
+    public List<List<Celda<?>>> tail(int cantidadFilas){
+        if (cantidadFilas < 0){
+            throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
+        }
+        List<List<Celda<?>>> ultimasFilas = new ArrayList<>();
+        int cantidadEquitasFilas = etiquetasFilas.size();
+        List<Etiqueta> etiquetasUltimasFilas = etiquetasFilas.subList(cantidadEquitasFilas - Math.min(cantidadFilas,cantidadEquitasFilas ), cantidadEquitasFilas);
+        for (Etiqueta e : etiquetasUltimasFilas){
+            ultimasFilas.add(getFila(e));
+        }
+        return ultimasFilas;
+        
+    }
+
     public void guardarTabla() {
 
     }

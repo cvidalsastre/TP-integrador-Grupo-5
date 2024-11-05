@@ -109,8 +109,12 @@ public class TestTabla {
         System.out.println("Te muestro las columnas ");
         System.out.println(t.getColumnas());
 
+        System.out.println("HEAD(3)");
+        t.imprimirFilas(t.head(3));
 
 
+        System.out.println("TAIL(2)");
+        t.imprimirFilas(t.tail(2));
 
 
             
