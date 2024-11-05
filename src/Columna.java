@@ -42,4 +42,26 @@ public class Columna<T> {
         this.celdas = nuevasCeldas;
     }
 
+
+    @Override
+    public String toString() {
+        String resultado = "Columna{";
+        resultado += "etiqueta=" + etiqueta;
+        resultado += ", tipoDeDato=" + tipoDeDato.getSimpleName();
+        resultado += ", celdas=[";
+
+        if (!celdas.isEmpty()) {
+            for (int i = 0; i < celdas.size(); i++) {
+                resultado += celdas.get(i).getValor();
+                if (i < celdas.size() - 1) {
+                    resultado += ", ";
+                }
+            }
+        } else {
+            resultado += "Sin celdas";
+        }
+        resultado += "]}";
+        return resultado;
+    }
+
 }
