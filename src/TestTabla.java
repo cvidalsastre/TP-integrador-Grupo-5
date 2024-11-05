@@ -39,9 +39,10 @@ public class TestTabla {
         
         //Etiquetas columnas
         Etiqueta e1 = new EtiquetaCadena("Nombre");
-        Etiqueta e2 = new EtiquetaNumerica(2);
+        Etiqueta e2 = new EtiquetaNumerica(1);
         Etiqueta e3 = new EtiquetaCadena("Horas Extras?");
         Etiqueta e4 = new EtiquetaCadena("Sueldo");
+        Etiqueta e9 = new EtiquetaCadena("Sueldo");
 
         //Etiquetas filas
         Etiqueta e5 = new EtiquetaNumerica(0);
@@ -53,7 +54,9 @@ public class TestTabla {
         t.agregarColumna(String.class, e1); // Columna 0: Nombre
         t.agregarColumna(Integer.class); // Columna 1: 0
         t.agregarColumna(Boolean.class, e3); // Columna 2: Horas Extras?
-        t.agregarColumna(Float.class, e4); // Columna 3: Sueldo 
+        t.agregarColumna(Float.class, e4); // Columna 3: Sueldo
+        // tira excepción (ya existe la columna "Sueldo")
+        //t.agregarColumna(Boolean.class,e9);
         
         System.out.println("Cantidad de filas: " + t.getCantidadFilas());
         System.out.println("Cantidad de columnas: " + t.getCantidadColumnas());
@@ -80,7 +83,7 @@ public class TestTabla {
         fila2.add(c6);
         fila2.add(c10); 
         fila2.add(c14);
-        t.agregarFila(fila2,new EtiquetaCadena("NSA"));
+        t.agregarFila(fila2,e6);
 
         System.out.println("Cantidad de filas: " + t.getCantidadFilas());
         System.out.println("Cantidad de columnas: " + t.getCantidadColumnas());
@@ -92,7 +95,7 @@ public class TestTabla {
         fila3.add(c7);
         fila3.add(c11); 
         fila3.add(c15);
-        t.agregarFila(fila3,new EtiquetaCadena("Empleadx del mes"));
+        t.agregarFila(fila3,e7);
 
         System.out.println("Cantidad de filas: " + t.getCantidadFilas());
         System.out.println("Cantidad de columnas: " + t.getCantidadColumnas());
@@ -106,6 +109,8 @@ public class TestTabla {
         fila4.add(c12); 
         fila4.add(c16);
         t.agregarFila(fila4);
+
+
         
         System.out.println("Cantidad de filas: " + t.getCantidadFilas());
         System.out.println("Cantidad de columnas: " + t.getCantidadColumnas());
@@ -137,7 +142,7 @@ public class TestTabla {
 
         selCol.add(e4); // "Sueldo"
         selCol.add(e1); // "Nombre"
-        selCol.add(e2); // 2
+        selCol.add(e2); // 1
         
         
         selFilas.add(e6); // "NSA"
@@ -145,8 +150,15 @@ public class TestTabla {
         selFilas.add(e7); // "Empleadx del mes"
         
         t.imprimirFilas(t.seleccionParcial(selFilas, selCol));
-            
-      
+        
+        //fila duplicada
+        List<Celda<?>> fila5 = new ArrayList<>();
+        fila5.add(c3); 
+        fila5.add(c7);
+        fila5.add(c11); 
+        fila5.add(c15);
+        // tira excepción porque ya existe la etiqueta de la fila
+        t.agregarFila(fila5,e7);
         
     }
 }

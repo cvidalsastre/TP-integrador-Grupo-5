@@ -22,12 +22,16 @@ public class Tabla implements Visualizable, Agrupable {
 
     // Agregar una columna nueva
     public void agregarColumna(Class<?> tipoDeDato) {
-        Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas() + 1); // Etiqueta secuencial automática
+        Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas()); // Etiqueta secuencial automática
         agregarColumna(tipoDeDato, etiquetaColumna);
     }
 
     // Sobrecarga de método para agregar columna con etiqueta específica
+    // 5/11/24 agregamos la condición de que no existe la etiqueta a agregar
     public void agregarColumna(Class<?> tipoDeDato, Etiqueta etiquetaColumna) {
+        if(tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)){
+            throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
+        }
         Columna<?> nuevaColumna = new Columna<>(etiquetaColumna, tipoDeDato);
         columnas.add(nuevaColumna);
         etiquetasColumnas.add(etiquetaColumna);
@@ -65,6 +69,9 @@ public class Tabla implements Visualizable, Agrupable {
     }
 
     public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
+        if(tieneLaEtiqueta(etiquetaFila, etiquetasFilas)){
+            throw new IllegalArgumentException("Ya existe una fila con esa etiqueta.");
+        }
         if (celdas.size() != columnas.size()) {
             throw new IllegalArgumentException("El número de celdas no coincide con el número de columnas");
         }
@@ -503,4 +510,4 @@ public class Tabla implements Visualizable, Agrupable {
         return resultado;
     }
 
-}
+    }
