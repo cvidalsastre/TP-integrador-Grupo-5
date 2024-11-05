@@ -237,6 +237,25 @@ public class Tabla implements Visualizable, Agrupable {
         return fila;
     }
 
+
+
+    private void imprimirFila(List<Celda<?>> fila){
+        String salida = " | ";
+        for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
+            Celda<?> celda = fila.get(nroColumna);
+            salida += celda.toString();
+            salida += " | ";
+        }
+        System.out.println(salida);
+    }
+        
+
+    public void imprimirFilas(List<List<Celda<?>>> filas){
+        for(List<Celda<?>> f : filas){
+            imprimirFila(f);
+        }
+    }
+
     public <T> Columna<T> getColumna(Etiqueta etiquetaColumna) {
         for (Columna<?> col : columnas) {
             if (col.getEtiqueta().getValor().equals(etiquetaColumna.getValor())) {

@@ -104,7 +104,7 @@ public class TestTabla {
         
         float porcentaje = 50f;
         System.out.println("Muestro aleatorio con porcentaje " + porcentaje + " % ");
-        System.out.println(t.muestreo(porcentaje));
+        t.imprimirFilas(t.muestreo(porcentaje));
 
         System.out.println("Te muestro las columnas ");
         System.out.println(t.getColumnas());
