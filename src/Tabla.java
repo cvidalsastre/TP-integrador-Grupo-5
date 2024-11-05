@@ -280,11 +280,7 @@ public class Tabla implements Visualizable, Agrupable {
         
         // se chequea que no haya equipo que no son las de la tabla
         if( !estanTodasLasEtiquetas(seleccionEtiquetasFilas ,etiquetasFilas) || 
-            !estanTodasLasEtiquetas(seleccionEtiquetasColumnas ,etiquetasColumnas) ){
-                System.out.println(etiquetasColumnas);
-                System.out.println(seleccionEtiquetasColumnas);
-                System.out.println("jua"+!estanTodasLasEtiquetas(seleccionEtiquetasColumnas ,etiquetasColumnas));
-                
+            !estanTodasLasEtiquetas(seleccionEtiquetasColumnas ,etiquetasColumnas) ){ 
             throw new IllegalArgumentException("Alguna/s de la/s etiqueta/s seleccionada/s no pertenece/n a la tabla.");
         }
         
