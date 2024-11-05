@@ -128,6 +128,9 @@ public class Tabla implements Visualizable, Agrupable {
             if (celda.getTipo().equals("String")) {
                 int longitudMenor = Math.min(celda.toString().length(), maxLargoCadena);
                 salida += celda.toString().substring(0, longitudMenor);
+                if(longitudMenor < celda.toString().length()){
+                    salida += "...";
+                }
             } else {
                 salida += celda.toString();
             }
@@ -365,7 +368,7 @@ public class Tabla implements Visualizable, Agrupable {
         return fila;
     }
 
-    
+
     private void imprimirFila(List<Celda<?>> fila){
         String salida = " | ";
         for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
