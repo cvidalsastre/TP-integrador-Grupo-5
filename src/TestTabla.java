@@ -123,17 +123,17 @@ public class TestTabla {
         
         float porcentaje = 50f;
         System.out.println("Muestro aleatorio con porcentaje " + porcentaje + " % ");
-        t.imprimirFilas(t.muestreo(porcentaje));
+       // t.imprimirFilas(t,getEtiquetasColumnas(),t.muestreo(porcentaje));
 
         System.out.println("Te muestro las columnas ");
         System.out.println(t.getColumnas());
 
         System.out.println("HEAD(3)");
-        t.imprimirFilas(t.head(3));
+        t.imprimirFilas(t.getEtiquetasColumnas(),t.head(3));
 
 
         System.out.println("TAIL(2)");
-        t.imprimirFilas(t.tail(2));
+        t.imprimirFilas(t.getEtiquetasColumnas(),t.tail(2));
 
         System.out.println("Selección Parcial");
 
@@ -149,7 +149,7 @@ public class TestTabla {
 
         selFilas.add(e7); // "Empleadx del mes"
         
-        t.imprimirFilas(t.seleccionParcial(selFilas, selCol));
+        t.imprimirFilas(selCol,t.seleccionParcial(selFilas, selCol));
         
         /*
         //fila duplicada

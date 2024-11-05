@@ -161,6 +161,7 @@ public class Tabla implements Visualizable, Agrupable {
             maxColumnas = getCantidadColumnas(); // Ajustar para mostrar todas las columnas disponibles
         }
 
+        
         for (Etiqueta e : etiquetasFilas.subList(0, maxFilas)) {
             System.out.println(filaACadena(getFilaAcotada(e, maxColumnas), maxLargoCadena));
         }
@@ -340,6 +341,8 @@ public class Tabla implements Visualizable, Agrupable {
         return primerasFilas;
     }
 
+
+
     public List<List<Celda<?>>> tail(int cantidadFilas){
         if (cantidadFilas < 0){
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
@@ -351,8 +354,10 @@ public class Tabla implements Visualizable, Agrupable {
             ultimasFilas.add(getFila(e));
         }
         return ultimasFilas;
-        
     }
+
+   
+
 
     public void guardarTabla() {
 
@@ -368,21 +373,107 @@ public class Tabla implements Visualizable, Agrupable {
         return fila;
     }
 
+    // Función auxiliar para calcular el ancho máximo de cada columna (incluyendo los encabezados)
+    private int[] calcularAnchos(List<List<Celda<?>>> filas, List<Etiqueta> encabezados) {
+        int numColumnas = encabezados.size();  // Número de columnas es igual al tamaño de los encabezados
+        int[] anchos = new int[numColumnas];
 
-    private void imprimirFila(List<Celda<?>> fila){
+        // Calcular el ancho máximo de cada columna (tomando en cuenta los encabezados y las celdas)
+        for (int i = 0; i < numColumnas; i++) {
+            // Compara el tamaño del encabezado con las celdas en esa columna
+            String header = encabezados.get(i).toString();
+            anchos[i] = header.length();  // Inicializa con el largo del encabezado
+
+            // Recorre las filas y actualiza el ancho máximo para cada columna
+            for (List<Celda<?>> fila : filas) {
+                String valor = fila.get(i).toString();
+                anchos[i] = Math.max(anchos[i], valor.length());  // Actualiza el máximo
+            }
+        }
+        return anchos;
+    }
+
+    // Función para centrar un texto dentro de un campo de tamaño fijo
+    private String centrarTexto(String texto, int ancho) {
+        // Calcular los espacios a la izquierda y derecha para centrar el texto
+        int espaciosIzq = (ancho - texto.length()) / 2;
+        int espaciosDer = ancho - texto.length() - espaciosIzq;
+
+        // Crear la cadena centrada usando concatenación de cadenas
+        String resultado = "";
+    
+        // Agregar los espacios a la izquierda
+        for (int i = 0; i < espaciosIzq; i++) {
+            resultado += " ";
+        }
+    
+        // Agregar el texto centrado
+        resultado += texto;
+    
+        // Agregar los espacios a la derecha
+        for (int i = 0; i < espaciosDer; i++) {
+            resultado += " ";
+        }
+
+        return resultado;
+    }
+
+    // Método para imprimir los encabezados de manera centrada
+    private void imprimirEncabezados(List<Etiqueta> etiquetas, int[] anchos) {
         String salida = " | ";
+
+        for (int i = 0; i < etiquetas.size(); i++) {
+            // Centrar el texto del encabezado según el ancho de la columna
+            String textoCentrado = centrarTexto(etiquetas.get(i).toString(), anchos[i]);
+            salida += textoCentrado;
+            salida += " | ";
+        }
+
+        System.out.println(salida);
+
+        // Imprimir una línea separadora para mayor claridad
+        String separador = " | ";
+        for (int i = 0; i < etiquetas.size(); i++) {
+            for (int j = 0; j < anchos[i]; j++) {
+                separador += "-";
+            }
+            separador += " | ";
+        }
+        System.out.println(separador);
+    }
+
+
+
+    // Método para imprimir una fila de celdas de manera centrada
+    private void imprimirFila(List<Celda<?>> fila, int[] anchos) {
+        String salida = " | ";
+
         for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
-            Celda<?> celda = fila.get(nroColumna);
-            salida += celda.toString();
+            String valorCelda = fila.get(nroColumna).toString();
+        
+            // Centrar el texto de la celda según el ancho de la columna
+            String textoCentrado = centrarTexto(valorCelda, anchos[nroColumna]);
+            salida += textoCentrado;
             salida += " | ";
         }
         System.out.println(salida);
     }
-        
 
-    public void imprimirFilas(List<List<Celda<?>>> filas){
-        for(List<Celda<?>> f : filas){
-            imprimirFila(f);
+    
+
+    // Método para imprimir todas las filas y encabezados
+    public void imprimirFilas(List<Etiqueta> etiquetasColumnas, List<List<Celda<?>>> filas) {
+        if (!filas.isEmpty()) {
+            // Calcular los anchos máximos de cada columna
+            int[] anchos = calcularAnchos(filas, etiquetasColumnas);
+        
+            // Imprimir los encabezados
+            imprimirEncabezados(etiquetasColumnas, anchos);
+
+            // Imprimir las filas de datos, cada una centrada
+            for (List<Celda<?>> fila : filas) {
+                imprimirFila(fila, anchos);
+            }
         }
     }
 
