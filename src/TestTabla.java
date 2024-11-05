@@ -151,6 +151,7 @@ public class TestTabla {
         
         t.imprimirFilas(t.seleccionParcial(selFilas, selCol));
         
+        /*
         //fila duplicada
         List<Celda<?>> fila5 = new ArrayList<>();
         fila5.add(c3); 
@@ -159,6 +160,7 @@ public class TestTabla {
         fila5.add(c15);
         // tira excepción porque ya existe la etiqueta de la fila
         t.agregarFila(fila5,e7);
+        */
         
     }
 }

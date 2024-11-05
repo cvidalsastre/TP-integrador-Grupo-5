@@ -365,8 +365,7 @@ public class Tabla implements Visualizable, Agrupable {
         return fila;
     }
 
-
-
+    
     private void imprimirFila(List<Celda<?>> fila){
         String salida = " | ";
         for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
