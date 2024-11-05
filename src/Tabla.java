@@ -223,7 +223,7 @@ public class Tabla implements Visualizable, Agrupable {
         return filasRandom;
     }
 
-    private boolean estanTodasLasEtiquetas(List<Etiqueta> seleccion, List<Etiquietas> etiquetas){
+    private boolean estanTodasLasEtiquetas(List<Etiqueta> seleccion, List<Etiqueta> etiquetas){
         for(Etiqueta e : seleccion){
             if (!tieneLaEtiqueta(e, etiquetas)){
                 return false;
@@ -234,23 +234,94 @@ public class Tabla implements Visualizable, Agrupable {
 
     private boolean tieneLaEtiqueta(Etiqueta e, List<Etiqueta> etiquetas){
         for(Etiqueta label: etiquetas){
-            if (e.getValor().equals(label)){
+            if (e.getValor().equals(label.getValor())){
                 return true;
             }
         }
         return false;
     }
 
-    // Suponemos que las etiquetas podrían tener un orden distinto al de la tabla
-    public List<List<Celda<?>>> seleccionParcial(List<Etiqueta> seleccionEtiquetasFilas, List<Etiqueta> seleccionEtiquetasColumnas){
-        if( !estanTodasLasEtiquetas(seleccionEtiquetasFilas ,etiquetasFilas) || 
-            !estanTodasLasEtiquetas(seleccionEtiquetasColumnas ,etiquetasColumnas) ){
-            throw new IllegalArgumentException("Alguna/s de la/s etiqueta/s seleccionada no pertenece/n a la tabla.");
+    private List<Etiqueta> conservarLasQueComparten(List<Etiqueta> seleccion, List<Etiqueta> etiquetas){
+        List<Etiqueta> copiaEtiquetas = new ArrayList<>(etiquetas);
+        for(Etiqueta e : etiquetas){
+            if(!tieneLaEtiqueta(e, seleccion)){
+                copiaEtiquetas.remove(e);
+            }
         }
+        return copiaEtiquetas;
     }
 
-    // Puede ser 0?
-    // 
+    private int contarApariciones(Etiqueta buscada, List<Etiqueta> etiquetas){
+        int numeroDeApariciones = 0;
+        for (Etiqueta e: etiquetas){
+            if (buscada.getValor().equals(e.getValor())){
+                numeroDeApariciones++;
+            }
+        }
+        return numeroDeApariciones; 
+    }
+
+    private boolean tieneRepetidos(List<Etiqueta> etiquetas){
+        for (Etiqueta e: etiquetas){
+            if (contarApariciones(e, etiquetas) > 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    // Suponemos que las etiquetas podrían tener un orden distinto al de la tabla
+    public List<List<Celda<?>>> seleccionParcial(List<Etiqueta> seleccionEtiquetasFilas, List<Etiqueta> seleccionEtiquetasColumnas){
+        
+        if(tieneRepetidos(seleccionEtiquetasColumnas) || tieneRepetidos(seleccionEtiquetasFilas)){
+            throw new IllegalArgumentException("Las listas de etiquetas no pueden tener elementos repetidos.");
+        }
+        
+        // se chequea que no haya equipo que no son las de la tabla
+        if( !estanTodasLasEtiquetas(seleccionEtiquetasFilas ,etiquetasFilas) || 
+            !estanTodasLasEtiquetas(seleccionEtiquetasColumnas ,etiquetasColumnas) ){
+                System.out.println(etiquetasColumnas);
+                System.out.println(seleccionEtiquetasColumnas);
+                System.out.println("jua"+!estanTodasLasEtiquetas(seleccionEtiquetasColumnas ,etiquetasColumnas));
+                
+            throw new IllegalArgumentException("Alguna/s de la/s etiqueta/s seleccionada/s no pertenece/n a la tabla.");
+        }
+        
+        List<List<Celda<?>>> tablaRebanada = new ArrayList<>();
+        // Esto garantiza que las etiquetas tengan el mismo orden que en la tabla
+        List<Etiqueta> etiquetasColumnasSelec = conservarLasQueComparten(seleccionEtiquetasColumnas, etiquetasColumnas);
+        List<Etiqueta> etiquetasFilasSelec = conservarLasQueComparten(seleccionEtiquetasFilas, etiquetasFilas);
+        for(Etiqueta e : etiquetasFilasSelec){
+            tablaRebanada.add(getFilaAcotada(e, etiquetasColumnasSelec));
+        }
+
+        return tablaRebanada;
+    }
+
+
+    private List<Celda<?>> getFilaAcotada(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel){
+        
+        if(!tieneLaEtiqueta(etiquetaFila, etiquetasFilas)){
+            throw new IllegalArgumentException("La etiqueta de la fila no existe en la tabla");
+        }
+
+        if(!estanTodasLasEtiquetas(etiquetasColumnasSel, etiquetasColumnas)){
+            throw new IllegalArgumentException("Hay una etiqueta de columna de las elegidas que no se encuentra en la tabla.");
+        }
+        int indexFila = getIndex(etiquetaFila, etiquetasFilas);
+        List<Celda<?>> fila = new ArrayList<>();
+        for (Columna<?> col : columnas) {
+            Etiqueta e = col.getEtiqueta();
+            if (tieneLaEtiqueta(e, etiquetasColumnasSel)){
+                fila.add(col.getCeldas().get(indexFila));
+            }
+            
+        }
+        return fila;
+    } 
+
+
     public List<List<Celda<?>>> head(int cantidadFilas){ 
         if (cantidadFilas < 0){
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");

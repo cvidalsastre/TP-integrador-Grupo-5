@@ -36,10 +36,24 @@ public class TestTabla {
         System.out.println("Etiquetas de las filas: " + t.getEtiquetasFilas());
         System.out.println("Etiquetas de las columnas: " + t.getEtiquetasColumnas());
 
-        t.agregarColumna(String.class, new EtiquetaCadena("Nombre")); // Columna 0: Nombre
+        
+        //Etiquetas columnas
+        Etiqueta e1 = new EtiquetaCadena("Nombre");
+        Etiqueta e2 = new EtiquetaNumerica(2);
+        Etiqueta e3 = new EtiquetaCadena("Horas Extras?");
+        Etiqueta e4 = new EtiquetaCadena("Sueldo");
+
+        //Etiquetas filas
+        Etiqueta e5 = new EtiquetaNumerica(0);
+        Etiqueta e6 = new EtiquetaCadena("NSA");
+        Etiqueta e7 = new EtiquetaCadena("Empleadx del mes");
+        Etiqueta e8 = new EtiquetaNumerica(3);
+
+
+        t.agregarColumna(String.class, e1); // Columna 0: Nombre
         t.agregarColumna(Integer.class); // Columna 1: 0
-        t.agregarColumna(Boolean.class, new EtiquetaCadena("Horas Extras?")); // Columna 2: Horas Extras?
-        t.agregarColumna(Float.class, new EtiquetaCadena("Sueldo")); // Columna 3: Sueldo 
+        t.agregarColumna(Boolean.class, e3); // Columna 2: Horas Extras?
+        t.agregarColumna(Float.class, e4); // Columna 3: Sueldo 
         
         System.out.println("Cantidad de filas: " + t.getCantidadFilas());
         System.out.println("Cantidad de columnas: " + t.getCantidadColumnas());
@@ -116,7 +130,21 @@ public class TestTabla {
         System.out.println("TAIL(2)");
         t.imprimirFilas(t.tail(2));
 
+        System.out.println("Selección Parcial");
 
+        List<Etiqueta> selCol = new ArrayList<>();
+        List<Etiqueta> selFilas = new ArrayList<>();
+
+        selCol.add(e4); // "Sueldo"
+        selCol.add(e1); // "Nombre"
+        selCol.add(e2); // 2
+        
+        
+        selFilas.add(e6); // "NSA"
+
+        selFilas.add(e7); // "Empleadx del mes"
+        
+        t.imprimirFilas(t.seleccionParcial(selFilas, selCol));
             
       
         
