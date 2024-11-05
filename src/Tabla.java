@@ -121,6 +121,7 @@ public class Tabla implements Visualizable, Agrupable {
         return fila;
     }
 
+    /*
     private String filaACadena(List<Celda<?>> fila, int maxLargoCadena) {
         String salida = " | ";
         for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
@@ -137,7 +138,47 @@ public class Tabla implements Visualizable, Agrupable {
             salida += " | ";
         }
         return salida;
+    }*/
+
+    private String filaACadena(List<Celda<?>> fila, int maxLargoCadena) {
+        String salida = " | ";
+        for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
+            Celda<?> celda = fila.get(nroColumna);
+            String textoCelda = celda.toString();
+            
+            if (celda.getTipo().equals("String")) {
+                int longitudMenor = Math.min(textoCelda.length(), maxLargoCadena);
+                textoCelda = textoCelda.substring(0, longitudMenor);
+                if (longitudMenor < celda.toString().length()) {
+                    textoCelda += "..."; 
+                }
+            }
+    
+            // Centramos el texto en el ancho máximo de la celda
+            String textoCentrado = centrarTexto(textoCelda, maxLargoCadena);
+    
+            salida += textoCentrado + " | ";
+        }
+        return salida;
     }
+
+
+    private String encabezadosACadena(List<Etiqueta> encabezados, int maxLargoCadena) {
+        String salida = " | ";
+        for (Etiqueta etiqueta : encabezados) {
+            String texto = etiqueta.toString();
+    
+            // Centramos el texto de los encabezados
+            String textoCentrado = centrarTexto(texto, maxLargoCadena);
+    
+            // Añadimos el encabezado centrado
+            salida += textoCentrado + " | ";
+        }
+        return salida;
+    }
+
+
+    
 
     // Verificación simplificada: Ahora hay una única verificación al inicio para
     // asegurarse de que maxFilas, maxColumnas, y maxLargoCadena son mayores que 0.
@@ -161,7 +202,10 @@ public class Tabla implements Visualizable, Agrupable {
             maxColumnas = getCantidadColumnas(); // Ajustar para mostrar todas las columnas disponibles
         }
 
-        
+        // Imprimir los encabezados centrados
+        System.out.println(encabezadosACadena(etiquetasColumnas.subList(0, maxColumnas), maxLargoCadena));
+
+        // Imprimir las filas de datos
         for (Etiqueta e : etiquetasFilas.subList(0, maxFilas)) {
             System.out.println(filaACadena(getFilaAcotada(e, maxColumnas), maxLargoCadena));
         }
@@ -340,8 +384,6 @@ public class Tabla implements Visualizable, Agrupable {
         }
         return primerasFilas;
     }
-
-
 
     public List<List<Celda<?>>> tail(int cantidadFilas){
         if (cantidadFilas < 0){
