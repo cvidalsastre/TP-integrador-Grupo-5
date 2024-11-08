@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Tabla implements Visualizable, Agrupable {
+public class Tabla implements Visualizable{
 
     private List<Columna<?>> columnas;
     private List<Etiqueta> etiquetasFilas;
