@@ -149,12 +149,7 @@ public class TestTabla {
         t.visualizar2(3, 2, 1);
 
 
-
-
-        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-
-        System.out.println("TAIL(2)");
-        t.imprimirFilas(t.getEtiquetasColumnas(),t.tail(2));
+        t.imprimirFilas2(t.muestreo2(50f));
 
         System.out.println("Selección Parcial");
 
@@ -167,10 +162,31 @@ public class TestTabla {
         
         
         selFilas.add(e6); // "NSA"
-
         selFilas.add(e7); // "Empleadx del mes"
+
+        t.imprimirFilas2(t.seleccionParcial2(selFilas, selCol));
+
+
+        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
+        System.out.println("TAIL(2)");
+        t.imprimirFilas(t.getEtiquetasColumnas(),t.tail(2));
+
+        System.out.println("Selección Parcial");
+
+        //List<Etiqueta> selCol = new ArrayList<>();
+        //List<Etiqueta> selFilas = new ArrayList<>();
+
+        //selCol.add(e4); // "Sueldo"
+        //selCol.add(e1); // "Nombre"
+        //selCol.add(e2); // 1
         
-        t.imprimirFilas(selCol,t.seleccionParcial(selFilas, selCol));
+        
+        //selFilas.add(e6); // "NSA"
+
+        //selFilas.add(e7); // "Empleadx del mes"
+        
+        //t.imprimirFilas(selCol,t.seleccionParcial(selFilas, selCol));
         
         /*
         //fila duplicada

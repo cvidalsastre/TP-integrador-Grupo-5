@@ -25,7 +25,7 @@ public class Fila {
 
     @Override
     public String toString() {
-        String salida = etiquetaFila + " | ";
+        String salida = "*" + etiquetaFila + "*" + " | ";
         for(Celda<?> c : celdas){
             salida += c + " | ";
         }

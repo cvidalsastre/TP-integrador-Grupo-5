@@ -482,6 +482,59 @@ public class Tabla implements Visualizable{
         return ultimasFilas;
     }
 
+
+    public List<Fila> muestreo2(float porcentaje) {
+        if (porcentaje < 0.0 || porcentaje > 100.0) {
+            throw new IllegalArgumentException("El porcentaje va de 0 a 100.");
+        }
+        int tamanioMuesta = (int) ((porcentaje / 100) * getCantidadFilas());
+        return elegirNFilas2(tamanioMuesta, etiquetasFilas);
+    }
+
+    private List<Fila> elegirNFilas2(int tamanio, List<Etiqueta> etiquetasFilas) {
+        List<Fila> filasRandom = new ArrayList<>();
+        // se copia la lista de etiqueta de las filas
+        List<Etiqueta> copiaEtiquetasFilas = new ArrayList<>(etiquetasFilas);
+
+        // mezcla
+        Collections.shuffle(copiaEtiquetasFilas);
+
+        copiaEtiquetasFilas = copiaEtiquetasFilas.subList(0, Math.min(tamanio, copiaEtiquetasFilas.size()));
+
+        for (Etiqueta e : copiaEtiquetasFilas) {
+            Fila nuevaFila = new Fila(e, getFila2(e).getCeldasFila(), etiquetasColumnas); 
+            filasRandom.add( nuevaFila);
+        }
+        return filasRandom;
+    }
+
+
+    public List<Fila> seleccionParcial2(List<Etiqueta> seleccionEtiquetasFilas,
+            List<Etiqueta> seleccionEtiquetasColumnas) {
+
+        if (tieneRepetidos(seleccionEtiquetasColumnas) || tieneRepetidos(seleccionEtiquetasFilas)) {
+            throw new IllegalArgumentException("Las listas de etiquetas no pueden tener elementos repetidos.");
+        }
+
+        // se chequea que no haya equipo que no son las de la tabla
+        if (!estanTodasLasEtiquetas(seleccionEtiquetasFilas, etiquetasFilas) ||
+                !estanTodasLasEtiquetas(seleccionEtiquetasColumnas, etiquetasColumnas)) {
+            throw new IllegalArgumentException("Alguna/s de la/s etiqueta/s seleccionada/s no pertenece/n a la tabla.");
+        }
+
+        List<Fila> tablaRebanada = new ArrayList<>();
+        // Esto garantiza que las etiquetas tengan el mismo orden que en la tabla
+        List<Etiqueta> etiquetasColumnasSelec = conservarLasQueComparten(seleccionEtiquetasColumnas, etiquetasColumnas);
+        List<Etiqueta> etiquetasFilasSelec = conservarLasQueComparten(seleccionEtiquetasFilas, etiquetasFilas);
+        for (Etiqueta e : etiquetasFilasSelec) {
+            System.out.println("pppp" + etiquetasColumnasSelec);
+            
+            tablaRebanada.add(getFilaAcotada2(e, etiquetasColumnasSelec));
+        }
+        return tablaRebanada;
+    }
+
+
     public void imprimirEncabezados2(List<Etiqueta> etiquetas) {
         String salida = " | ";
 
@@ -496,9 +549,8 @@ public class Tabla implements Visualizable{
     // Método para imprimir todas las filas y encabezados
     public void imprimirFilas2(List<Fila> filas) {
         if (!filas.isEmpty()) {
-
             // Imprimir los encabezados
-            imprimirEncabezados2(etiquetasColumnas);
+            imprimirEncabezados2(filas.get(0).getEtiquetasColumnas());
 
             // Imprimir las filas de datos, cada una centrada
             for (Fila fila : filas) {
@@ -508,7 +560,7 @@ public class Tabla implements Visualizable{
     }
 
     private String filaACadena2(Fila fila, int maxColumnas, int maxLargoCadena) {
-        String salida = fila.getEtiquetaFila().toString() + " | ";
+        String salida = "*"+ fila.getEtiquetaFila().toString() +"*" + " | ";
         maxColumnas = Math.min(maxColumnas, fila.getCeldasFila().size());
 
         for (int nroColumna = 0; nroColumna < maxColumnas; nroColumna++) {
