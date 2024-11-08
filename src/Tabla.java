@@ -76,8 +76,6 @@ public class Tabla implements Visualizable, Agrupable {
             throw new IllegalArgumentException("El número de celdas no coincide con el número de columnas");
         }
 
-        etiquetasFilas.add(etiquetaFila);
-
         for (int i = 0; i < columnas.size(); i++) {
             Columna<?> columna = columnas.get(i);
             Celda<?> celda = celdas.get(i);
@@ -89,6 +87,9 @@ public class Tabla implements Visualizable, Agrupable {
 
             columna.agregarCelda(celda);
         }
+        // Si está todo OK agregamos la etiqueta de Fila
+        etiquetasFilas.add(etiquetaFila);
+
     }
 
     // Método auxiliar para crear una celda nula de un tipo específico
@@ -415,6 +416,146 @@ public class Tabla implements Visualizable, Agrupable {
         return fila;
     }
 
+    //No sé si sirve
+    public Fila getFila2(Etiqueta etiquetaFila){
+        int indexFila = getIndex(etiquetaFila, etiquetasFilas);
+        List<Celda<?>> celdasFilas = new ArrayList<>();
+        for (Columna<?> col : columnas) {
+            celdasFilas.add(col.getCeldas().get(indexFila));
+        }
+        return new Fila(etiquetaFila, celdasFilas, etiquetasColumnas);
+    }
+
+    private Fila getFilaAcotada2(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel){
+        if(!tieneLaEtiqueta(etiquetaFila, etiquetasFilas)){
+            throw new IllegalArgumentException("La etiqueta de la fila no existe en la tabla");
+        }
+
+        if(!estanTodasLasEtiquetas(etiquetasColumnasSel, etiquetasColumnas)){
+            throw new IllegalArgumentException("Hay una etiqueta de columna de las elegidas que no se encuentra en la tabla.");
+        }
+        int indexFila = getIndex(etiquetaFila, etiquetasFilas);
+        List<Celda<?>> celdasFila = new ArrayList<>();
+        for (Columna<?> col : columnas) {
+            Etiqueta e = col.getEtiqueta();
+            if (tieneLaEtiqueta(e, etiquetasColumnasSel)){
+                celdasFila.add(col.getCeldas().get(indexFila));
+            }
+            
+        }
+        return new Fila(etiquetaFila, celdasFila, etiquetasColumnasSel);
+    }
+
+    public List<Fila> head2(int cantidadFilas){ 
+        if (cantidadFilas < 0){
+            throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
+        }
+        List<Fila> primerasFilas = new ArrayList<>();
+        List<Etiqueta> etiquetasPrimFilas = etiquetasFilas.subList(0, Math.min(cantidadFilas, etiquetasFilas.size()));
+        for (Etiqueta e : etiquetasPrimFilas){
+            Fila nueva_fila = new Fila (e, getFila2(e).getCeldasFila(), etiquetasColumnas);
+            primerasFilas.add( nueva_fila);
+        }
+        return primerasFilas;
+    }
+
+    public List<Fila> tail2(int cantidadFilas){
+        if (cantidadFilas < 0){
+            throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
+        }
+        List<Fila> ultimasFilas = new ArrayList<>();
+        int cantidadEquitasFilas = etiquetasFilas.size();
+        List<Etiqueta> etiquetasUltimasFilas = etiquetasFilas.subList(cantidadEquitasFilas - Math.min(cantidadFilas,cantidadEquitasFilas ), cantidadEquitasFilas);
+        for (Etiqueta e : etiquetasUltimasFilas){
+            Fila nueva_fila = new Fila (e, getFila2(e).getCeldasFila(), etiquetasColumnas);
+            ultimasFilas.add(nueva_fila);
+        }
+        return ultimasFilas;
+    }
+
+
+    public void imprimirEncabezados2(List<Etiqueta> etiquetas){
+        String salida = " | ";
+
+        for (int i = 0; i < etiquetas.size(); i++) {
+            salida += etiquetas.get(i);
+            salida += " | ";
+        }
+
+        System.out.println(salida);
+    }
+    
+
+    // Método para imprimir todas las filas y encabezados
+    public void imprimirFilas2(List<Fila> filas) {
+        if (!filas.isEmpty()) {
+            
+            // Imprimir los encabezados
+            imprimirEncabezados2(etiquetasColumnas);
+
+            // Imprimir las filas de datos, cada una centrada
+            for (Fila fila : filas) {
+                System.out.println(fila);                
+            }
+        }
+    }
+
+    private String filaACadena2(Fila fila,int maxColumnas ,int maxLargoCadena) {
+        String salida = fila.getEtiquetaFila().toString() +" | ";
+        maxColumnas =  Math.min(maxColumnas, fila.getCeldasFila().size());
+
+        for (int nroColumna = 0; nroColumna < maxColumnas; nroColumna++) {
+            Celda<?> celda = fila.getCeldasFila().get(nroColumna);
+            String textoCelda = celda.toString();
+            
+            if (celda.getTipo().equals("String")) {
+                int longitudMenor = Math.min(textoCelda.length(), maxLargoCadena);
+                textoCelda = textoCelda.substring(0, longitudMenor);
+                if (longitudMenor < celda.toString().length()) {
+                    textoCelda += "..."; 
+                }
+            }
+            salida += textoCelda;
+            salida += " | ";
+        }
+        return salida;
+    }
+    
+    // Verificación simplificada: Ahora hay una única verificación al inicio para
+    // asegurarse de que maxFilas, maxColumnas, y maxLargoCadena son mayores que 0.
+    public void visualizar2(int maxFilas, int maxColumnas, int maxLargoCadena) {
+        System.out.println("maxFilas: " + maxFilas);
+        System.out.println("maxColumnas: " + maxColumnas);
+        System.out.println("maxLargoCadena: " + maxLargoCadena);
+        System.out.println("Cantidad de filas: " + getCantidadFilas());
+        System.out.println("Cantidad de columnas: " + getCantidadColumnas());
+
+        if (maxFilas <= 0 || maxColumnas <= 0 || maxLargoCadena <= 0) {
+            throw new IllegalArgumentException(
+                    "Los parámetros maxFilas, maxColumnas y maxLargoCadena deben ser mayores que 0.");
+        }
+
+        if (maxFilas > getCantidadFilas()) {
+            maxFilas = getCantidadFilas(); // Ajustar para mostrar todas las filas disponibles
+        }
+
+        if (maxColumnas > getCantidadColumnas()) {
+            maxColumnas = getCantidadColumnas(); // Ajustar para mostrar todas las columnas disponibles
+        }
+
+        // Imprimir los encabezados centrados
+        imprimirEncabezados2(etiquetasColumnas.subList(0, maxColumnas));
+        
+
+        // Imprimir las filas de datos
+        for (Etiqueta e : etiquetasFilas.subList(0, maxFilas)) {
+            System.out.println(filaACadena2(getFila2(e),maxColumnas, maxLargoCadena));
+        }
+    }
+
+    
+
+    //////////////////////////////////////////////////////////////////////////////////////
     // Función auxiliar para calcular el ancho máximo de cada columna (incluyendo los encabezados)
     private int[] calcularAnchos(List<List<Celda<?>>> filas, List<Etiqueta> encabezados) {
         int numColumnas = encabezados.size();  // Número de columnas es igual al tamaño de los encabezados
@@ -500,8 +641,6 @@ public class Tabla implements Visualizable, Agrupable {
         }
         System.out.println(salida);
     }
-
-    
 
     // Método para imprimir todas las filas y encabezados
     public void imprimirFilas(List<Etiqueta> etiquetasColumnas, List<List<Celda<?>>> filas) {
