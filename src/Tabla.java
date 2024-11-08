@@ -844,41 +844,78 @@ public class Tabla implements Visualizable{
         return resultado;
     }
 
-    private Etiqueta copiarEtiqueta(EtiquetaCadena etiqueta) {
-        Etiqueta copiaEtiqueta = new EtiquetaCadena(etiqueta.getValor());
-        return copiaEtiqueta;
-    }
-
-    private Etiqueta copiarEtiqueta(EtiquetaNumerica etiqueta) {
-        Etiqueta copiaEtiqueta = new EtiquetaNumerica(etiqueta.getValor());
-        return copiaEtiqueta;
-    }
-
-    // Método para realizar una copia independiente
-    public Tabla copiar() {
+    /////////////////// ROCIO *********************************
+    public Tabla copiarTabla() {
+        // Crear una nueva instancia de Tabla
         Tabla copia = new Tabla();
-
-        // Copiar etiquetas de las columnas
-        for (Etiqueta etiqueta : this.etiquetasColumnas) {
-            copia.etiquetasColumnas.add(this.copiarEtiqueta(etiqueta)));
-            //copia.etiquetasColumnas.add(etiqueta.copiar()); // Asumiendo que Etiqueta tiene un método copiar()
+    
+        // Copiar las etiquetas de filas
+        List<Etiqueta> nuevasEtiquetasFilas = new ArrayList<>();
+        for (Etiqueta etiqueta : this.etiquetasFilas) {
+            nuevasEtiquetasFilas.add(copiarEtiqueta(etiqueta)); // Usamos el método copiarEtiqueta
         }
-
-        // Copiar etiquetas de las filas
-        for (Etiqueta etiqueta : etiquetasFilas) {
-            copia.etiquetasFilas.add(etiqueta.copiar()); // Asumiendo que Etiqueta tiene un método copiar()
-        }
-
-        // Copiar columnas
-        for (Columna<?> columna : columnas) {
-            Columna<?> copiaColumna = new Columna<>(columna.getEtiqueta().copiar(), columna.getTipoDeDato());
-            for (Celda<?> celda : columna.getCeldas()) {
-                copiaColumna.agregarCelda(new Celda<>(celda.getValor())); // Copiamos cada celda
+        copia.etiquetasFilas = nuevasEtiquetasFilas;
+    
+        // Copiar las columnas
+        for (Columna<?> columnaOriginal : this.columnas) {
+            // Crear una nueva columna con el mismo tipo y etiqueta
+            Columna<?> nuevaColumna = new Columna<>(copiarEtiqueta(columnaOriginal.getEtiqueta()), columnaOriginal.getTipoDeDato());
+    
+            // Copiar las celdas de la columna original a la nueva columna
+            List<? extends Celda<?>> celdasOriginales = columnaOriginal.getCeldas();  // Captura celdas con cualquier tipo
+            List<Celda<?>> nuevasCeldas = new ArrayList<>();
+    
+            for (Celda<?> celdaOriginal : celdasOriginales) {
+                // Crear una nueva celda con el mismo valor
+                nuevasCeldas.add(copiarCeldaGenerica(celdaOriginal));
             }
-            copia.columnas.add(copiaColumna);
+    
+            // Hacer el cast correcto para que coincida con el tipo genérico de la columna
+            setCeldasGenerico2(nuevaColumna, nuevasCeldas);
+    
+            // Agregar la nueva columna a la tabla copiada
+            copia.columnas.add(nuevaColumna);
         }
-
+    
+        // Copiar las etiquetas de las columnas
+        List<Etiqueta> nuevasEtiquetasColumnas = new ArrayList<>();
+        for (Etiqueta etiqueta : this.etiquetasColumnas) {
+            nuevasEtiquetasColumnas.add(copiarEtiqueta(etiqueta)); // Usamos el método copiarEtiqueta
+        }
+        copia.etiquetasColumnas = nuevasEtiquetasColumnas;
+    
         return copia;
     }
+    
+    // Método auxiliar para copiar una etiqueta
+    private Etiqueta copiarEtiqueta(Etiqueta etiqueta) {
+        if (etiqueta instanceof EtiquetaNumerica) {
+            // Copiar una etiqueta numérica
+            EtiquetaNumerica etiquetaNumerica = (EtiquetaNumerica) etiqueta;
+            return new EtiquetaNumerica(etiquetaNumerica.getValor());
+        } else if (etiqueta instanceof EtiquetaCadena) {
+            // Copiar una etiqueta de cadena
+            EtiquetaCadena etiquetaCadena = (EtiquetaCadena) etiqueta;
+            return new EtiquetaCadena(etiquetaCadena.getValor());
+        } else {
+            throw new IllegalArgumentException("Tipo de etiqueta no soportado");
+        }
+    }
+
+        // Método auxiliar para copiar una celda genérica
+    @SuppressWarnings("unchecked")
+    public <T> Celda<T> copiarCeldaGenerica(Celda<?> celdaOriginal) {
+        Object valor = celdaOriginal.getValor();
+        if (valor != null && !valor.getClass().equals(Object.class)) {
+            return new Celda<>((T) valor);
+        }
+        throw new ClassCastException("No se puede convertir el valor de la celda al tipo genérico.");
+    }    
+    // Método para hacer el cast de celdas genéricas y asignarlas a la columna correcta
+    @SuppressWarnings("unchecked")
+    private <T> void setCeldasGenerico2(Columna<T> columna, List<Celda<?>> celdasOrdenadas) {
+        columna.setCeldas((List<Celda<T>>) (List<?>) celdasOrdenadas);
+    }
+    
 
 }
