@@ -5,22 +5,27 @@ import java.util.Map;
 
 public class OperacionesTabla {
 
-    public static Map<List<Object>, List<Integer>> agruparPor(Tabla tabla, List<Etiqueta> etiquetasColumnas) {
-        Map<List<Object>, List<Integer>> grupos = new HashMap<>();
-
-        for (int i = 0; i < tabla.getCantidadFilas(); i++) {
-            List<Object> claveGrupo = new ArrayList<>();
-
-            for (Etiqueta etiqueta : etiquetasColumnas) {
-                Columna<?> columna = tabla.getColumna(etiqueta);
-                claveGrupo.add(columna.getCeldas().get(i).getValor());
-            }
-
-            grupos.computeIfAbsent(claveGrupo, k -> new ArrayList<>()).add(i);
-        }
-
-        return grupos;
-    }
+    /*
+     * public static Tabla agruparPor(Tabla tabla, List<Etiqueta> etiquetasColumnas)
+     * {
+     * Tabla otraTabla = new Tabla();
+     * 
+     * for (int i = 0; i < tabla.getCantidadFilas(); i++) {
+     * 
+     * 
+     * for (Etiqueta etiqueta : etiquetasColumnas) {
+     * Columna<?> columna = tabla.getColumna(etiqueta);
+     * 
+     * //Metodo para agregar columnas ya creadas a tablas
+     * //claveGrupo.add(columna.getCeldas().get(i).getValor());
+     * }
+     * 
+     * //grupos.computeIfAbsent(claveGrupo, k -> new ArrayList<>()).add(i);
+     * }
+     * 
+     * // return grupos;
+     * }
+     */
 
     public static Tabla aplicarOperaciones(Tabla tabla, Map<List<Object>, List<Integer>> grupos, String operacion) {
         Tabla resultado = new Tabla();
