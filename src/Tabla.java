@@ -29,13 +29,26 @@ public class Tabla implements Visualizable, Agrupable {
     // Sobrecarga de método para agregar columna con etiqueta específica
     // 5/11/24 agregamos la condición de que no existe la etiqueta a agregar
     public void agregarColumna(Class<?> tipoDeDato, Etiqueta etiquetaColumna) {
-        if(tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)){
+        if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) {
             throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
         }
         Columna<?> nuevaColumna = new Columna<>(etiquetaColumna, tipoDeDato);
         columnas.add(nuevaColumna);
         etiquetasColumnas.add(etiquetaColumna);
 
+        // Añadir celdas "NA" en la nueva columna si ya existen filas
+        for (int i = 0; i < etiquetasFilas.size(); i++) {
+            nuevaColumna.agregarCelda(new Celda<>(null)); // Asignar NA
+        }
+    }
+
+    public void agregarColumna(Class<?> tipoDeDato, Columna<?> nuevaColumna) {
+        Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas()); // Etiqueta secuencial automática
+        if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) {
+            throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
+        }
+        columnas.add(nuevaColumna);
+        etiquetasColumnas.add(etiquetaColumna);
         // Añadir celdas "NA" en la nueva columna si ya existen filas
         for (int i = 0; i < etiquetasFilas.size(); i++) {
             nuevaColumna.agregarCelda(new Celda<>(null)); // Asignar NA
@@ -69,7 +82,7 @@ public class Tabla implements Visualizable, Agrupable {
     }
 
     public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
-        if(tieneLaEtiqueta(etiquetaFila, etiquetasFilas)){
+        if (tieneLaEtiqueta(etiquetaFila, etiquetasFilas)) {
             throw new IllegalArgumentException("Ya existe una fila con esa etiqueta.");
         }
         if (celdas.size() != columnas.size()) {
@@ -122,63 +135,60 @@ public class Tabla implements Visualizable, Agrupable {
     }
 
     /*
-    private String filaACadena(List<Celda<?>> fila, int maxLargoCadena) {
-        String salida = " | ";
-        for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
-            Celda<?> celda = fila.get(nroColumna);
-            if (celda.getTipo().equals("String")) {
-                int longitudMenor = Math.min(celda.toString().length(), maxLargoCadena);
-                salida += celda.toString().substring(0, longitudMenor);
-                if(longitudMenor < celda.toString().length()){
-                    salida += "...";
-                }
-            } else {
-                salida += celda.toString();
-            }
-            salida += " | ";
-        }
-        return salida;
-    }*/
+     * private String filaACadena(List<Celda<?>> fila, int maxLargoCadena) {
+     * String salida = " | ";
+     * for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
+     * Celda<?> celda = fila.get(nroColumna);
+     * if (celda.getTipo().equals("String")) {
+     * int longitudMenor = Math.min(celda.toString().length(), maxLargoCadena);
+     * salida += celda.toString().substring(0, longitudMenor);
+     * if(longitudMenor < celda.toString().length()){
+     * salida += "...";
+     * }
+     * } else {
+     * salida += celda.toString();
+     * }
+     * salida += " | ";
+     * }
+     * return salida;
+     * }
+     */
 
     private String filaACadena(List<Celda<?>> fila, int maxLargoCadena) {
         String salida = " | ";
         for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
             Celda<?> celda = fila.get(nroColumna);
             String textoCelda = celda.toString();
-            
+
             if (celda.getTipo().equals("String")) {
                 int longitudMenor = Math.min(textoCelda.length(), maxLargoCadena);
                 textoCelda = textoCelda.substring(0, longitudMenor);
                 if (longitudMenor < celda.toString().length()) {
-                    textoCelda += "..."; 
+                    textoCelda += "...";
                 }
             }
-    
+
             // Centramos el texto en el ancho máximo de la celda
             String textoCentrado = centrarTexto(textoCelda, maxLargoCadena);
-    
+
             salida += textoCentrado + " | ";
         }
         return salida;
     }
-
 
     private String encabezadosACadena(List<Etiqueta> encabezados, int maxLargoCadena) {
         String salida = " | ";
         for (Etiqueta etiqueta : encabezados) {
             String texto = etiqueta.toString();
-    
+
             // Centramos el texto de los encabezados
             String textoCentrado = centrarTexto(texto, maxLargoCadena);
-    
+
             // Añadimos el encabezado centrado
             salida += textoCentrado + " | ";
         }
         return salida;
     }
-
-
-    
 
     // Verificación simplificada: Ahora hay una única verificación al inicio para
     // asegurarse de que maxFilas, maxColumnas, y maxLargoCadena son mayores que 0.
@@ -278,128 +288,125 @@ public class Tabla implements Visualizable, Agrupable {
         return filasRandom;
     }
 
-    private boolean estanTodasLasEtiquetas(List<Etiqueta> seleccion, List<Etiqueta> etiquetas){
-        for(Etiqueta e : seleccion){
-            if (!tieneLaEtiqueta(e, etiquetas)){
+    private boolean estanTodasLasEtiquetas(List<Etiqueta> seleccion, List<Etiqueta> etiquetas) {
+        for (Etiqueta e : seleccion) {
+            if (!tieneLaEtiqueta(e, etiquetas)) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean tieneLaEtiqueta(Etiqueta e, List<Etiqueta> etiquetas){
-        for(Etiqueta label: etiquetas){
-            if (e.getValor().equals(label.getValor())){
+    private boolean tieneLaEtiqueta(Etiqueta e, List<Etiqueta> etiquetas) {
+        for (Etiqueta label : etiquetas) {
+            if (e.getValor().equals(label.getValor())) {
                 return true;
             }
         }
         return false;
     }
 
-    private List<Etiqueta> conservarLasQueComparten(List<Etiqueta> seleccion, List<Etiqueta> etiquetas){
+    private List<Etiqueta> conservarLasQueComparten(List<Etiqueta> seleccion, List<Etiqueta> etiquetas) {
         List<Etiqueta> copiaEtiquetas = new ArrayList<>(etiquetas);
-        for(Etiqueta e : etiquetas){
-            if(!tieneLaEtiqueta(e, seleccion)){
+        for (Etiqueta e : etiquetas) {
+            if (!tieneLaEtiqueta(e, seleccion)) {
                 copiaEtiquetas.remove(e);
             }
         }
         return copiaEtiquetas;
     }
 
-    private int contarApariciones(Etiqueta buscada, List<Etiqueta> etiquetas){
+    private int contarApariciones(Etiqueta buscada, List<Etiqueta> etiquetas) {
         int numeroDeApariciones = 0;
-        for (Etiqueta e: etiquetas){
-            if (buscada.getValor().equals(e.getValor())){
+        for (Etiqueta e : etiquetas) {
+            if (buscada.getValor().equals(e.getValor())) {
                 numeroDeApariciones++;
             }
         }
-        return numeroDeApariciones; 
+        return numeroDeApariciones;
     }
 
-    private boolean tieneRepetidos(List<Etiqueta> etiquetas){
-        for (Etiqueta e: etiquetas){
-            if (contarApariciones(e, etiquetas) > 1){
+    private boolean tieneRepetidos(List<Etiqueta> etiquetas) {
+        for (Etiqueta e : etiquetas) {
+            if (contarApariciones(e, etiquetas) > 1) {
                 return true;
             }
         }
         return false;
     }
 
-
     // Suponemos que las etiquetas podrían tener un orden distinto al de la tabla
-    public List<List<Celda<?>>> seleccionParcial(List<Etiqueta> seleccionEtiquetasFilas, List<Etiqueta> seleccionEtiquetasColumnas){
-        
-        if(tieneRepetidos(seleccionEtiquetasColumnas) || tieneRepetidos(seleccionEtiquetasFilas)){
+    public List<List<Celda<?>>> seleccionParcial(List<Etiqueta> seleccionEtiquetasFilas,
+            List<Etiqueta> seleccionEtiquetasColumnas) {
+
+        if (tieneRepetidos(seleccionEtiquetasColumnas) || tieneRepetidos(seleccionEtiquetasFilas)) {
             throw new IllegalArgumentException("Las listas de etiquetas no pueden tener elementos repetidos.");
         }
-        
+
         // se chequea que no haya equipo que no son las de la tabla
-        if( !estanTodasLasEtiquetas(seleccionEtiquetasFilas ,etiquetasFilas) || 
-            !estanTodasLasEtiquetas(seleccionEtiquetasColumnas ,etiquetasColumnas) ){ 
+        if (!estanTodasLasEtiquetas(seleccionEtiquetasFilas, etiquetasFilas) ||
+                !estanTodasLasEtiquetas(seleccionEtiquetasColumnas, etiquetasColumnas)) {
             throw new IllegalArgumentException("Alguna/s de la/s etiqueta/s seleccionada/s no pertenece/n a la tabla.");
         }
-        
+
         List<List<Celda<?>>> tablaRebanada = new ArrayList<>();
         // Esto garantiza que las etiquetas tengan el mismo orden que en la tabla
         List<Etiqueta> etiquetasColumnasSelec = conservarLasQueComparten(seleccionEtiquetasColumnas, etiquetasColumnas);
         List<Etiqueta> etiquetasFilasSelec = conservarLasQueComparten(seleccionEtiquetasFilas, etiquetasFilas);
-        for(Etiqueta e : etiquetasFilasSelec){
+        for (Etiqueta e : etiquetasFilasSelec) {
             tablaRebanada.add(getFilaAcotada(e, etiquetasColumnasSelec));
         }
 
         return tablaRebanada;
     }
 
+    private List<Celda<?>> getFilaAcotada(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel) {
 
-    private List<Celda<?>> getFilaAcotada(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel){
-        
-        if(!tieneLaEtiqueta(etiquetaFila, etiquetasFilas)){
+        if (!tieneLaEtiqueta(etiquetaFila, etiquetasFilas)) {
             throw new IllegalArgumentException("La etiqueta de la fila no existe en la tabla");
         }
 
-        if(!estanTodasLasEtiquetas(etiquetasColumnasSel, etiquetasColumnas)){
-            throw new IllegalArgumentException("Hay una etiqueta de columna de las elegidas que no se encuentra en la tabla.");
+        if (!estanTodasLasEtiquetas(etiquetasColumnasSel, etiquetasColumnas)) {
+            throw new IllegalArgumentException(
+                    "Hay una etiqueta de columna de las elegidas que no se encuentra en la tabla.");
         }
         int indexFila = getIndex(etiquetaFila, etiquetasFilas);
         List<Celda<?>> fila = new ArrayList<>();
         for (Columna<?> col : columnas) {
             Etiqueta e = col.getEtiqueta();
-            if (tieneLaEtiqueta(e, etiquetasColumnasSel)){
+            if (tieneLaEtiqueta(e, etiquetasColumnasSel)) {
                 fila.add(col.getCeldas().get(indexFila));
             }
-            
+
         }
         return fila;
-    } 
+    }
 
-
-    public List<List<Celda<?>>> head(int cantidadFilas){ 
-        if (cantidadFilas < 0){
+    public List<List<Celda<?>>> head(int cantidadFilas) {
+        if (cantidadFilas < 0) {
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
         }
         List<List<Celda<?>>> primerasFilas = new ArrayList<>();
         List<Etiqueta> etiquetasPrimFilas = etiquetasFilas.subList(0, Math.min(cantidadFilas, etiquetasFilas.size()));
-        for (Etiqueta e : etiquetasPrimFilas){
+        for (Etiqueta e : etiquetasPrimFilas) {
             primerasFilas.add(getFila(e));
         }
         return primerasFilas;
     }
 
-    public List<List<Celda<?>>> tail(int cantidadFilas){
-        if (cantidadFilas < 0){
+    public List<List<Celda<?>>> tail(int cantidadFilas) {
+        if (cantidadFilas < 0) {
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
         }
         List<List<Celda<?>>> ultimasFilas = new ArrayList<>();
         int cantidadEquitasFilas = etiquetasFilas.size();
-        List<Etiqueta> etiquetasUltimasFilas = etiquetasFilas.subList(cantidadEquitasFilas - Math.min(cantidadFilas,cantidadEquitasFilas ), cantidadEquitasFilas);
-        for (Etiqueta e : etiquetasUltimasFilas){
+        List<Etiqueta> etiquetasUltimasFilas = etiquetasFilas
+                .subList(cantidadEquitasFilas - Math.min(cantidadFilas, cantidadEquitasFilas), cantidadEquitasFilas);
+        for (Etiqueta e : etiquetasUltimasFilas) {
             ultimasFilas.add(getFila(e));
         }
         return ultimasFilas;
     }
-
-   
-
 
     public void guardarTabla() {
 
@@ -415,21 +422,23 @@ public class Tabla implements Visualizable, Agrupable {
         return fila;
     }
 
-    // Función auxiliar para calcular el ancho máximo de cada columna (incluyendo los encabezados)
+    // Función auxiliar para calcular el ancho máximo de cada columna (incluyendo
+    // los encabezados)
     private int[] calcularAnchos(List<List<Celda<?>>> filas, List<Etiqueta> encabezados) {
-        int numColumnas = encabezados.size();  // Número de columnas es igual al tamaño de los encabezados
+        int numColumnas = encabezados.size(); // Número de columnas es igual al tamaño de los encabezados
         int[] anchos = new int[numColumnas];
 
-        // Calcular el ancho máximo de cada columna (tomando en cuenta los encabezados y las celdas)
+        // Calcular el ancho máximo de cada columna (tomando en cuenta los encabezados y
+        // las celdas)
         for (int i = 0; i < numColumnas; i++) {
             // Compara el tamaño del encabezado con las celdas en esa columna
             String header = encabezados.get(i).toString();
-            anchos[i] = header.length();  // Inicializa con el largo del encabezado
+            anchos[i] = header.length(); // Inicializa con el largo del encabezado
 
             // Recorre las filas y actualiza el ancho máximo para cada columna
             for (List<Celda<?>> fila : filas) {
                 String valor = fila.get(i).toString();
-                anchos[i] = Math.max(anchos[i], valor.length());  // Actualiza el máximo
+                anchos[i] = Math.max(anchos[i], valor.length()); // Actualiza el máximo
             }
         }
         return anchos;
@@ -443,15 +452,15 @@ public class Tabla implements Visualizable, Agrupable {
 
         // Crear la cadena centrada usando concatenación de cadenas
         String resultado = "";
-    
+
         // Agregar los espacios a la izquierda
         for (int i = 0; i < espaciosIzq; i++) {
             resultado += " ";
         }
-    
+
         // Agregar el texto centrado
         resultado += texto;
-    
+
         // Agregar los espacios a la derecha
         for (int i = 0; i < espaciosDer; i++) {
             resultado += " ";
@@ -484,15 +493,13 @@ public class Tabla implements Visualizable, Agrupable {
         System.out.println(separador);
     }
 
-
-
     // Método para imprimir una fila de celdas de manera centrada
     private void imprimirFila(List<Celda<?>> fila, int[] anchos) {
         String salida = " | ";
 
         for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
             String valorCelda = fila.get(nroColumna).toString();
-        
+
             // Centrar el texto de la celda según el ancho de la columna
             String textoCentrado = centrarTexto(valorCelda, anchos[nroColumna]);
             salida += textoCentrado;
@@ -501,14 +508,12 @@ public class Tabla implements Visualizable, Agrupable {
         System.out.println(salida);
     }
 
-    
-
     // Método para imprimir todas las filas y encabezados
     public void imprimirFilas(List<Etiqueta> etiquetasColumnas, List<List<Celda<?>>> filas) {
         if (!filas.isEmpty()) {
             // Calcular los anchos máximos de cada columna
             int[] anchos = calcularAnchos(filas, etiquetasColumnas);
-        
+
             // Imprimir los encabezados
             imprimirEncabezados(etiquetasColumnas, anchos);
 
@@ -558,11 +563,14 @@ public class Tabla implements Visualizable, Agrupable {
         return columnas.size();
     }
 
-    // metodos para agrupamiento
-    @Override
-    public Map<List<Object>, List<Integer>> agruparPor(List<Etiqueta> etiquetasColumnas) {
-        return OperacionesTabla.agruparPor(this, etiquetasColumnas);
-    }
+    /*
+     * // metodos para agrupamiento
+     * 
+     * @Override
+     * public Tabla agruparPor(List<Etiqueta> etiquetasColumnas) {
+     * return OperacionesTabla.agruparPor(this, etiquetasColumnas);
+     * }
+     */
 
     @Override
     public Tabla aplicarOperaciones(Map<List<Object>, List<Integer>> grupos, String operacion) {
@@ -645,4 +653,41 @@ public class Tabla implements Visualizable, Agrupable {
         return resultado;
     }
 
+    private Etiqueta copiarEtiqueta(EtiquetaCadena etiqueta) {
+        Etiqueta copiaEtiqueta = new EtiquetaCadena(etiqueta.getValor());
+        return copiaEtiqueta;
     }
+
+    private Etiqueta copiarEtiqueta(EtiquetaNumerica etiqueta) {
+        Etiqueta copiaEtiqueta = new EtiquetaNumerica(etiqueta.getValor());
+        return copiaEtiqueta;
+    }
+
+    // Método para realizar una copia independiente
+    public Tabla copiar() {
+        Tabla copia = new Tabla();
+
+        // Copiar etiquetas de las columnas
+        for (Etiqueta etiqueta : this.etiquetasColumnas) {
+            copia.etiquetasColumnas.add(this.copiarEtiqueta(etiqueta)));
+            //copia.etiquetasColumnas.add(etiqueta.copiar()); // Asumiendo que Etiqueta tiene un método copiar()
+        }
+
+        // Copiar etiquetas de las filas
+        for (Etiqueta etiqueta : etiquetasFilas) {
+            copia.etiquetasFilas.add(etiqueta.copiar()); // Asumiendo que Etiqueta tiene un método copiar()
+        }
+
+        // Copiar columnas
+        for (Columna<?> columna : columnas) {
+            Columna<?> copiaColumna = new Columna<>(columna.getEtiqueta().copiar(), columna.getTipoDeDato());
+            for (Celda<?> celda : columna.getCeldas()) {
+                copiaColumna.agregarCelda(new Celda<>(celda.getValor())); // Copiamos cada celda
+            }
+            copia.columnas.add(copiaColumna);
+        }
+
+        return copia;
+    }
+
+}
