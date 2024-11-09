@@ -42,17 +42,22 @@ public class Tabla implements Visualizable{
         }
     }
 
-    public void agregarColumna(Class<?> tipoDeDato, Columna<?> nuevaColumna) {
-        Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas()); // Etiqueta secuencial automática
+    public void agregarColumnaYC(Class<?> tipoDeDato, Etiqueta etiquetaColumna, Columna<?> nuevaColumna) {
         if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) {
             throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
         }
-        columnas.add(nuevaColumna);
-        etiquetasColumnas.add(etiquetaColumna);
-        // Añadir celdas "NA" en la nueva columna si ya existen filas
-        for (int i = 0; i < etiquetasFilas.size(); i++) {
-            nuevaColumna.agregarCelda(new Celda<>(null)); // Asignar NA
+        if(this.getCantidadFilas() == 0){
+            //
         }
+        if(nuevaColumna.getCantidadCeldas() == this.getCantidadFilas() ){
+            columnas.add(nuevaColumna);
+            etiquetasColumnas.add(etiquetaColumna);
+        }else if(nuevaColumna.getCantidadCeldas() > this.getCantidadFilas()){
+            //Llenamos los espacios con NA?
+        }else if(nuevaColumna.getCantidadCeldas() < this.getCantidadColumnas()){
+            //llenamos los espacios con NA?
+        }
+        
     }
 
     public void eliminarColumna(Etiqueta e) {

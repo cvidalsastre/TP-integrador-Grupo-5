@@ -42,6 +42,15 @@ public class Columna<T> {
         this.celdas = nuevasCeldas;
     }
 
+    public int getCantidadCeldas(){
+        int cont = 0;
+        for(Celda<T> celda : celdas){
+            cont++;
+        }
+        return cont;
+    }
+
+
 
     @Override
     public String toString() {
