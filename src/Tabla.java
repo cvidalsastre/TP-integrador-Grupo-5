@@ -916,4 +916,67 @@ public class Tabla implements Visualizable{
             throw new IllegalArgumentException("Tipo de etiqueta no soportado");
         }
     } 
+
+
+
+
+    public static Tabla leerDesdeCsv(String path){
+        return Tabla.leerDesdeCsv(path, true, ",");
+
+    }
+
+    public static Tabla leerDesdeCsv(String path,boolean includeHeaders,String dataSeparator) {
+
+
+        double startTime = System.currentTimeMillis(); // Start timing
+        CsvReader reader = new CsvReader();
+        List<List<String>> listaDeColumnasCsv = reader.leerCSV(path, includeHeaders,dataSeparator );
+        List<Class<?>> tiposDeColumnas = reader.identificarTipos(listaDeColumnasCsv);
+    
+        Tabla tabla = new Tabla();
+    
+        // Add columns to the Tabla
+        for (int j = 0; j < listaDeColumnasCsv.size(); j++) {
+            Class<?> tipo = tiposDeColumnas.get(j);
+            Etiqueta etiquetaColumna = new EtiquetaCadena(listaDeColumnasCsv.get(j).get(0)); // Use header as label
+            tabla.agregarColumna(tipo, etiquetaColumna);
+        }
+    
+        // Add rows to the Tabla, skipping the header row
+        for (int i = 1; i < listaDeColumnasCsv.get(0).size(); i++) { // Iterate over rows, starting from 1
+            List<Celda<?>> celdas = new ArrayList<>();
+            for (int j = 0; j < listaDeColumnasCsv.size(); j++) { // Iterate over columns
+                String elemento = listaDeColumnasCsv.get(j).get(i);
+                Class<?> tipo = tiposDeColumnas.get(j);
+    
+                try {
+                    if (tipo == Boolean.class) {
+                        Boolean valor = Boolean.parseBoolean(elemento);
+                        celdas.add(new Celda<>(valor));
+                    } else if (tipo == Double.class) {
+                        Double valor = Double.parseDouble(elemento);
+                        celdas.add(new Celda<>(valor));
+                    } else {
+                        celdas.add(new Celda<>(elemento));
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Error parsing element at row " + i + ", column " + j + ": " + elemento);
+                    celdas.add(new Celda<>(null)); // Add null if parsing fails
+                }
+            }
+            tabla.agregarFila(celdas);
+        }
+        long endTime = System.currentTimeMillis(); // End timing
+        double duration = ((endTime - startTime))/1000 ;// Calculate duration
+        System.out.println("Tiempo de carga del CSV: " + String.format("%.2f", duration) + " Segundos");
+        System.out.println("Cantida de filas cargadas: " + (tabla.getCantidadFilas())); 
+        System.out.println("Cantidad de columnas: " + listaDeColumnasCsv.size());
+
+
+
+        return tabla;
+    }
+    
+    
+    
 }
