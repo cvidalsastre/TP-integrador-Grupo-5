@@ -109,7 +109,7 @@ public class TestCopia {
         col.agregarCelda(c22);
 
 
-        t.agregarColumnaYC(String.class, e10, col);
+        t.agregarColumnaYC(e10, col);
 
         System.out.println("Cantidad de filas: " + t.getCantidadFilas());
         System.out.println("Cantidad de columnas: " + t.getCantidadColumnas());
@@ -120,6 +120,11 @@ public class TestCopia {
         System.out.println(t.getColumnas());
 
 
+        Tabla t2 = t.copiarTabla();
+
+        System.out.println("Te muestro las columnas de la tabla copiada");
+        System.out.println(t2.getColumnas());
+        
 
 
     }

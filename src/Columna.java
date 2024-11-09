@@ -41,6 +41,7 @@ public class Columna<T> {
     public void setCeldas(List<Celda<T>> nuevasCeldas) {
         this.celdas = nuevasCeldas;
     }
+    
 
     public int getCantidadCeldas(){
         int cont = 0;

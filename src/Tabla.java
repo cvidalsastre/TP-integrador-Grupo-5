@@ -878,16 +878,16 @@ public class Tabla implements Visualizable{
     
             // Copiar las celdas de la columna original a la nueva columna
             List<? extends Celda<?>> celdasOriginales = columnaOriginal.getCeldas();  // Captura celdas con cualquier tipo
-            List<Celda<?>> nuevasCeldas = new ArrayList<>();
+            //List<Celda<?>> nuevasCeldas = new ArrayList<>();
     
             for (Celda<?> celdaOriginal : celdasOriginales) {
                 // Crear una nueva celda con el mismo valor
-                nuevasCeldas.add(copiarCeldaGenerica(celdaOriginal));
+                //nuevasCeldas.add(copiarCelda(celdaOriginal));
+                Celda<?> nuevaCelda = new Celda<>(celdaOriginal.getValor());
+                //nuevasCeldas.add(nuevaCelda);
+                nuevaColumna.agregarCelda(nuevaCelda);
             }
-    
-            // Hacer el cast correcto para que coincida con el tipo genérico de la columna
-            setCeldasGenerico2(nuevaColumna, nuevasCeldas);
-    
+           
             // Agregar la nueva columna a la tabla copiada
             copia.columnas.add(nuevaColumna);
         }
@@ -915,22 +915,5 @@ public class Tabla implements Visualizable{
         } else {
             throw new IllegalArgumentException("Tipo de etiqueta no soportado");
         }
-    }
-
-        // Método auxiliar para copiar una celda genérica
-    @SuppressWarnings("unchecked")
-    public <T> Celda<T> copiarCeldaGenerica(Celda<?> celdaOriginal) {
-        Object valor = celdaOriginal.getValor();
-        if (valor != null && !valor.getClass().equals(Object.class)) {
-            return new Celda<>((T) valor);
-        }
-        throw new ClassCastException("No se puede convertir el valor de la celda al tipo genérico.");
-    }    
-    // Método para hacer el cast de celdas genéricas y asignarlas a la columna correcta
-    @SuppressWarnings("unchecked")
-    private <T> void setCeldasGenerico2(Columna<T> columna, List<Celda<?>> celdasOrdenadas) {
-        columna.setCeldas((List<Celda<T>>) (List<?>) celdasOrdenadas);
-    }
-    
-
+    } 
 }
