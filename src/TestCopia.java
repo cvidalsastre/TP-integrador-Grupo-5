@@ -94,14 +94,20 @@ public class TestCopia {
         Celda<String> c18 = new Celda<>("Colombia");
         Celda<String> c19 = new Celda<>("Brasil");
         Celda<String> c20 = new Celda<>("Chile");
+        Celda<String> c22 = new Celda<>("Paraguay");
+
+        
 
         Etiqueta e10 = new EtiquetaCadena("Pais");
 
         Columna<String> col = new Columna<String>(e10, String.class);
+
         col.agregarCelda(c17);
         col.agregarCelda(c18);
         col.agregarCelda(c19);
         col.agregarCelda(c20);
+        col.agregarCelda(c22);
+
 
         t.agregarColumnaYC(String.class, e10, col);
 

@@ -41,23 +41,33 @@ public class Tabla implements Visualizable{
             nuevaColumna.agregarCelda(new Celda<>(null)); // Asignar NA
         }
     }
-
-    public void agregarColumnaYC(Class<?> tipoDeDato, Etiqueta etiquetaColumna, Columna<?> nuevaColumna) {
+//Agregar columnas a partir de una columna ya creada : 
+//SIN ETIQUETA
+    public void agregarColumnaYC(Columna<?> nuevaColumna){
+        Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas()); // Etiqueta secuencial automática
+        agregarColumnaYC(etiquetaColumna, nuevaColumna);
+    }
+//CON ETIQUETA
+    public void agregarColumnaYC(Etiqueta etiquetaColumna, Columna<?> nuevaColumna) {
         if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) {
             throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
-        }
-        if(this.getCantidadFilas() == 0){
-            //
         }
         if(nuevaColumna.getCantidadCeldas() == this.getCantidadFilas() ){
             columnas.add(nuevaColumna);
             etiquetasColumnas.add(etiquetaColumna);
         }else if(nuevaColumna.getCantidadCeldas() > this.getCantidadFilas()){
-            //Llenamos los espacios con NA?
+            for (int i = 0; i < nuevaColumna.getCantidadCeldas() - this.getCantidadFilas(); i++) {
+                this.agregarFila();
+            }
+            columnas.add(nuevaColumna);
+            etiquetasColumnas.add(etiquetaColumna);
         }else if(nuevaColumna.getCantidadCeldas() < this.getCantidadColumnas()){
-            //llenamos los espacios con NA?
+            for(int i= (nuevaColumna.getCantidadCeldas()) ; i<this.getCantidadColumnas(); i++){
+                nuevaColumna.agregarCelda(new Celda<>(null));
+            }
+            columnas.add(nuevaColumna);
+            etiquetasColumnas.add(etiquetaColumna);
         }
-        
     }
 
     public void eliminarColumna(Etiqueta e) {
