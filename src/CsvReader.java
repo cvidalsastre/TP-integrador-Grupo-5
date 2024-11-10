@@ -61,13 +61,17 @@ public class CsvReader {
     }
 
     
-    public List<Class<?>> identificarTipos(List<List<String>> datosPorColumna) {
+ 
+    public List<Class<?>> identificarTipos(List<List<String>> datosPorColumna,boolean includeHeaders) {
         List<Class<?>> tipos = new ArrayList<>();
     
         for (List<String> columna : datosPorColumna) {
-            Class<?> tipo = String.class; // Default type
-    
-            for (String elemento : columna) {
+            Class<?> tipo = String.class; // Tipo por defecto
+    // Determinar el índice de inicio basado en includeHeaders
+    int startIndex = includeHeaders ? 1 : 0;
+            // Ignorar el primer elemento (encabezado)
+            for (int i = startIndex; i < columna.size(); i++) {
+                String elemento = columna.get(i);
                 if (elemento.equalsIgnoreCase("true") || elemento.equalsIgnoreCase("false")) {
                     tipo = Boolean.class;
                     break;
@@ -78,7 +82,6 @@ public class CsvReader {
                         break;
                     } catch (NumberFormatException e) {
                         tipo = String.class;
-                        tipos.add(tipo);
                     }
                 }
             }
