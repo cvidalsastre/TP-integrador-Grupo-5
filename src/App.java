@@ -11,11 +11,7 @@ public class App {
         Tabla tabla1 = new Tabla();
         // Agregar columnas y filas a la tabla...
 
-        List<Etiqueta> columnasClave = Arrays.asList(new EtiquetaCadena("Categoria"), new EtiquetaCadena("Region"));
-        Map<List<Object>, List<Integer>> grupos = tabla1.agruparPor(columnasClave);
-
-        Tabla resultado = tabla1.aplicarOperaciones(grupos, "suma");
-        resultado.visualizar(10, 5, 15);
+      
 
         System.out.println();
         System.out.println("Chequeando cantidad de filas y columnas de una tabla vacia");
