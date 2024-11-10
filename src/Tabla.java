@@ -8,7 +8,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Map;  
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import enums.OperacionEstadistica;  
 
 public class Tabla implements Visualizable{
 
@@ -436,6 +440,14 @@ public class Tabla implements Visualizable{
     // Obtener una fila completa
     public List<Celda<?>> getFila(Etiqueta etiquetaFila) {
         int indexFila = getIndex(etiquetaFila, etiquetasFilas);
+        List<Celda<?>> fila = new ArrayList<>();
+        for (Columna<?> col : columnas) {
+            fila.add(col.getCeldas().get(indexFila));
+        }
+        return fila;
+    }
+
+    public List<Celda<?>> getFila(int indexFila) {
         List<Celda<?>> fila = new ArrayList<>();
         for (Columna<?> col : columnas) {
             fila.add(col.getCeldas().get(indexFila));
@@ -972,7 +984,6 @@ public class Tabla implements Visualizable{
         CsvReader reader = new CsvReader();
         List<List<String>> listaDeColumnasCsv = reader.leerCSV(path, includeHeaders,dataSeparator );
         List<Class<?>> tiposDeColumnas = reader.identificarTipos(listaDeColumnasCsv,includeHeaders);
-    
         Tabla tabla = new Tabla();
     
         // Add columns to the Tabla
@@ -1048,7 +1059,81 @@ public class Tabla implements Visualizable{
             e.printStackTrace();
         }
     }
+    public Tabla agruparYSumarizar(List<Etiqueta> etiquetasColumnasAgrupamiento, OperacionEstadistica operacion) {
+        // Crear una nueva tabla para almacenar los resultados
+        Tabla tablaResultado = new Tabla();
     
+        // Obtener las columnas que no son parte del agrupamiento y son numéricas
+        List<Columna<?>> columnasNumericas = columnas.stream()
+            .filter(col -> !etiquetasColumnasAgrupamiento.contains(col.getEtiqueta()) && Number.class.isAssignableFrom(col.getTipoDeDato()))
+            .collect(Collectors.toList());
+    
+        // Crear un mapa para almacenar los grupos y sus filas
+        Map<String, List<List<Celda<?>>>> grupos = new HashMap<>();
+    
+        // Agrupar las filas
+        for (int i = 0; i < getCantidadFilas(); i++) {
+            List<Celda<?>> fila = getFila(i);
+            String claveGrupo = etiquetasColumnasAgrupamiento.stream()
+                .map(etiqueta -> fila.get(getIndex(etiqueta, etiquetasColumnas)).toString())
+                .collect(Collectors.joining(","));
+            grupos.computeIfAbsent(claveGrupo, k -> new ArrayList<>()).add(fila);
+        }
+    
+        // Agregar las columnas numéricas a la nueva tabla
+        for (Columna<?> columna : columnasNumericas) {
+            tablaResultado.agregarColumna(columna.getTipoDeDato(), columna.getEtiqueta());
+        }
+    
+        // Aplicar la operación de sumarización a cada grupo
+        for (Map.Entry<String, List<List<Celda<?>>>> entry : grupos.entrySet()) {
+            String claveGrupo = entry.getKey();
+            List<List<Celda<?>>> filasGrupo = entry.getValue();
+    
+            // Crear una nueva fila para almacenar los resultados del grupo
+            List<Celda<?>> nuevaFila = new ArrayList<>();
+            for (Columna<?> columna : columnasNumericas) {
+                List<Number> valores = filasGrupo.stream()
+                    .map(fila -> (Number) fila.get(getIndex(columna.getEtiqueta(), etiquetasColumnas)).getValor())
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+    
+                Number resultado = aplicarOperacion(valores, operacion);
+                nuevaFila.add(new Celda<>(resultado));
+            }
+    
+            // Agregar la fila de resultados a la nueva tabla
+            tablaResultado.agregarFila(nuevaFila, new EtiquetaCadena(claveGrupo));
+        }
+    
+        return tablaResultado;
+    }
+    
+
+    private Number aplicarOperacion(List<Number> valores, OperacionEstadistica operacion) {
+        double media = valores.stream().mapToDouble(Number::doubleValue).average().orElse(Double.NaN);
+        //  los valores se podrian definir con ENUM
+        switch (operacion) {
+            case SUMA:
+                return valores.stream().mapToDouble(Number::doubleValue).sum();
+            case MAXIMO:
+                return valores.stream().mapToDouble(Number::doubleValue).max().orElse(Double.NaN);
+            case MINIMO:
+                return valores.stream().mapToDouble(Number::doubleValue).min().orElse(Double.NaN);
+            case CUENTA:
+                return valores.size();
+            case MEDIA:
+                return valores.stream().mapToDouble(Number::doubleValue).average().orElse(Double.NaN);
+            case  VARIANZA:
+                return valores.stream().mapToDouble(Number::doubleValue).map(v -> Math.pow(v - media, 2)).average().orElse(Double.NaN);
+            case DESVIO_ESTANDAR:
+                double varianza = valores.stream().mapToDouble(Number::doubleValue).map(v -> Math.pow(v - media, 2)).average().orElse(Double.NaN);
+                return Math.sqrt(varianza);
+            default:
+                throw new IllegalArgumentException("Operación no soportada: " + operacion);
+        }
+    }
+
     
     
 }
