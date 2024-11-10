@@ -23,15 +23,10 @@ public class TestFiltrado {
         fila3.add(new Celda<>("Luis"));
         tabla.agregarFila(fila3);
 
-        // Crear filtros
-        List<Filtro<Integer>> filtros = new ArrayList<>();
-        filtros.add(new Filtro<>(new EtiquetaCadena("Edad"), ">", 22));
-
-        // Aplicar filtros
-        Tabla resultado = tabla.filtrar(filtros);
+        // Aplicar filtros directamente a la columna "Edad"
+        Tabla resultado = tabla.filtrar(new EtiquetaCadena("Edad"), 30, "=");
 
         // Visualizar resultado
         resultado.visualizar(10, 2, 15);
-
     }
 }
