@@ -1,0 +1,35 @@
+import java.util.Arrays;
+import enums.OperacionEstadistica;
+
+public class TestAgruparYSumarizar {
+    public static void main(String[] args) {
+        // Crear una instancia de Tabla
+        Tabla tabla = new Tabla();
+
+        // Agregar columnas a la tabla
+        tabla.agregarColumna(String.class, new EtiquetaCadena("Grupo"));
+        tabla.agregarColumna(Double.class, new EtiquetaCadena("Valor1"));
+        tabla.agregarColumna(Double.class, new EtiquetaCadena("Valor2"));
+
+        // Agregar filas a la tabla
+        tabla.agregarFila(Arrays.asList(new Celda<>("A"), new Celda<>(10.0), new Celda<>(20.0)));
+        tabla.agregarFila(Arrays.asList(new Celda<>("A"), new Celda<>(15.0), new Celda<>(25.0)));
+        tabla.agregarFila(Arrays.asList(new Celda<>("B"), new Celda<>(30.0), new Celda<>(40.0)));
+        tabla.agregarFila(Arrays.asList(new Celda<>("B"), new Celda<>(35.0), new Celda<>(45.0)));
+        tabla.agregarFila(Arrays.asList(new Celda<>("C"), new Celda<>(50.0), new Celda<>(60.0)));
+
+        // Agrupar y sumarizar por la columna "Grupo" con la operación "suma"
+        Tabla tablaAgrupada = tabla.agruparYSumarizar(Arrays.asList(new EtiquetaCadena("Grupo")), OperacionEstadistica.SUMA);
+
+        // Visualizar la tabla agrupada
+        tablaAgrupada.visualizar2(10,10,10);
+
+        // Agrupar y sumarizar por la columna "Grupo" con la operación "media"
+        Tabla tablaAgrupadaMedia = tabla.agruparYSumarizar(Arrays.asList(new EtiquetaCadena("Grupo")),OperacionEstadistica.DESVIO_ESTANDAR);
+
+        // Visualizar la tabla agrupada con la operación "media"
+        tablaAgrupadaMedia.visualizar2(10,10,10);
+
+        
+    }
+}
