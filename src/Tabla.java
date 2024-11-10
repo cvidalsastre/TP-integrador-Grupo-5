@@ -733,7 +733,7 @@ public class Tabla implements Visualizable{
     public <T> Columna<T> getColumna(Etiqueta etiquetaColumna) {
         for (Columna<?> col : columnas) {
             if (col.getEtiqueta().getValor().equals(etiquetaColumna.getValor())) {
-                return (Columna<T>) col; // Cast explícito pero con supresión de warnings
+                return (Columna<T>) col; //
             }
         }
         throw new IllegalArgumentException("Columna no encontrada");
@@ -829,36 +829,71 @@ public class Tabla implements Visualizable{
         columna.setCeldas((List<Celda<T>>) (List<?>) celdasOrdenadas);
     }
 
-    // método filtrar en Tabla debe trabajar con la clase Filtro parametrizada
-    public <T extends Comparable<T>> Tabla filtrar(List<Filtro<T>> filtros) {
+    public <T extends Comparable<T>> Tabla filtrar(Etiqueta etiquetaColumna, T valorReferencia, String operador) {
         Tabla resultado = new Tabla();
         // Copiar la estructura de columnas a la tabla resultado
-        for (Columna<?> columna : this.columnas) {
+        for (Columna<?> columna : this.getColumnas()) {
             resultado.agregarColumna(columna.getTipoDeDato(), columna.getEtiqueta());
         }
 
-        for (int i = 0; i < getCantidadFilas(); i++) {
-            boolean cumpleTodos = true;
-            for (Filtro<T> filtro : filtros) {
-                Columna<T> columna = (Columna<T>) getColumna(filtro.getColumna());
-                Celda<T> celda = columna.getCeldas().get(i);
-                if (!filtro.evaluar(celda)) {
-                    cumpleTodos = false;
-                    break;
-                }
-            }
+        Columna<T> columna = getColumna(etiquetaColumna);
+        if (columna == null) {
+            throw new IllegalArgumentException("Columna no encontrada: " + etiquetaColumna);
+        }
 
-            if (cumpleTodos) {
+        for (int i = 0; i < getCantidadFilas(); i++) {
+            Celda<T> celda = columna.getCeldas().get(i);
+            if (evaluarCelda(celda, valorReferencia, operador)) {
                 List<Celda<?>> nuevaFila = new ArrayList<>();
-                for (Columna<?> columna : this.columnas) {
-                    nuevaFila.add(columna.getCeldas().get(i));
+                for (Columna<?> col : this.getColumnas()) {
+                    nuevaFila.add(col.getCeldas().get(i));
                 }
                 resultado.agregarFila(nuevaFila);
             }
         }
         return resultado;
     }
-
+    private <T extends Comparable<T>> boolean evaluarCelda(Celda<T> celda, T valorReferencia, String operador) {
+        if (celda.esNA()) {
+            return false;
+        }
+    
+        T valorCelda = celda.getValor(); // Obtener el valor de la celda
+        if (celda.getTipo().equals(String.class)) {
+            String valorCeldaStr = (String) valorCelda;
+            String valorReferenciaStr = valorReferencia.toString();
+            return valorCeldaStr.equals(valorReferenciaStr);
+        }
+    
+        if (valorCelda instanceof Number && valorReferencia instanceof Number) {
+            Double valorCeldaDouble = ((Number) valorCelda).doubleValue();
+            Double valorReferenciaDouble = ((Number) valorReferencia).doubleValue();
+            int comparacion = valorCeldaDouble.compareTo(valorReferenciaDouble);
+            switch (operador) {
+                case "<":
+                    return comparacion < 0;
+                case ">":
+                    return comparacion > 0;
+                case "=":
+                    return comparacion == 0;
+                default:
+                    throw new IllegalArgumentException("Operador no soportado: " + operador);
+            }
+        }
+    
+        int comparacion = valorCelda.compareTo(valorReferencia);
+        switch (operador) {
+            case "<":
+                return comparacion < 0;
+            case ">":
+                return comparacion > 0;
+            case "=":
+                return comparacion == 0;
+            default:
+                throw new IllegalArgumentException("Operador no soportado: " + operador);
+        }
+    }
+    
     /////////////////// ROCIO *********************************
     public Tabla copiarTabla() {
         // Crear una nueva instancia de Tabla
@@ -931,7 +966,7 @@ public class Tabla implements Visualizable{
         double startTime = System.currentTimeMillis(); // Start timing
         CsvReader reader = new CsvReader();
         List<List<String>> listaDeColumnasCsv = reader.leerCSV(path, includeHeaders,dataSeparator );
-        List<Class<?>> tiposDeColumnas = reader.identificarTipos(listaDeColumnasCsv);
+        List<Class<?>> tiposDeColumnas = reader.identificarTipos(listaDeColumnasCsv,includeHeaders);
     
         Tabla tabla = new Tabla();
     
@@ -960,7 +995,6 @@ public class Tabla implements Visualizable{
                         celdas.add(new Celda<>(elemento));
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Error parsing element at row " + i + ", column " + j + ": " + elemento);
                     celdas.add(new Celda<>(null)); // Add null if parsing fails
                 }
             }
