@@ -30,6 +30,7 @@ public class TestLeerCsv {
         System.out.println("Los 5 pokemons de tipo Planta mas pesados con peso mayor a 100 kilos");
         pokemonPesadoPlanta.visualizar(100, 20,10);
         
+        pokemonPesadoPlanta.guardarTabla("temp/pokemonsPlanta.csv");
    
     }
 }

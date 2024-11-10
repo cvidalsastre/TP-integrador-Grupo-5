@@ -1,9 +1,14 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map;  
 
 public class Tabla implements Visualizable{
 
@@ -1009,6 +1014,39 @@ public class Tabla implements Visualizable{
 
 
         return tabla;
+    }
+
+  
+    public void guardarTabla(String rutaArchivo) {
+        try {
+            // Crear el directorio si no existe
+            Files.createDirectories(Paths.get(rutaArchivo).getParent());
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
+                // Escribir encabezados
+                for (int i = 0; i < etiquetasColumnas.size(); i++) {
+                    writer.write(etiquetasColumnas.get(i).getValor().toString());
+                    if (i < etiquetasColumnas.size() - 1) {
+                        writer.write(",");
+                    }
+                }
+                writer.newLine();
+
+                // Escribir filas
+                for (int i = 0; i < getCantidadFilas(); i++) {
+                    for (int j = 0; j < columnas.size(); j++) {
+                        Celda<?> celda = columnas.get(j).getCeldas().get(i);
+                        writer.write(celda.getValor() != null ? celda.getValor().toString() : "");
+                        if (j < columnas.size() - 1) {
+                            writer.write(",");
+                        }
+                    }
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     
