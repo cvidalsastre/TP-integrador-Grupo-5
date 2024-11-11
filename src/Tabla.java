@@ -11,9 +11,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import enums.OperacionEstadistica;  
+import enums.OperacionEstadistica;
 
-public class Tabla implements Visualizable,Agrupable,Ordenable{
+public class Tabla implements Visualizable, Agrupable, Ordenable {
 
     private List<Columna<?>> columnas;
     private List<Etiqueta> etiquetasFilas;
@@ -49,28 +49,30 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
             nuevaColumna.agregarCelda(new Celda<>(null)); // Asignar NA
         }
     }
-//Agregar columnas a partir de una columna ya creada : 
-//SIN ETIQUETA
-    public void agregarColumnaYC(Columna<?> nuevaColumna){
+
+    // Agregar columnas a partir de una columna ya creada :
+    // SIN ETIQUETA
+    public void agregarColumnaYC(Columna<?> nuevaColumna) {
         Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas()); // Etiqueta secuencial automática
         agregarColumnaYC(etiquetaColumna, nuevaColumna);
     }
-//CON ETIQUETA
+
+    // CON ETIQUETA
     public void agregarColumnaYC(Etiqueta etiquetaColumna, Columna<?> nuevaColumna) {
         if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) {
             throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
         }
-        if(nuevaColumna.getCantidadCeldas() == this.getCantidadFilas() ){
+        if (nuevaColumna.getCantidadCeldas() == this.getCantidadFilas()) {
             columnas.add(nuevaColumna);
             etiquetasColumnas.add(etiquetaColumna);
-        }else if(nuevaColumna.getCantidadCeldas() > this.getCantidadFilas()){
+        } else if (nuevaColumna.getCantidadCeldas() > this.getCantidadFilas()) {
             for (int i = 0; i < nuevaColumna.getCantidadCeldas() - this.getCantidadFilas(); i++) {
                 this.agregarFila();
             }
             columnas.add(nuevaColumna);
             etiquetasColumnas.add(etiquetaColumna);
-        }else if(nuevaColumna.getCantidadCeldas() < this.getCantidadColumnas()){
-            for(int i= (nuevaColumna.getCantidadCeldas()) ; i<this.getCantidadColumnas(); i++){
+        } else if (nuevaColumna.getCantidadCeldas() < this.getCantidadColumnas()) {
+            for (int i = (nuevaColumna.getCantidadCeldas()); i < this.getCantidadColumnas(); i++) {
                 nuevaColumna.agregarCelda(new Celda<>(null));
             }
             columnas.add(nuevaColumna);
@@ -513,7 +515,6 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
         return ultimasFilas;
     }
 
-
     public List<Fila> muestreo2(float porcentaje) {
         if (porcentaje < 0.0 || porcentaje > 100.0) {
             throw new IllegalArgumentException("El porcentaje va de 0 a 100.");
@@ -533,12 +534,11 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
         copiaEtiquetasFilas = copiaEtiquetasFilas.subList(0, Math.min(tamanio, copiaEtiquetasFilas.size()));
 
         for (Etiqueta e : copiaEtiquetasFilas) {
-            Fila nuevaFila = new Fila(e, getFila2(e).getCeldasFila(), etiquetasColumnas); 
-            filasRandom.add( nuevaFila);
+            Fila nuevaFila = new Fila(e, getFila2(e).getCeldasFila(), etiquetasColumnas);
+            filasRandom.add(nuevaFila);
         }
         return filasRandom;
     }
-
 
     public List<Fila> seleccionParcial2(List<Etiqueta> seleccionEtiquetasFilas,
             List<Etiqueta> seleccionEtiquetasColumnas) {
@@ -559,12 +559,11 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
         List<Etiqueta> etiquetasFilasSelec = conservarLasQueComparten(seleccionEtiquetasFilas, etiquetasFilas);
         for (Etiqueta e : etiquetasFilasSelec) {
             System.out.println("pppp" + etiquetasColumnasSelec);
-            
+
             tablaRebanada.add(getFilaAcotada2(e, etiquetasColumnasSelec));
         }
         return tablaRebanada;
     }
-
 
     public void imprimirEncabezados2(List<Etiqueta> etiquetas) {
         String salida = " | ";
@@ -591,7 +590,7 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
     }
 
     private String filaACadena2(Fila fila, int maxColumnas, int maxLargoCadena) {
-        String salida = "*"+ fila.getEtiquetaFila().toString() +"*" + " | ";
+        String salida = "*" + fila.getEtiquetaFila().toString() + "*" + " | ";
         maxColumnas = Math.min(maxColumnas, fila.getCeldasFila().size());
 
         for (int nroColumna = 0; nroColumna < maxColumnas; nroColumna++) {
@@ -785,7 +784,6 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
         return columnas.size();
     }
 
-   
     // Implementar un Método de Ordenación
     @Override
     public <T extends Comparable<T>> Tabla ordenarPor(Etiqueta etiquetaColumna, boolean ascendente) {
@@ -815,7 +813,8 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
             tablaOrdenada.agregarColumna(col.getTipoDeDato(), col.getEtiqueta());
         }
 
-        // Reordenar las celdas en cada columna según los nuevos índices y agregarlas a la nueva tabla
+        // Reordenar las celdas en cada columna según los nuevos índices y agregarlas a
+        // la nueva tabla
         for (Columna<?> col : columnas) {
             reordenarCeldas(tablaOrdenada, col, indices);
         }
@@ -830,20 +829,16 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
         return tablaOrdenada;
     }
 
-
-        // Método para reordenar las celdas de una columna según los nuevos índices y agregarlas a la nueva tabla
-        private <T> void reordenarCeldas(Tabla tablaOrdenada, Columna<T> columnaOriginal, List<Integer> indices) {
-            List<Celda<T>> celdasOrdenadas = new ArrayList<>();
-            for (int indice : indices) {
-                celdasOrdenadas.add(columnaOriginal.getCeldas().get(indice));
-            }
-            Columna<T> columnaOrdenada = tablaOrdenada.getColumna(columnaOriginal.getEtiqueta());
-            columnaOrdenada.setCeldas(celdasOrdenadas);
+    // Método para reordenar las celdas de una columna según los nuevos índices y
+    // agregarlas a la nueva tabla
+    private <T> void reordenarCeldas(Tabla tablaOrdenada, Columna<T> columnaOriginal, List<Integer> indices) {
+        List<Celda<T>> celdasOrdenadas = new ArrayList<>();
+        for (int indice : indices) {
+            celdasOrdenadas.add(columnaOriginal.getCeldas().get(indice));
         }
-
-  
-    
-  
+        Columna<T> columnaOrdenada = tablaOrdenada.getColumna(columnaOriginal.getEtiqueta());
+        columnaOrdenada.setCeldas(celdasOrdenadas);
+    }
 
     public <T extends Comparable<T>> Tabla filtrar(Etiqueta etiquetaColumna, T valorReferencia, String operador) {
         Tabla resultado = new Tabla();
@@ -869,18 +864,19 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
         }
         return resultado;
     }
+
     private <T extends Comparable<T>> boolean evaluarCelda(Celda<T> celda, T valorReferencia, String operador) {
         if (celda.esNA()) {
             return false;
         }
-    
+
         T valorCelda = celda.getValor(); // Obtener el valor de la celda
         if (celda.getTipo().equals(String.class)) {
             String valorCeldaStr = (String) valorCelda;
             String valorReferenciaStr = valorReferencia.toString();
             return valorCeldaStr.equals(valorReferenciaStr);
         }
-    
+
         if (valorCelda instanceof Number && valorReferencia instanceof Number) {
             Double valorCeldaDouble = ((Number) valorCelda).doubleValue();
             Double valorReferenciaDouble = ((Number) valorReferencia).doubleValue();
@@ -896,7 +892,7 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
                     throw new IllegalArgumentException("Operador no soportado: " + operador);
             }
         }
-    
+
         int comparacion = valorCelda.compareTo(valorReferencia);
         switch (operador) {
             case "<":
@@ -909,50 +905,52 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
                 throw new IllegalArgumentException("Operador no soportado: " + operador);
         }
     }
-    
+
     /////////////////// ROCIO *********************************
     public Tabla copiarTabla() {
         // Crear una nueva instancia de Tabla
         Tabla copia = new Tabla();
-    
+
         // Copiar las etiquetas de filas
         List<Etiqueta> nuevasEtiquetasFilas = new ArrayList<>();
         for (Etiqueta etiqueta : this.etiquetasFilas) {
             nuevasEtiquetasFilas.add(copiarEtiqueta(etiqueta)); // Usamos el método copiarEtiqueta
         }
         copia.etiquetasFilas = nuevasEtiquetasFilas;
-    
+
         // Copiar las columnas
         for (Columna<?> columnaOriginal : this.columnas) {
             // Crear una nueva columna con el mismo tipo y etiqueta
-            Columna<?> nuevaColumna = new Columna<>(copiarEtiqueta(columnaOriginal.getEtiqueta()), columnaOriginal.getTipoDeDato());
-    
+            Columna<?> nuevaColumna = new Columna<>(copiarEtiqueta(columnaOriginal.getEtiqueta()),
+                    columnaOriginal.getTipoDeDato());
+
             // Copiar las celdas de la columna original a la nueva columna
-            List<? extends Celda<?>> celdasOriginales = columnaOriginal.getCeldas();  // Captura celdas con cualquier tipo
-            //List<Celda<?>> nuevasCeldas = new ArrayList<>();
-    
+            List<? extends Celda<?>> celdasOriginales = columnaOriginal.getCeldas(); // Captura celdas con cualquier
+                                                                                     // tipo
+            // List<Celda<?>> nuevasCeldas = new ArrayList<>();
+
             for (Celda<?> celdaOriginal : celdasOriginales) {
                 // Crear una nueva celda con el mismo valor
-                //nuevasCeldas.add(copiarCelda(celdaOriginal));
+                // nuevasCeldas.add(copiarCelda(celdaOriginal));
                 Celda<?> nuevaCelda = new Celda<>(celdaOriginal.getValor());
-                //nuevasCeldas.add(nuevaCelda);
+                // nuevasCeldas.add(nuevaCelda);
                 nuevaColumna.agregarCelda(nuevaCelda);
             }
-           
+
             // Agregar la nueva columna a la tabla copiada
             copia.columnas.add(nuevaColumna);
         }
-    
+
         // Copiar las etiquetas de las columnas
         List<Etiqueta> nuevasEtiquetasColumnas = new ArrayList<>();
         for (Etiqueta etiqueta : this.etiquetasColumnas) {
             nuevasEtiquetasColumnas.add(copiarEtiqueta(etiqueta)); // Usamos el método copiarEtiqueta
         }
         copia.etiquetasColumnas = nuevasEtiquetasColumnas;
-    
+
         return copia;
     }
-    
+
     // Método auxiliar para copiar una etiqueta
     private Etiqueta copiarEtiqueta(Etiqueta etiqueta) {
         if (etiqueta instanceof EtiquetaNumerica) {
@@ -966,12 +964,9 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
         } else {
             throw new IllegalArgumentException("Tipo de etiqueta no soportado");
         }
-    } 
+    }
 
-
-
-
-    public static Tabla leerDesdeCsv(String path){
+    public static Tabla leerDesdeCsv(String path) {
         return Tabla.leerDesdeCsv(path, true, ",");
 
     }
@@ -981,16 +976,17 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
         CsvReader reader = new CsvReader();
         List<List<String>> listaDeColumnasCsv = reader.leerCSV(path, includeHeaders, dataSeparator);
         List<Class<?>> tiposDeColumnas = reader.identificarTipos(listaDeColumnasCsv, includeHeaders);
-    
+
         Tabla tabla = new Tabla();
-    
+
         // Agregar columnas a la tabla
         for (int j = 0; j < listaDeColumnasCsv.size(); j++) {
             Class<?> tipo = tiposDeColumnas.get(j);
-            Etiqueta etiquetaColumna = new EtiquetaCadena(listaDeColumnasCsv.get(j).get(0)); // Usar encabezado como etiqueta
+            Etiqueta etiquetaColumna = new EtiquetaCadena(listaDeColumnasCsv.get(j).get(0)); // Usar encabezado como
+                                                                                             // etiqueta
             tabla.agregarColumna(tipo, etiquetaColumna);
         }
-    
+
         // Agregar filas a la tabla, omitiendo la fila de encabezado si está presente
         int startRow = includeHeaders ? 1 : 0;
         for (int i = startRow; i < listaDeColumnasCsv.get(0).size(); i++) { // Iterar sobre filas
@@ -998,7 +994,7 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
             for (int j = 0; j < listaDeColumnasCsv.size(); j++) { // Iterar sobre columnas
                 String elemento = listaDeColumnasCsv.get(j).get(i);
                 Class<?> tipo = tiposDeColumnas.get(j);
-    
+
                 try {
                     if (tipo == Boolean.class) {
                         Boolean valor = Boolean.parseBoolean(elemento);
@@ -1018,19 +1014,18 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
             }
             tabla.agregarFila(celdas);
         }
-      // Capturar el tiempo después de la ejecución
-      long endTime = System.nanoTime();
+        // Capturar el tiempo después de la ejecución
+        long endTime = System.nanoTime();
 
-      // Calcular la diferencia en segundos
-      double duration = (endTime - startTime) / 1_000_000_000.0;
+        // Calcular la diferencia en segundos
+        double duration = (endTime - startTime) / 1_000_000_000.0;
 
-      // Imprimir el tiempo en el formato deseado
-      System.out.printf("Tiempo de ejecución: %.3f segundos %n", duration);
-      System.out.println("Se creo una tabla a partir de un csv de " + listaDeColumnasCsv.get(0).size() + "filas");
+        // Imprimir el tiempo en el formato deseado
+        System.out.printf("Tiempo de ejecución: %.3f segundos %n", duration);
+        System.out.println("Se creo una tabla a partir de un csv de " + listaDeColumnasCsv.get(0).size() + "filas");
         return tabla;
     }
-    
-  
+
     public void guardarTabla(String rutaArchivo) {
         try {
             // Crear el directorio si no existe
@@ -1062,56 +1057,57 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
             e.printStackTrace();
         }
     }
+
     public Tabla agruparYSumarizar(List<Etiqueta> etiquetasColumnasAgrupamiento, OperacionEstadistica operacion) {
         // Crear una nueva tabla para almacenar los resultados
         Tabla tablaResultado = new Tabla();
-    
+
         // Obtener las columnas que no son parte del agrupamiento y son numéricas
         List<Columna<?>> columnasNumericas = columnas.stream()
-            .filter(col -> !etiquetasColumnasAgrupamiento.contains(col.getEtiqueta()) && Number.class.isAssignableFrom(col.getTipoDeDato()))
-            .collect(Collectors.toList());
-    
+                .filter(col -> !etiquetasColumnasAgrupamiento.contains(col.getEtiqueta())
+                        && Number.class.isAssignableFrom(col.getTipoDeDato()))
+                .collect(Collectors.toList());
+
         // Crear un mapa para almacenar los grupos y sus filas
         Map<String, List<List<Celda<?>>>> grupos = new HashMap<>();
-    
+
         // Agrupar las filas
         for (int i = 0; i < getCantidadFilas(); i++) {
             List<Celda<?>> fila = getFila(i);
             String claveGrupo = etiquetasColumnasAgrupamiento.stream()
-                .map(etiqueta -> fila.get(getIndex(etiqueta, etiquetasColumnas)).toString())
-                .collect(Collectors.joining(","));
+                    .map(etiqueta -> fila.get(getIndex(etiqueta, etiquetasColumnas)).toString())
+                    .collect(Collectors.joining(","));
             grupos.computeIfAbsent(claveGrupo, k -> new ArrayList<>()).add(fila);
         }
-    
+
         // Agregar las columnas numéricas a la nueva tabla
         for (Columna<?> columna : columnasNumericas) {
             tablaResultado.agregarColumna(Number.class, columna.getEtiqueta());
         }
-    
+
         // Aplicar la operación de sumarización a cada grupo
         for (Map.Entry<String, List<List<Celda<?>>>> entry : grupos.entrySet()) {
             String claveGrupo = entry.getKey();
             List<List<Celda<?>>> filasGrupo = entry.getValue();
-    
+
             // Crear una nueva fila para almacenar los resultados del grupo
             List<Celda<?>> nuevaFila = new ArrayList<>();
             for (Columna<?> columna : columnasNumericas) {
                 List<Number> valores = filasGrupo.stream()
-                    .map(fila -> (Number) fila.get(getIndex(columna.getEtiqueta(), etiquetasColumnas)).getValor())
-                    .filter(Objects::nonNull)
-                    .collect(Collectors.toList());
-    
+                        .map(fila -> (Number) fila.get(getIndex(columna.getEtiqueta(), etiquetasColumnas)).getValor())
+                        .filter(Objects::nonNull)
+                        .collect(Collectors.toList());
+
                 Number resultado = aplicarOperacion(valores, operacion);
                 nuevaFila.add(new Celda<>(resultado));
             }
-    
+
             // Agregar la fila de resultados a la nueva tabla
             tablaResultado.agregarFila(nuevaFila, new EtiquetaCadena(claveGrupo));
         }
-    
+
         return tablaResultado;
     }
-    
 
     private Number aplicarOperacion(List<Number> valores, OperacionEstadistica operacion) {
         double media = valores.stream().mapToDouble(Number::doubleValue).average().orElse(Double.NaN);
@@ -1127,16 +1123,16 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
             case MEDIA:
                 return valores.stream().mapToDouble(Number::doubleValue).average().orElse(Double.NaN);
             case VARIANZA:
-                return valores.stream().mapToDouble(Number::doubleValue).map(v -> Math.pow(v - media, 2)).average().orElse(Double.NaN);
+                return valores.stream().mapToDouble(Number::doubleValue).map(v -> Math.pow(v - media, 2)).average()
+                        .orElse(Double.NaN);
             case DESVIO_ESTANDAR:
-                double varianza = valores.stream().mapToDouble(Number::doubleValue).map(v -> Math.pow(v - media, 2)).average().orElse(Double.NaN);
+                double varianza = valores.stream().mapToDouble(Number::doubleValue).map(v -> Math.pow(v - media, 2))
+                        .average().orElse(Double.NaN);
                 return Math.sqrt(varianza);
             default:
                 throw new IllegalArgumentException("Operación no soportada: " + operacion);
         }
     }
-    
-
 
     public static Tabla concatenar(Tabla tabla1, Tabla tabla2) {
         // Verificar compatibilidad de las tablas
@@ -1170,6 +1166,4 @@ public class Tabla implements Visualizable,Agrupable,Ordenable{
         return resultado;
     }
 
-    
-    
 }

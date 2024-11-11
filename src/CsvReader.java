@@ -6,8 +6,23 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.File;
 
+/**
+ * Clase para leer y procesar datos desde un archivo CSV.
+ */
 public class CsvReader {
 
+    /**
+     * Lee un archivo CSV y retorna una lista de listas donde cada lista interna
+     * representa los datos de una columna.
+     *
+     * @param rutaArchivo    La ruta del archivo CSV a leer.
+     * @param includeHeaders Indica si se deben incluir los encabezados como la
+     *                       primera fila.
+     * @param dataSeparator  El carácter separador de columnas en el archivo (por
+     *                       ejemplo, "," o ";").
+     * @return Una lista de listas, donde cada sublista contiene los datos de una
+     *         columna.
+     */
     public List<List<String>> leerCSV(String rutaArchivo, boolean includeHeaders, String dataSeparator) {
         List<List<String>> datosPorColumna = new ArrayList<>();
         File file = new File(rutaArchivo);
@@ -18,7 +33,9 @@ public class CsvReader {
 
             // Leer todas las líneas y dividirlas en columnas
             while ((linea = bufferedReader.readLine()) != null) {
-                List<String> elementosLineaColumnas = Arrays.asList(linea.split(dataSeparator, -1)); // Usar -1 para incluir valores vacíos
+                List<String> elementosLineaColumnas = Arrays.asList(linea.split(dataSeparator, -1)); // Usar -1 para
+                                                                                                     // incluir valores
+                                                                                                     // vacíos
                 todasLasFilas.add(elementosLineaColumnas);
             }
 
@@ -55,9 +72,9 @@ public class CsvReader {
 
                 try {
                     for (int columna = 0; columna < numeroDeColumnas; columna++) {
-                        // System.out.println(elementosFila + " " + columna);
                         String elemento = elementosFila.get(columna).trim();
-                        datosPorColumna.get(columna).add(elemento.isEmpty() ? "NA" : elemento); // Tratar valores vacíos como "NA"
+                        datosPorColumna.get(columna).add(elemento.isEmpty() ? "NA" : elemento); // Tratar valores vacíos
+                                                                                                // como "NA"
                     }
                 } catch (Exception e) {
                     System.out.println("Error al procesar la fila: " + elementosFila + ". Saltando esta fila.");
@@ -71,18 +88,25 @@ public class CsvReader {
         return datosPorColumna;
     }
 
-    
- 
+    /**
+     * Identifica los tipos de datos de cada columna en el archivo CSV.
+     *
+     * @param datosPorColumna La lista de datos clasificados por columna.
+     * @param includeHeaders  Indica si se debe excluir la primera fila
+     *                        (encabezados) al analizar los tipos.
+     * @return Una lista de tipos de datos (Integer, Double, String, Boolean) por
+     *         columna.
+     */
     public List<Class<?>> identificarTipos(List<List<String>> datosPorColumna, boolean includeHeaders) {
         List<Class<?>> tiposDeColumnas = new ArrayList<>();
         int startRow = includeHeaders ? 1 : 0;
-    
+
         for (int columna = 0; columna < datosPorColumna.size(); columna++) {
             Class<?> tipo = null;
-    
+
             for (int fila = startRow; fila < datosPorColumna.get(columna).size(); fila++) {
                 String valor = datosPorColumna.get(columna).get(fila).trim();
-    
+
                 if (!valor.isEmpty() && !valor.equalsIgnoreCase("NA")) {
                     tipo = determinarTipo(valor);
                     if (tipo != null) {
@@ -90,17 +114,24 @@ public class CsvReader {
                     }
                 }
             }
-    
+
             if (tipo == null) {
                 tipo = String.class; // Asignar String como tipo por defecto si no se encuentra otro tipo
             }
-    
+
             tiposDeColumnas.add(tipo);
         }
-    
+
         return tiposDeColumnas;
     }
-    
+
+    /**
+     * Determina el tipo de dato de un valor dado.
+     *
+     * @param valor El valor a analizar.
+     * @return La clase que representa el tipo de dato (Integer, Double, Boolean o
+     *         String).
+     */
     private Class<?> determinarTipo(String valor) {
         try {
             Integer.parseInt(valor);
@@ -108,23 +139,18 @@ public class CsvReader {
         } catch (NumberFormatException e) {
             // No es un Integer
         }
-    
+
         try {
             Double.parseDouble(valor);
             return Double.class;
         } catch (NumberFormatException e) {
             // No es un Double
         }
-    
+
         if (valor.equalsIgnoreCase("true") || valor.equalsIgnoreCase("false")) {
             return Boolean.class;
         }
-    
+
         return String.class; // Si no es Integer, Double o Boolean, asumir que es String
     }
-    
-
-
-
-
 }
