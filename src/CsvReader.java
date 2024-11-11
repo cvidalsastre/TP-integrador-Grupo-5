@@ -8,18 +8,17 @@ import java.io.File;
 
 public class CsvReader {
 
-    public List<List<String>> leerCSV(String rutaArchivo, boolean includeHeaders,String dataSeparator) {
+    public List<List<String>> leerCSV(String rutaArchivo, boolean includeHeaders, String dataSeparator) {
         List<List<String>> datosPorColumna = new ArrayList<>();
         File file = new File(rutaArchivo);
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            
             String linea;
             List<List<String>> todasLasFilas = new ArrayList<>();
 
             // Leer todas las líneas y dividirlas en columnas
             while ((linea = bufferedReader.readLine()) != null) {
-                List<String> elementosLineaColumnas = Arrays.asList(linea.split(dataSeparator));
+                List<String> elementosLineaColumnas = Arrays.asList(linea.split(dataSeparator, -1)); // Usar -1 para incluir valores vacíos
                 todasLasFilas.add(elementosLineaColumnas);
             }
 
@@ -48,9 +47,21 @@ public class CsvReader {
             for (int fila = startRow; fila < todasLasFilas.size(); fila++) {
                 List<String> elementosFila = todasLasFilas.get(fila);
 
-                for (int columna = 0; columna < numeroDeColumnas; columna++) {
-                    String elemento = elementosFila.get(columna).trim();
-                    datosPorColumna.get(columna).add(elemento);
+                // Verificar si la fila tiene el número correcto de columnas
+                if (elementosFila.size() != numeroDeColumnas) {
+                    System.out.println("Saltando línea con número incorrecto de columnas: " + elementosFila);
+                    continue; // Saltar esta línea
+                }
+
+                try {
+                    for (int columna = 0; columna < numeroDeColumnas; columna++) {
+                        // System.out.println(elementosFila + " " + columna);
+                        String elemento = elementosFila.get(columna).trim();
+                        datosPorColumna.get(columna).add(elemento.isEmpty() ? "NA" : elemento); // Tratar valores vacíos como "NA"
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error al procesar la fila: " + elementosFila + ". Saltando esta fila.");
+                    continue; // Saltar esta línea en caso de error
                 }
             }
 
@@ -62,33 +73,56 @@ public class CsvReader {
 
     
  
-    public List<Class<?>> identificarTipos(List<List<String>> datosPorColumna,boolean includeHeaders) {
-        List<Class<?>> tipos = new ArrayList<>();
+    public List<Class<?>> identificarTipos(List<List<String>> datosPorColumna, boolean includeHeaders) {
+        List<Class<?>> tiposDeColumnas = new ArrayList<>();
+        int startRow = includeHeaders ? 1 : 0;
     
-        for (List<String> columna : datosPorColumna) {
-            Class<?> tipo = String.class; // Tipo por defecto
-    // Determinar el índice de inicio basado en includeHeaders
-    int startIndex = includeHeaders ? 1 : 0;
-            // Ignorar el primer elemento (encabezado)
-            for (int i = startIndex; i < columna.size(); i++) {
-                String elemento = columna.get(i);
-                if (elemento.equalsIgnoreCase("true") || elemento.equalsIgnoreCase("false")) {
-                    tipo = Boolean.class;
-                    break;
-                } else {
-                    try {
-                        Double.parseDouble(elemento);
-                        tipo = Double.class;
+        for (int columna = 0; columna < datosPorColumna.size(); columna++) {
+            Class<?> tipo = null;
+    
+            for (int fila = startRow; fila < datosPorColumna.get(columna).size(); fila++) {
+                String valor = datosPorColumna.get(columna).get(fila).trim();
+    
+                if (!valor.isEmpty() && !valor.equalsIgnoreCase("NA")) {
+                    tipo = determinarTipo(valor);
+                    if (tipo != null) {
                         break;
-                    } catch (NumberFormatException e) {
-                        tipo = String.class;
                     }
                 }
             }
-            tipos.add(tipo);
+    
+            if (tipo == null) {
+                tipo = String.class; // Asignar String como tipo por defecto si no se encuentra otro tipo
+            }
+    
+            tiposDeColumnas.add(tipo);
         }
-        return tipos;
+    
+        return tiposDeColumnas;
     }
+    
+    private Class<?> determinarTipo(String valor) {
+        try {
+            Integer.parseInt(valor);
+            return Integer.class;
+        } catch (NumberFormatException e) {
+            // No es un Integer
+        }
+    
+        try {
+            Double.parseDouble(valor);
+            return Double.class;
+        } catch (NumberFormatException e) {
+            // No es un Double
+        }
+    
+        if (valor.equalsIgnoreCase("true") || valor.equalsIgnoreCase("false")) {
+            return Boolean.class;
+        }
+    
+        return String.class; // Si no es Integer, Double o Boolean, asumir que es String
+    }
+    
 
 
 
