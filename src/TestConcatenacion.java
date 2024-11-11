@@ -23,7 +23,7 @@ public class TestConcatenacion {
         tabla2.agregarFila(fila2);
 
         // Concatenar las tablas
-        Tabla tablaConcatenada = OperacionesTabla.concatenar(tabla1, tabla2);
+        Tabla tablaConcatenada = Tabla.concatenar(tabla1, tabla2);
 
         // Mostrar la tabla concatenada
         System.out.println("Tabla concatenada:");
