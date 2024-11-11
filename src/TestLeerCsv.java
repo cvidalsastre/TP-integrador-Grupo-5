@@ -1,5 +1,8 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import enums.OperacionEstadistica;
 
 public class TestLeerCsv {
     
@@ -7,30 +10,35 @@ public class TestLeerCsv {
         Tabla tabla = Tabla.leerDesdeCsv("data/pokemon_combined.csv",true,",");
         List<Etiqueta> etiquetas = new ArrayList<Etiqueta>();
         etiquetas.add(tabla.getEtiquetasColumnas().get(0));
-        etiquetas.add(tabla.getEtiquetasColumnas().get(1));
 
-        tabla.ordenarPor(etiquetas, true);
+        tabla.ordenarPor(tabla.getEtiquetasColumnas().get(0), true);
         
         Tabla pokemonPesadoAcero = tabla
         .filtrar(new EtiquetaCadena("Weight"),100,">")
         .filtrar(new EtiquetaCadena("Type"), "Steel","=");
-        List<Etiqueta> ordenarEtiqueta =  new ArrayList<Etiqueta>();
-        ordenarEtiqueta.add(new EtiquetaCadena("Weight"));
-        pokemonPesadoAcero.ordenarPor(ordenarEtiqueta, false);
-        System.out.println("Los 5 pokemons de tipo acero mas pesados con peso mayor a 100 kilos");
+        pokemonPesadoAcero.ordenarPor(new EtiquetaCadena("Weight"), false);
+        System.out.println("Los pokemons de tipo acero mas pesados con peso mayor a 100 kilos son");
         pokemonPesadoAcero.visualizar(100, 20,10);
 
 
         Tabla pokemonPesadoPlanta = tabla
         .filtrar(new EtiquetaCadena("Weight"),100,">")
-        .filtrar(new EtiquetaCadena("Type"), "Grass","=");
-        List<Etiqueta> ordenarEtiquetaPlanta =  new ArrayList<Etiqueta>();
-        ordenarEtiquetaPlanta.add(new EtiquetaCadena("Weight"));
-        pokemonPesadoPlanta.ordenarPor(ordenarEtiqueta, false);
-        System.out.println("Los 5 pokemons de tipo Planta mas pesados con peso mayor a 100 kilos");
+        .filtrar(new EtiquetaCadena("Type"), "Rock","=")
+        .ordenarPor(new EtiquetaCadena("Weight"), false);
+        System.out.println("Los pokemons de tipo Roca mas pesados con peso mayor a 100 kilos son");
         pokemonPesadoPlanta.visualizar(100, 20,10);
         
         pokemonPesadoPlanta.guardarTabla("temp/pokemonsPlanta.csv");
-   
+
+
+
+        Tabla tablaSuperHeroes = Tabla.leerDesdeCsv("data/superhero_battles 10k.csv",true,",");
+        // tablaSuperHeroes.visualizar2(10,20,7);
+        tablaSuperHeroes
+        // .filtrar(new EtiquetaCadena("Sup_1_Character"), "Superman", "=")
+        .agruparYSumarizar(Arrays.asList(new EtiquetaCadena("Sup_1_Universe")),OperacionEstadistica.MEDIA)
+        .ordenarPor(new EtiquetaCadena("Superhero_1_win"),false)
+        .visualizar2(100,100 , 10);
+        // tablaSuperHeroes.agruparYSumarizar(null, OperacionEstadistica.CUENTA)
     }
 }
