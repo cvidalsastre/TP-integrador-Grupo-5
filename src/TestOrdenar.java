@@ -28,18 +28,18 @@ public class TestOrdenar {
         // Imprimir tabla antes de ordenar
         System.out.println("Tabla antes de ordenar:");
         try {
-            tabla.visualizar(3, 2, 15); // Asegúrate de que maxFilas y maxColumnas son correctos
+            tabla.visualizar2(3, 2, 15); // Asegúrate de que maxFilas y maxColumnas son correctos
         } catch (IllegalArgumentException e) {
             System.out.println("Error al visualizar: " + e.getMessage());
         }
 
         // Ordenar por Edad en forma ascendente
-        tabla.ordenarPor(List.of(new EtiquetaCadena("Edad")), true);
+        Tabla tablaOrdenada = tabla.ordenarPor(new EtiquetaCadena("Edad"), true);
 
         // Imprimir tabla después de ordenar
         System.out.println("\nTabla después de ordenar por Edad:");
         try {
-            tabla.visualizar(3, 2, 15); // Asegúrate de que maxFilas y maxColumnas son correctos
+            tablaOrdenada.visualizar2(3, 2, 15); // Asegúrate de que maxFilas y maxColumnas son correctos
         } catch (IllegalArgumentException e) {
             System.out.println("Error al visualizar: " + e.getMessage());
         }
