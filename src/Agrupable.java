@@ -1,6 +1,8 @@
 import java.util.List;
-import java.util.Map;
+
+import enums.OperacionEstadistica;
 
 public interface Agrupable {
+Tabla agruparYSumarizar(List<Etiqueta> etiquetasColumnasAgrupamiento, OperacionEstadistica operacion);
 
 }

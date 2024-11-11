@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 import enums.OperacionEstadistica;  
 
-public class Tabla implements Visualizable{
+public class Tabla implements Visualizable,Agrupable,Ordenable{
 
     private List<Columna<?>> columnas;
     private List<Etiqueta> etiquetasFilas;
@@ -787,6 +787,7 @@ public class Tabla implements Visualizable{
 
    
     // Implementar un Método de Ordenación
+    @Override
     public <T extends Comparable<T>> Tabla ordenarPor(Etiqueta etiquetaColumna, boolean ascendente) {
         List<Integer> indices = new ArrayList<>();
         for (int i = 0; i < etiquetasFilas.size(); i++) {
