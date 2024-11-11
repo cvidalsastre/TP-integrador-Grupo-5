@@ -17,11 +17,11 @@ public class App {
         // ejecutarRF213(); // Requerimiento 2.13
         // ejecutarRF214(); // Requerimiento 2.14
         // ejecutarRF215(); // Requerimiento 2.15
-        // ejecutarRF216(); // Requerimiento 2.16
-        // ejecutarRF217(); // Requerimiento 2.17
-        // ejecutarRF31(); // Probar nuevos tipos de datos
-        // ejecutarRF32(); // Cambiar formato de visualización
-        // ejecutarRF41(); // Medir tiempo de carga de CSV
+        ejecutarRF216(); // Requerimiento 2.16
+        ejecutarRF217(); // Requerimiento 2.17
+        ejecutarRF31(); // Probar nuevos tipos de datos
+        ejecutarRF32(); // Cambiar formato de visualización
+        ejecutarRF41(); // Medir tiempo de carga de CSV
     }
 
     // RF 1.1 al RF 1.3: Crear una tabla básica, implementar TAD para fila y columna
