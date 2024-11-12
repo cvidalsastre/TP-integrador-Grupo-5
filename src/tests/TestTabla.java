@@ -131,7 +131,6 @@ public class TestTabla {
         
         float porcentaje = 50f;
         System.out.println("Muestro aleatorio con porcentaje " + porcentaje + " % ");
-       // t.imprimirFilas(t,getEtiquetasColumnas(),t.muestreo(porcentaje));
 
         System.out.println("Te muestro las columnas ");
         System.out.println(t.getColumnas());
@@ -157,7 +156,7 @@ public class TestTabla {
         t.visualizar(3, 2, 1);
 
 
-        t.imprimirFilas(t.muestreo2(50f));
+        t.imprimirFilas(t.muestreo(50f));
 
         System.out.println("Selección Parcial");
 

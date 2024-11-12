@@ -204,13 +204,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return getColumna(etiquetaColumna).getCeldas().get(indiceFila);
     }
 
-    public List<List<Celda<?>>> muestreo(float porcentaje) {
-        if (porcentaje < 0.0 || porcentaje > 100.0) {
-            throw new IllegalArgumentException("El porcentaje va de 0 a 100.");
-        }
-        int tamanioMuesta = (int) ((porcentaje / 100) * getCantidadFilas());
-        return elegirNFilas(tamanioMuesta, etiquetasFilas);
-    }
+
 
     private List<List<Celda<?>>> elegirNFilas(int tamanio, List<Etiqueta> etiquetasFilas) {
         List<List<Celda<?>>> filasRandom = new ArrayList<>();
@@ -427,7 +421,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return ultimasFilas;
     }
 
-    public List<Fila> muestreo2(float porcentaje) {
+    public List<Fila> muestreo(float porcentaje) {
         if (porcentaje < 0.0 || porcentaje > 100.0) {
             throw new IllegalArgumentException("El porcentaje va de 0 a 100.");
         }
