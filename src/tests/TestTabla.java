@@ -136,20 +136,20 @@ public class TestTabla {
         System.out.println("Te muestro las columnas ");
         System.out.println(t.getColumnas());
 
-        System.out.println("HEAD(3)");
-        t.imprimirFilas(t.getEtiquetasColumnas(),t.head(3));
+        System.out.println("headLista(3)");
+        t.imprimirFilas(t.getEtiquetasColumnas(),t.headLista(3));
 
         System.out.println("DDDDDDDDDDDDDDDDDDDD");
         // Hecho con la clase FILA
 
-        System.out.println("HEAD(3)");
-        t.imprimirFilas2(t.head2(3));
-        List<Fila> filas1 = t.head2(2);
+        System.out.println("headLista(3)");
+        t.imprimirFilas2(t.head(3));
+        List<Fila> filas1 = t.head(2);
 
         t.editarCelda(e5,e1 , "aaaaaa");
         System.out.println(filas1);
         
-        System.out.println("HEAD(3)");
+        System.out.println("headLista(3)");
         t.imprimirFilas2(t.tail2(3));
 
 

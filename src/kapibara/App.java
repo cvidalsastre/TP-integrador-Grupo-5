@@ -334,7 +334,7 @@ public class App {
         tabla.agregarFila(Arrays.asList(new Celda<>(3), new Celda<>("Carlos"), new Celda<>(2200.0)));
 
         System.out.println("Primeras 2 filas:");
-        for (List<Celda<?>> fila : tabla.head(2)) {
+        for (List<Celda<?>> fila : tabla.headLista(2)) {
             System.out.println(fila);
         }
 
@@ -427,7 +427,7 @@ public class App {
         tabla.visualizar(10, 10, 20);
 
         System.out.println("\nTabla con formato alternativo:");
-        for (Fila fila : tabla.head2(10)) {
+        for (Fila fila : tabla.head(10)) {
             System.out.println(fila.getEtiquetaFila() + ": " + fila.getCeldasFila());
         }
     }
