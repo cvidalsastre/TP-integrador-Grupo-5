@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 import enums.OperacionEstadistica;
 
-public class Tabla implements Visualizable, Agrupable, Ordenable {
+public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     private List<Columna<?>> columnas;
     private List<Etiqueta> etiquetasFilas;
@@ -809,7 +809,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable {
         Columna<T> columnaOrdenada = tablaOrdenada.getColumna(columnaOriginal.getEtiqueta());
         columnaOrdenada.setCeldas(celdasOrdenadas);
     }
-
+     @Override
     public <T extends Comparable<T>> Tabla filtrar(Etiqueta etiquetaColumna, T valorReferencia, String operador) {
         Tabla resultado = new Tabla();
         // Copiar la estructura de columnas a la tabla resultado
