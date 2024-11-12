@@ -107,6 +107,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         agregarFila(celdas, etiquetaFila); // Llama al método sobrecargado
     }
 
+    //Metodo para agregar una fila a partir de una lista de celdas y una etiqueta.
     public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
         if (tieneLaEtiqueta(etiquetaFila, etiquetasFilas)) {
             throw new IllegalArgumentException("Ya existe una fila con esa etiqueta.");
@@ -136,6 +137,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return new Celda<>(null); // Crea una celda nula del tipo adecuado
     }
 
+    //Metodo para eliminar una fila a partir de una etiqueta
     public void eliminarFila(Etiqueta e) {
         // Si la etiqueta e no existe getIndex tira excepción
         int indiceFilaABorrar = getIndex(e, etiquetasFilas);
@@ -145,9 +147,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         etiquetasFilas.remove(indiceFilaABorrar);
     }
 
-    // Obtener una fila con los N primeras columnas
-    // Ver si getFila puede llamarla con columnas.size()
-
+    // Metodo para obtener una fila con "cantColumnas" columnas
     public List<Celda<?>> getFilaAcotadaList(Etiqueta etiquetaFila, int cantColumnas) {
         if (cantColumnas > getCantidadColumnas() || cantColumnas <= 0) {
             throw new IllegalArgumentException(
