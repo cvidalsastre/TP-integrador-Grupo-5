@@ -206,22 +206,6 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
 
 
-    private List<List<Celda<?>>> elegirNFilas(int tamanio, List<Etiqueta> etiquetasFilas) {
-        List<List<Celda<?>>> filasRandom = new ArrayList<>();
-        // se copia la lista de etiqueta de las filas
-        List<Etiqueta> copiaEtiquetasFilas = new ArrayList<>(etiquetasFilas);
-
-        // mezcla
-        Collections.shuffle(copiaEtiquetasFilas);
-
-        copiaEtiquetasFilas = copiaEtiquetasFilas.subList(0, Math.min(tamanio, copiaEtiquetasFilas.size()));
-
-        for (Etiqueta e : copiaEtiquetasFilas) {
-            filasRandom.add(getListaCeldas(e));
-        }
-        return filasRandom;
-    }
-
     private boolean estanTodasLasEtiquetas(List<Etiqueta> seleccion, List<Etiqueta> etiquetas) {
         for (Etiqueta e : seleccion) {
             if (!tieneLaEtiqueta(e, etiquetas)) {
