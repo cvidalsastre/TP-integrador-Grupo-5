@@ -37,12 +37,12 @@ public class TestLeerCsv {
 
 
         Tabla tablaSuperHeroes = Tabla.leerDesdeCsv("data/superhero_battles 10k.csv",true,",");
-        // tablaSuperHeroes.visualizar2(10,20,7);
+        // tablaSuperHeroes.visualizar(10,20,7);
         tablaSuperHeroes
         // .filtrar(new EtiquetaCadena("Sup_1_Character"), "Superman", "=")
         .agruparYSumarizar(Arrays.asList(new EtiquetaCadena("Sup_1_Universe")),OperacionEstadistica.MEDIA)
         .ordenarPor(new EtiquetaCadena("Superhero_1_win"),false)
-        .visualizar2(100,100 , 10);
+        .visualizar(100,100 , 10);
         // tablaSuperHeroes.agruparYSumarizar(null, OperacionEstadistica.CUENTA)
     }
 }

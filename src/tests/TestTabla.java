@@ -154,7 +154,7 @@ public class TestTabla {
 
 
         System.out.println("VISUALIZAR");
-        t.visualizar2(3, 2, 1);
+        t.visualizar(3, 2, 1);
 
 
         t.imprimirFilas2(t.muestreo2(50f));

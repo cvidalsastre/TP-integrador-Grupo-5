@@ -26,13 +26,13 @@ public class TestAgruparYSumarizar {
         Tabla tablaAgrupada = tabla.agruparYSumarizar(Arrays.asList(new EtiquetaCadena("Grupo")), OperacionEstadistica.SUMA);
 
         // Visualizar la tabla agrupada
-        tablaAgrupada.visualizar2(10,10,10);
+        tablaAgrupada.visualizar(10,10,10);
 
         // Agrupar y sumarizar por la columna "Grupo" con la operación "media"
         Tabla tablaAgrupadaMedia = tabla.agruparYSumarizar(Arrays.asList(new EtiquetaCadena("Grupo")),OperacionEstadistica.DESVIO_ESTANDAR);
 
         // Visualizar la tabla agrupada con la operación "media"
-        tablaAgrupadaMedia.visualizar2(10,10,10);
+        tablaAgrupadaMedia.visualizar(10,10,10);
 
         
     }

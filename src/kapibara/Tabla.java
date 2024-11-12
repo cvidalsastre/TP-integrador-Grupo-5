@@ -217,37 +217,6 @@ public class Tabla implements Visualizable, Agrupable, Ordenable {
         return salida;
     }
 
-    // Verificación simplificada: Ahora hay una única verificación al inicio para
-    // asegurarse de que maxFilas, maxColumnas, y maxLargoCadena son mayores que 0.
-    public void visualizar(int maxFilas, int maxColumnas, int maxLargoCadena) {
-        System.out.println("maxFilas: " + maxFilas);
-        System.out.println("maxColumnas: " + maxColumnas);
-        System.out.println("maxLargoCadena: " + maxLargoCadena);
-        System.out.println("Cantidad de filas: " + getCantidadFilas());
-        System.out.println("Cantidad de columnas: " + getCantidadColumnas());
-
-        if (maxFilas <= 0 || maxColumnas <= 0 || maxLargoCadena <= 0) {
-            throw new IllegalArgumentException(
-                    "Los parámetros maxFilas, maxColumnas y maxLargoCadena deben ser mayores que 0.");
-        }
-
-        if (maxFilas > getCantidadFilas()) {
-            maxFilas = getCantidadFilas(); // Ajustar para mostrar todas las filas disponibles
-        }
-
-        if (maxColumnas > getCantidadColumnas()) {
-            maxColumnas = getCantidadColumnas(); // Ajustar para mostrar todas las columnas disponibles
-        }
-
-        // Imprimir los encabezados centrados
-        System.out.println(encabezadosACadena(etiquetasColumnas.subList(0, maxColumnas), maxLargoCadena));
-
-        // Imprimir las filas de datos
-        for (Etiqueta e : etiquetasFilas.subList(0, maxFilas)) {
-            System.out.println(filaACadena(getFilaAcotada(e, maxColumnas), maxLargoCadena));
-        }
-    }
-
     public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, String valor) {
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
@@ -613,7 +582,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable {
 
     // Verificación simplificada: Ahora hay una única verificación al inicio para
     // asegurarse de que maxFilas, maxColumnas, y maxLargoCadena son mayores que 0.
-    public void visualizar2(int maxFilas, int maxColumnas, int maxLargoCadena) {
+    public void visualizar(int maxFilas, int maxColumnas, int maxLargoCadena) {
         System.out.println("maxFilas: " + maxFilas);
         System.out.println("maxColumnas: " + maxColumnas);
         System.out.println("maxLargoCadena: " + maxLargoCadena);

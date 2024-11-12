@@ -33,7 +33,7 @@ public class TestOrdenar {
         // Imprimir tabla antes de ordenar
         System.out.println("Tabla antes de ordenar:");
         try {
-            tabla.visualizar2(3, 2, 15); // Asegúrate de que maxFilas y maxColumnas son correctos
+            tabla.visualizar(3, 2, 15); // Asegúrate de que maxFilas y maxColumnas son correctos
         } catch (IllegalArgumentException e) {
             System.out.println("Error al visualizar: " + e.getMessage());
         }
@@ -44,7 +44,7 @@ public class TestOrdenar {
         // Imprimir tabla después de ordenar
         System.out.println("\nTabla después de ordenar por Edad:");
         try {
-            tablaOrdenada.visualizar2(3, 2, 15); // Asegúrate de que maxFilas y maxColumnas son correctos
+            tablaOrdenada.visualizar(3, 2, 15); // Asegúrate de que maxFilas y maxColumnas son correctos
         } catch (IllegalArgumentException e) {
             System.out.println("Error al visualizar: " + e.getMessage());
         }
