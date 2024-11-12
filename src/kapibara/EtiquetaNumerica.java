@@ -1,3 +1,4 @@
+package kapibara;
 /**
  * Clase que representa una etiqueta basada en valores numéricos enteros.
  * Hereda de la clase abstracta {@link Etiqueta}.

@@ -1,3 +1,10 @@
+package tests;
+import kapibara.Celda;
+import kapibara.Columna;
+import kapibara.Etiqueta;
+import kapibara.EtiquetaCadena;
+import kapibara.EtiquetaNumerica;
+
 public class TestColumna<T>{
     public static void main(String[] args) {
 

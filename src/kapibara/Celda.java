@@ -1,3 +1,4 @@
+package kapibara;
 /**
  * Clase que representa una celda dentro de una tabla. Cada celda contiene un
  * valor genérico

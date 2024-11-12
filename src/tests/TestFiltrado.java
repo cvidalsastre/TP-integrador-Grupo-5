@@ -1,5 +1,10 @@
+package tests;
 import java.util.ArrayList;
 import java.util.List;
+
+import kapibara.Celda;
+import kapibara.EtiquetaCadena;
+import kapibara.Tabla;
 
 public class TestFiltrado {
     public static void main(String[] args) {

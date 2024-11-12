@@ -1,5 +1,13 @@
+package tests;
 import java.util.ArrayList;
 import java.util.List;
+
+import kapibara.Celda;
+import kapibara.Columna;
+import kapibara.Etiqueta;
+import kapibara.EtiquetaCadena;
+import kapibara.EtiquetaNumerica;
+import kapibara.Tabla;
 
 public class TestCopia {
     public static void main(String[] args) {

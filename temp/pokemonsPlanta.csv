@@ -1,3 +1,8 @@
 Name,Type,Species,Height,Weight,Abilities,Catch rate,Base Friendship,Base Exp.,Growth Rate,Gender,HP,Attack,Defense,Sp. Atk,Sp. Def,Speed
-Tangrowth,Grass,Vine Pokémon,2.0,128.6,1. Chlorophyll2. Leaf GuardRegenerator (hidden ability),30.0,50.0,187.0,Medium Fast,"50% male 50% female",100.0,100.0,125.0,110.0,50.0,50.0
-Meganium,Grass,Herb Pokémon,1.8,100.5,1. OvergrowLeaf Guard (hidden ability),45.0,50.0,236.0,Medium Slow,"87.5% male 12.5% female",80.0,82.0,100.0,83.0,100.0,80.0
+Stonjourner,Rock,Big Rock Pokémon,2.5,520.0,1. Power Spot,60,50,165,Slow,"50% male 50% female",100,125,135,20,20,70
+Gigalith,Rock,Compressed Pokémon,1.7,260.0,1. Sturdy2. Sand StreamSand Force (hidden ability),45,50,232,Medium Slow,"50% male 50% female",85,135,130,60,80,25
+Garganacl,Rock,Rock Salt Pokémon,2.3,240.0,1. Purifying Salt2. SturdyClear Body (hidden ability),45,50,250,Medium Slow,"50% male 50% female",100,100,130,45,90,35
+Regirock,Rock,Rock Peak Pokémon,1.7,230.0,1. Clear BodySturdy (hidden ability),3,35,261,Slow,Genderless,80,100,200,50,100,50
+Naclstack,Rock,Rock Salt Pokémon,0.6,105.0,1. Purifying Salt2. SturdyClear Body (hidden ability),120,50,124,Medium Slow,"50% male 50% female",60,60,100,35,65,35
+Rampardos,Rock,Head Butt Pokémon,1.6,102.5,1. Mold BreakerSheer Force (hidden ability),45,50,173,Erratic,"87.5% male 12.5% female",97,165,60,65,50,58
+Boldore,Rock,Ore Pokémon,0.9,102.0,1. Sturdy2. Weak ArmorSand Force (hidden ability),120,50,137,Medium Slow,"50% male 50% female",70,105,105,50,40,20

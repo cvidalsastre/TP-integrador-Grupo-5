@@ -1,5 +1,10 @@
+package tests;
 import java.util.ArrayList;
 import java.util.List;
+
+import kapibara.Celda;
+import kapibara.EtiquetaCadena;
+import kapibara.Tabla;
 
 public class TestGuardarCsv {
       public static void main(String[] args) {
@@ -25,6 +30,6 @@ public class TestGuardarCsv {
         tabla.agregarFila(fila3);
 
         // Guardar la tabla en un archivo CSV
-        tabla.guardarTabla("temp/tabla.csv");
+        tabla.guardarTabla("temp/tabla2.csv");
     }
 }

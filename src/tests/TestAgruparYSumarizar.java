@@ -1,5 +1,9 @@
+package tests;
 import java.util.Arrays;
 import enums.OperacionEstadistica;
+import kapibara.Celda;
+import kapibara.EtiquetaCadena;
+import kapibara.Tabla;
 
 public class TestAgruparYSumarizar {
     public static void main(String[] args) {

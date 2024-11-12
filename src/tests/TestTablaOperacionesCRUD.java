@@ -1,8 +1,16 @@
+package tests;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import kapibara.Celda;
+import kapibara.Columna;
+import kapibara.Etiqueta;
+import kapibara.EtiquetaCadena;
+import kapibara.EtiquetaNumerica;
+import kapibara.Tabla;
 
 public class TestTablaOperacionesCRUD {
 

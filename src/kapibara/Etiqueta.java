@@ -1,3 +1,4 @@
+package kapibara;
 /**
  * Clase abstracta que representa una etiqueta en una tabla.
  * Las etiquetas son identificadores únicos para filas o columnas.

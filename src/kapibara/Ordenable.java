@@ -1,3 +1,4 @@
+package kapibara;
 
 /**
  * Interfaz que define el comportamiento para ordenar una estructura tabular.

@@ -1,8 +1,12 @@
+package tests;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import enums.OperacionEstadistica;
+import kapibara.Etiqueta;
+import kapibara.EtiquetaCadena;
+import kapibara.Tabla;
 
 public class TestLeerCsv {
     
