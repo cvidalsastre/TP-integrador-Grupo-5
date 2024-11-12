@@ -390,7 +390,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return primerasFilas;
     }
 
-    public List<List<Celda<?>>> tail(int cantidadFilas) {
+    public List<List<Celda<?>>> tailList(int cantidadFilas) {
         if (cantidadFilas < 0) {
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
         }
@@ -468,7 +468,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return primerasFilas;
     }
 
-    public List<Fila> tail2(int cantidadFilas) {
+    public List<Fila> tail(int cantidadFilas) {
         if (cantidadFilas < 0) {
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
         }

@@ -150,7 +150,7 @@ public class TestTabla {
         System.out.println(filas1);
         
         System.out.println("headLista(3)");
-        t.imprimirFilas2(t.tail2(3));
+        t.imprimirFilas2(t.tail(3));
 
 
         System.out.println("VISUALIZAR");
@@ -177,8 +177,8 @@ public class TestTabla {
 
         System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 
-        System.out.println("TAIL(2)");
-        t.imprimirFilas(t.getEtiquetasColumnas(),t.tail(2));
+        System.out.println("tailList(2)");
+        t.imprimirFilas(t.getEtiquetasColumnas(),t.tailList(2));
 
         System.out.println("Selección Parcial");
 

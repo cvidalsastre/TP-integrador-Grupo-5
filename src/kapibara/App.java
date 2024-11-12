@@ -339,7 +339,7 @@ public class App {
         }
 
         System.out.println("\nÚltimas 2 filas:");
-        for (List<Celda<?>> fila : tabla.tail(2)) {
+        for (List<Celda<?>> fila : tabla.tailList(2)) {
             System.out.println(fila);
         }
     }
