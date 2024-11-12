@@ -161,62 +161,6 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return fila;
     }
 
-    /*
-     * private String filaACadena(List<Celda<?>> fila, int maxLargoCadena) {
-     * String salida = " | ";
-     * for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
-     * Celda<?> celda = fila.get(nroColumna);
-     * if (celda.getTipo().equals("String")) {
-     * int longitudMenor = Math.min(celda.toString().length(), maxLargoCadena);
-     * salida += celda.toString().substring(0, longitudMenor);
-     * if(longitudMenor < celda.toString().length()){
-     * salida += "...";
-     * }
-     * } else {
-     * salida += celda.toString();
-     * }
-     * salida += " | ";
-     * }
-     * return salida;
-     * }
-     */
-
-    private String filaACadena(List<Celda<?>> fila, int maxLargoCadena) {
-        String salida = " | ";
-        for (int nroColumna = 0; nroColumna < fila.size(); nroColumna++) {
-            Celda<?> celda = fila.get(nroColumna);
-            String textoCelda = celda.toString();
-
-            if (celda.getTipo().equals("String")) {
-                int longitudMenor = Math.min(textoCelda.length(), maxLargoCadena);
-                textoCelda = textoCelda.substring(0, longitudMenor);
-                if (longitudMenor < celda.toString().length()) {
-                    textoCelda += "...";
-                }
-            }
-
-            // Centramos el texto en el ancho máximo de la celda
-            String textoCentrado = centrarTexto(textoCelda, maxLargoCadena);
-
-            salida += textoCentrado + " | ";
-        }
-        return salida;
-    }
-
-    private String encabezadosACadena(List<Etiqueta> encabezados, int maxLargoCadena) {
-        String salida = " | ";
-        for (Etiqueta etiqueta : encabezados) {
-            String texto = etiqueta.toString();
-
-            // Centramos el texto de los encabezados
-            String textoCentrado = centrarTexto(texto, maxLargoCadena);
-
-            // Añadimos el encabezado centrado
-            salida += textoCentrado + " | ";
-        }
-        return salida;
-    }
-
     public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, String valor) {
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
@@ -557,7 +501,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         }
     }
 
-    private String filaACadena2(Fila fila, int maxColumnas, int maxLargoCadena) {
+    private String filaACadena(Fila fila, int maxColumnas, int maxLargoCadena) {
         String salida = "*" + fila.getEtiquetaFila().toString() + "*" + " | ";
         maxColumnas = Math.min(maxColumnas, fila.getCeldasFila().size());
 
@@ -605,7 +549,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
         // Imprimir las filas de datos
         for (Etiqueta e : etiquetasFilas.subList(0, maxFilas)) {
-            System.out.println(filaACadena2(getFila(e), maxColumnas, maxLargoCadena));
+            System.out.println(filaACadena(getFila(e), maxColumnas, maxLargoCadena));
         }
     }
 
