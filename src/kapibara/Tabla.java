@@ -378,7 +378,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return new Fila(etiquetaFila, celdasFilas, etiquetasColumnas);
     }
 
-    private Fila getFilaAcotada2(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel) {
+    private Fila getFilaAcotada(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel) {
         if (!tieneLaEtiqueta(etiquetaFila, etiquetasFilas)) {
             throw new IllegalArgumentException("La etiqueta de la fila no existe en la tabla");
         }
@@ -472,7 +472,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         for (Etiqueta e : etiquetasFilasSelec) {
             System.out.println("pppp" + etiquetasColumnasSelec);
 
-            tablaRebanada.add(getFilaAcotada2(e, etiquetasColumnasSelec));
+            tablaRebanada.add(getFilaAcotada(e, etiquetasColumnasSelec));
         }
         return tablaRebanada;
     }
