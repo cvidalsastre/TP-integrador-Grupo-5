@@ -387,7 +387,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return filasRandom;
     }
 
-    public List<Fila> seleccionParcial2(List<Etiqueta> seleccionEtiquetasFilas,
+    public List<Fila> seleccionParcial(List<Etiqueta> seleccionEtiquetasFilas,
             List<Etiqueta> seleccionEtiquetasColumnas) {
 
         if (tieneRepetidos(seleccionEtiquetasColumnas) || tieneRepetidos(seleccionEtiquetasFilas)) {

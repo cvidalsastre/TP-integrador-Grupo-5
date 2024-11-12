@@ -171,7 +171,7 @@ public class TestTabla {
         selFilas.add(e6); // "NSA"
         selFilas.add(e7); // "Empleadx del mes"
 
-        t.imprimirFilas(t.seleccionParcial2(selFilas, selCol));
+        t.imprimirFilas(t.seleccionParcial(selFilas, selCol));
 
 
         System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
