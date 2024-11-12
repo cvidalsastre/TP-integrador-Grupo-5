@@ -279,7 +279,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         copiaEtiquetasFilas = copiaEtiquetasFilas.subList(0, Math.min(tamanio, copiaEtiquetasFilas.size()));
 
         for (Etiqueta e : copiaEtiquetasFilas) {
-            filasRandom.add(getFila(e));
+            filasRandom.add(getListaCeldas(e));
         }
         return filasRandom;
     }
@@ -385,7 +385,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         List<List<Celda<?>>> primerasFilas = new ArrayList<>();
         List<Etiqueta> etiquetasPrimFilas = etiquetasFilas.subList(0, Math.min(cantidadFilas, etiquetasFilas.size()));
         for (Etiqueta e : etiquetasPrimFilas) {
-            primerasFilas.add(getFila(e));
+            primerasFilas.add(getListaCeldas(e));
         }
         return primerasFilas;
     }
@@ -399,17 +399,15 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         List<Etiqueta> etiquetasUltimasFilas = etiquetasFilas
                 .subList(cantidadEquitasFilas - Math.min(cantidadFilas, cantidadEquitasFilas), cantidadEquitasFilas);
         for (Etiqueta e : etiquetasUltimasFilas) {
-            ultimasFilas.add(getFila(e));
+            ultimasFilas.add(getListaCeldas(e));
         }
         return ultimasFilas;
     }
 
-    public void guardarTabla() {
-
-    }
+    
 
     // Obtener una fila completa
-    public List<Celda<?>> getFila(Etiqueta etiquetaFila) {
+    public List<Celda<?>> getListaCeldas(Etiqueta etiquetaFila) {
         int indexFila = getIndex(etiquetaFila, etiquetasFilas);
         List<Celda<?>> fila = new ArrayList<>();
         for (Columna<?> col : columnas) {
@@ -418,7 +416,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return fila;
     }
 
-    public List<Celda<?>> getFila(int indexFila) {
+    public List<Celda<?>> getListaCeldas(int indexFila) {
         List<Celda<?>> fila = new ArrayList<>();
         for (Columna<?> col : columnas) {
             fila.add(col.getCeldas().get(indexFila));
@@ -427,7 +425,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     }
 
     // No sé si sirve
-    public Fila getFila2(Etiqueta etiquetaFila) {
+    public Fila getFila(Etiqueta etiquetaFila) {
         int indexFila = getIndex(etiquetaFila, etiquetasFilas);
         List<Celda<?>> celdasFilas = new ArrayList<>();
         for (Columna<?> col : columnas) {
@@ -464,7 +462,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         List<Fila> primerasFilas = new ArrayList<>();
         List<Etiqueta> etiquetasPrimFilas = etiquetasFilas.subList(0, Math.min(cantidadFilas, etiquetasFilas.size()));
         for (Etiqueta e : etiquetasPrimFilas) {
-            Fila nueva_fila = new Fila(e, getFila2(e).getCeldasFila(), etiquetasColumnas);
+            Fila nueva_fila = new Fila(e, getFila(e).getCeldasFila(), etiquetasColumnas);
             primerasFilas.add(nueva_fila);
         }
         return primerasFilas;
@@ -479,7 +477,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         List<Etiqueta> etiquetasUltimasFilas = etiquetasFilas
                 .subList(cantidadEquitasFilas - Math.min(cantidadFilas, cantidadEquitasFilas), cantidadEquitasFilas);
         for (Etiqueta e : etiquetasUltimasFilas) {
-            Fila nueva_fila = new Fila(e, getFila2(e).getCeldasFila(), etiquetasColumnas);
+            Fila nueva_fila = new Fila(e, getFila(e).getCeldasFila(), etiquetasColumnas);
             ultimasFilas.add(nueva_fila);
         }
         return ultimasFilas;
@@ -504,7 +502,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         copiaEtiquetasFilas = copiaEtiquetasFilas.subList(0, Math.min(tamanio, copiaEtiquetasFilas.size()));
 
         for (Etiqueta e : copiaEtiquetasFilas) {
-            Fila nuevaFila = new Fila(e, getFila2(e).getCeldasFila(), etiquetasColumnas);
+            Fila nuevaFila = new Fila(e, getFila(e).getCeldasFila(), etiquetasColumnas);
             filasRandom.add(nuevaFila);
         }
         return filasRandom;
@@ -607,7 +605,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
         // Imprimir las filas de datos
         for (Etiqueta e : etiquetasFilas.subList(0, maxFilas)) {
-            System.out.println(filaACadena2(getFila2(e), maxColumnas, maxLargoCadena));
+            System.out.println(filaACadena2(getFila(e), maxColumnas, maxLargoCadena));
         }
     }
 
@@ -1043,7 +1041,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
         // Agrupar las filas
         for (int i = 0; i < getCantidadFilas(); i++) {
-            List<Celda<?>> fila = getFila(i);
+            List<Celda<?>> fila = getListaCeldas(i);
             String claveGrupo = etiquetasColumnasAgrupamiento.stream()
                     .map(etiqueta -> fila.get(getIndex(etiqueta, etiquetasColumnas)).toString())
                     .collect(Collectors.joining(","));
@@ -1125,12 +1123,12 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         }
         // Copiar las filas de la primera tabla
         for (int i = 0; i < tabla1.getCantidadFilas(); i++) {
-            List<Celda<?>> fila = tabla1.getFila(tabla1.getEtiquetasFilas().get(i));
+            List<Celda<?>> fila = tabla1.getListaCeldas(tabla1.getEtiquetasFilas().get(i));
             resultado.agregarFila(fila);
         }
         // Copiar las filas de la segunda tabla
         for (int i = 0; i < tabla2.getCantidadFilas(); i++) {
-            List<Celda<?>> fila = tabla2.getFila(tabla2.getEtiquetasFilas().get(i));
+            List<Celda<?>> fila = tabla2.getListaCeldas(tabla2.getEtiquetasFilas().get(i));
             resultado.agregarFila(fila);
         }
         return resultado;

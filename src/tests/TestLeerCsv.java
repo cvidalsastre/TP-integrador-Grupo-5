@@ -11,7 +11,11 @@ import kapibara.Tabla;
 public class TestLeerCsv {
     
     public static void main(String ...args) throws Exception{
-        Tabla tabla = Tabla.leerDesdeCsv("data/pokemon_combined.csv",true,",");
+       
+            
+        
+        
+        Tabla tabla = Tabla.leerDesdeCsv("data\\pokemon_combined.csv",true,",");
         List<Etiqueta> etiquetas = new ArrayList<Etiqueta>();
         etiquetas.add(tabla.getEtiquetasColumnas().get(0));
 

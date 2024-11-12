@@ -43,7 +43,7 @@ public class App {
         // RF 1.2: TAD para una fila
         System.out.println("\nRequerimiento RF 1.2: Implementar TAD para una fila");
         Etiqueta etiquetaFila = new EtiquetaNumerica(0);
-        Fila fila = new Fila(etiquetaFila, tabla.getFila(etiquetaFila), tabla.getEtiquetasColumnas());
+        Fila fila = new Fila(etiquetaFila, tabla.getListaCeldas(etiquetaFila), tabla.getEtiquetasColumnas());
         System.out.println("Fila creada: " + fila);
 
         // RF 1.3: TAD para una columna
