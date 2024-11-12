@@ -410,10 +410,10 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
             throw new IllegalArgumentException("El porcentaje va de 0 a 100.");
         }
         int tamanioMuesta = (int) ((porcentaje / 100) * getCantidadFilas());
-        return elegirNFilas2(tamanioMuesta, etiquetasFilas);
+        return elegirNFilas(tamanioMuesta, etiquetasFilas);
     }
 
-    private List<Fila> elegirNFilas2(int tamanio, List<Etiqueta> etiquetasFilas) {
+    private List<Fila> elegirNFilas(int tamanio, List<Etiqueta> etiquetasFilas) {
         List<Fila> filasRandom = new ArrayList<>();
         // se copia la lista de etiqueta de las filas
         List<Etiqueta> copiaEtiquetasFilas = new ArrayList<>(etiquetasFilas);
