@@ -16,6 +16,7 @@ import enums.OperacionEstadistica;
 
 public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
+    //Atributos
     private List<Columna<?>> columnas;
     private List<Etiqueta> etiquetasFilas;
     private List<Etiqueta> etiquetasColumnas;
@@ -28,7 +29,6 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     }
 
     // Metodos
-
     // Agregar una columna nueva
     public void agregarColumna(Class<?> tipoDeDato) {
         Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas()); // Etiqueta secuencial automática
@@ -36,7 +36,6 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     }
 
     // Sobrecarga de método para agregar columna con etiqueta específica
-    // 5/11/24 agregamos la condición de que no existe la etiqueta a agregar
     public void agregarColumna(Class<?> tipoDeDato, Etiqueta etiquetaColumna) {
         if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) {
             throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
@@ -60,19 +59,19 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     // CON ETIQUETA
     public void agregarColumnaYC(Etiqueta etiquetaColumna, Columna<?> nuevaColumna) {
-        if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) {
+        if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) { //Verifica si ya existe la columna que se desea crear.
             throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
         }
-        if (nuevaColumna.getCantidadCeldas() == this.getCantidadFilas()) {
+        if (nuevaColumna.getCantidadCeldas() == this.getCantidadFilas()) { //Verifica que la cantidad de celdas de la columna a agregar sea igual a la cantidad de filas de la tabla
             columnas.add(nuevaColumna);
             etiquetasColumnas.add(etiquetaColumna);
-        } else if (nuevaColumna.getCantidadCeldas() > this.getCantidadFilas()) {
+        } else if (nuevaColumna.getCantidadCeldas() > this.getCantidadFilas()) { //Si no son iguales y hay más celdas en la nueva columna que filas en la tabla, llena los espacios vacios con NAs
             for (int i = 0; i < nuevaColumna.getCantidadCeldas() - this.getCantidadFilas(); i++) {
                 this.agregarFila();
             }
             columnas.add(nuevaColumna);
             etiquetasColumnas.add(etiquetaColumna);
-        } else if (nuevaColumna.getCantidadCeldas() < this.getCantidadColumnas()) {
+        } else if (nuevaColumna.getCantidadCeldas() < this.getCantidadColumnas()) {//Si no son iguales y hay menos celdas en la nueva columna que filas en la tabla, llena los espacios vacios con NAs
             for (int i = (nuevaColumna.getCantidadCeldas()); i < this.getCantidadColumnas(); i++) {
                 nuevaColumna.agregarCelda(new Celda<>(null));
             }
@@ -81,6 +80,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         }
     }
 
+    //Elimina una columna a partir de una etiqueta
     public void eliminarColumna(Etiqueta e) {
         int indiceColumnaABorrar = getIndex(e, etiquetasColumnas);
         columnas.remove(indiceColumnaABorrar);
@@ -753,7 +753,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         }
     }
 
-    /////////////////// ROCIO *********************************
+    // Metodo para realizar una copia independiente de una tabla.
     public Tabla copiarTabla() {
         // Crear una nueva instancia de Tabla
         Tabla copia = new Tabla();
@@ -772,15 +772,11 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
                     columnaOriginal.getTipoDeDato());
 
             // Copiar las celdas de la columna original a la nueva columna
-            List<? extends Celda<?>> celdasOriginales = columnaOriginal.getCeldas(); // Captura celdas con cualquier
-                                                                                     // tipo
-            // List<Celda<?>> nuevasCeldas = new ArrayList<>();
+            List<? extends Celda<?>> celdasOriginales = columnaOriginal.getCeldas(); // Captura celdas con cualquier tipo
 
             for (Celda<?> celdaOriginal : celdasOriginales) {
                 // Crear una nueva celda con el mismo valor
-                // nuevasCeldas.add(copiarCelda(celdaOriginal));
                 Celda<?> nuevaCelda = new Celda<>(celdaOriginal.getValor());
-                // nuevasCeldas.add(nuevaCelda);
                 nuevaColumna.agregarCelda(nuevaCelda);
             }
 
