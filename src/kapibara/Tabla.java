@@ -253,52 +253,9 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return false;
     }
 
-    // Suponemos que las etiquetas podrían tener un orden distinto al de la tabla
-    public List<List<Celda<?>>> seleccionParcial(List<Etiqueta> seleccionEtiquetasFilas,
-            List<Etiqueta> seleccionEtiquetasColumnas) {
+  
 
-        if (tieneRepetidos(seleccionEtiquetasColumnas) || tieneRepetidos(seleccionEtiquetasFilas)) {
-            throw new IllegalArgumentException("Las listas de etiquetas no pueden tener elementos repetidos.");
-        }
-
-        // se chequea que no haya equipo que no son las de la tabla
-        if (!estanTodasLasEtiquetas(seleccionEtiquetasFilas, etiquetasFilas) ||
-                !estanTodasLasEtiquetas(seleccionEtiquetasColumnas, etiquetasColumnas)) {
-            throw new IllegalArgumentException("Alguna/s de la/s etiqueta/s seleccionada/s no pertenece/n a la tabla.");
-        }
-
-        List<List<Celda<?>>> tablaRebanada = new ArrayList<>();
-        // Esto garantiza que las etiquetas tengan el mismo orden que en la tabla
-        List<Etiqueta> etiquetasColumnasSelec = conservarLasQueComparten(seleccionEtiquetasColumnas, etiquetasColumnas);
-        List<Etiqueta> etiquetasFilasSelec = conservarLasQueComparten(seleccionEtiquetasFilas, etiquetasFilas);
-        for (Etiqueta e : etiquetasFilasSelec) {
-            tablaRebanada.add(getFilaAcotadaList(e, etiquetasColumnasSelec));
-        }
-
-        return tablaRebanada;
-    }
-
-    private List<Celda<?>> getFilaAcotadaList(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel) {
-
-        if (!tieneLaEtiqueta(etiquetaFila, etiquetasFilas)) {
-            throw new IllegalArgumentException("La etiqueta de la fila no existe en la tabla");
-        }
-
-        if (!estanTodasLasEtiquetas(etiquetasColumnasSel, etiquetasColumnas)) {
-            throw new IllegalArgumentException(
-                    "Hay una etiqueta de columna de las elegidas que no se encuentra en la tabla.");
-        }
-        int indexFila = getIndex(etiquetaFila, etiquetasFilas);
-        List<Celda<?>> fila = new ArrayList<>();
-        for (Columna<?> col : columnas) {
-            Etiqueta e = col.getEtiqueta();
-            if (tieneLaEtiqueta(e, etiquetasColumnasSel)) {
-                fila.add(col.getCeldas().get(indexFila));
-            }
-
-        }
-        return fila;
-    }
+    
 
     public List<List<Celda<?>>> headLista(int cantidadFilas) {
         if (cantidadFilas < 0) {

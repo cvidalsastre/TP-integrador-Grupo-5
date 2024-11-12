@@ -181,30 +181,6 @@ public class TestTabla {
 
         System.out.println("Selección Parcial");
 
-        //List<Etiqueta> selCol = new ArrayList<>();
-        //List<Etiqueta> selFilas = new ArrayList<>();
-
-        //selCol.add(e4); // "Sueldo"
-        //selCol.add(e1); // "Nombre"
-        //selCol.add(e2); // 1
-        
-        
-        //selFilas.add(e6); // "NSA"
-
-        //selFilas.add(e7); // "Empleadx del mes"
-        
-        //t.imprimirFilas(selCol,t.seleccionParcial(selFilas, selCol));
-        
-        /*
-        //fila duplicada
-        List<Celda<?>> fila5 = new ArrayList<>();
-        fila5.add(c3); 
-        fila5.add(c7);
-        fila5.add(c11); 
-        fila5.add(c15);
-        // tira excepción porque ya existe la etiqueta de la fila
-        t.agregarFila(fila5,e7);
-        */
         
     }
 }
