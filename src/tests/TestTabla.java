@@ -143,21 +143,21 @@ public class TestTabla {
         // Hecho con la clase FILA
 
         System.out.println("headLista(3)");
-        t.imprimirFilas2(t.head(3));
+        t.imprimirFilas(t.head(3));
         List<Fila> filas1 = t.head(2);
 
         t.editarCelda(e5,e1 , "aaaaaa");
         System.out.println(filas1);
         
         System.out.println("headLista(3)");
-        t.imprimirFilas2(t.tail(3));
+        t.imprimirFilas(t.tail(3));
 
 
         System.out.println("VISUALIZAR");
         t.visualizar(3, 2, 1);
 
 
-        t.imprimirFilas2(t.muestreo2(50f));
+        t.imprimirFilas(t.muestreo2(50f));
 
         System.out.println("Selección Parcial");
 
@@ -172,7 +172,7 @@ public class TestTabla {
         selFilas.add(e6); // "NSA"
         selFilas.add(e7); // "Empleadx del mes"
 
-        t.imprimirFilas2(t.seleccionParcial2(selFilas, selCol));
+        t.imprimirFilas(t.seleccionParcial2(selFilas, selCol));
 
 
         System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");

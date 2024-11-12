@@ -489,7 +489,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     }
 
     // Método para imprimir todas las filas y encabezados
-    public void imprimirFilas2(List<Fila> filas) {
+    public void imprimirFilas(List<Fila> filas) {
         if (!filas.isEmpty()) {
             // Imprimir los encabezados
             imprimirEncabezados2(filas.get(0).getEtiquetasColumnas());
