@@ -412,7 +412,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return tablaRebanada;
     }
 
-    public void imprimirEncabezados2(List<Etiqueta> etiquetas) {
+    public void imprimirEncabezados(List<Etiqueta> etiquetas) {
         String salida = " | ";
 
         for (int i = 0; i < etiquetas.size(); i++) {
@@ -427,7 +427,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     public void imprimirFilas(List<Fila> filas) {
         if (!filas.isEmpty()) {
             // Imprimir los encabezados
-            imprimirEncabezados2(filas.get(0).getEtiquetasColumnas());
+            imprimirEncabezados(filas.get(0).getEtiquetasColumnas());
 
             // Imprimir las filas de datos, cada una centrada
             for (Fila fila : filas) {
@@ -480,7 +480,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         }
 
         // Imprimir los encabezados centrados
-        imprimirEncabezados2(etiquetasColumnas.subList(0, maxColumnas));
+        imprimirEncabezados(etiquetasColumnas.subList(0, maxColumnas));
 
         // Imprimir las filas de datos
         for (Etiqueta e : etiquetasFilas.subList(0, maxFilas)) {
