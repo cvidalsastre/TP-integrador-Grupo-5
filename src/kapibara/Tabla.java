@@ -148,7 +148,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     // Obtener una fila con los N primeras columnas
     // Ver si getFila puede llamarla con columnas.size()
 
-    public List<Celda<?>> getFilaAcotada(Etiqueta etiquetaFila, int cantColumnas) {
+    public List<Celda<?>> getFilaAcotadaList(Etiqueta etiquetaFila, int cantColumnas) {
         if (cantColumnas > getCantidadColumnas() || cantColumnas <= 0) {
             throw new IllegalArgumentException(
                     "La cantidad de columnnas debe ser mayor que 0 y menor o igual que la cantidad de columnas de la tabla.");
@@ -350,13 +350,13 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         List<Etiqueta> etiquetasColumnasSelec = conservarLasQueComparten(seleccionEtiquetasColumnas, etiquetasColumnas);
         List<Etiqueta> etiquetasFilasSelec = conservarLasQueComparten(seleccionEtiquetasFilas, etiquetasFilas);
         for (Etiqueta e : etiquetasFilasSelec) {
-            tablaRebanada.add(getFilaAcotada(e, etiquetasColumnasSelec));
+            tablaRebanada.add(getFilaAcotadaList(e, etiquetasColumnasSelec));
         }
 
         return tablaRebanada;
     }
 
-    private List<Celda<?>> getFilaAcotada(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel) {
+    private List<Celda<?>> getFilaAcotadaList(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel) {
 
         if (!tieneLaEtiqueta(etiquetaFila, etiquetasFilas)) {
             throw new IllegalArgumentException("La etiqueta de la fila no existe en la tabla");
