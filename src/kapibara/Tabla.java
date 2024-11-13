@@ -158,7 +158,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
      * Agrega una nueva fila a la tabla a partir de una lista de celdas. 
      * La misma tendrá una etiqueta numérica.
      * 
-     * @param celdas La lista de celdas que conformarán la nueva fila
+     * @param celdas La lista de celdas que conformarán la nueva fila.
      * 
      */
     public void agregarFila(List<Celda<?>> celdas) {
@@ -168,12 +168,12 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     /**
      * Agrega una nueva fila a la tabla a partir de una lista de celdas. 
-     * La misma tendrá una etiqueta numérica.
+     * La misma tendrá una etiqueta numérica o de cadena.
      * 
-     * @param celdas La lista de celdas que conformarán la nueva fila
+     * @param celdas La lista de celdas que conformarán la nueva fila.
+     * @param etiquetaFila La etiqueta de la nueva fila.
      * 
      */
-    //Metodo para agregar una fila a partir de una lista de celdas y una etiqueta.
     public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
         if (tieneLaEtiqueta(etiquetaFila, etiquetasFilas)) {
             throw new IllegalArgumentException("Ya existe una fila con esa etiqueta.");
@@ -198,7 +198,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     }
 
-    // Método auxiliar para crear una celda nula de un tipo específico
+    /**
+     * Crea una celda de tipo pasado por parámetro y contenido 'NA'. 
+     * 
+     * 
+     * @param tipo El tipo de la celda
+     * 
+     * @return celda 'NA' y tipo igual al pasado por parámetro
+     */
     private <T> Celda<T> crearCeldaNula(Class<T> tipo) {
         return new Celda<>(null); // Crea una celda nula del tipo adecuado
     }
