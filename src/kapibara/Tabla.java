@@ -512,7 +512,6 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
      * @param etiquetaFila Etiqueta de la fila a retornar.
      * @param etiquetasColumnasSel Lista de equitadas elegidas.
      * 
-     * 
      * @return fila con las columnas indicadas
      */
     private Fila getFilaAcotada(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel) {
@@ -536,6 +535,13 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return new Fila(etiquetaFila, celdasFila, etiquetasColumnasSel);
     }
 
+    /**
+     * Devuelve una lista con las primeras filas de la tabla.
+     * 
+     * @param cantidadFilas Cantidad de filas que tendrá lista a retornar
+     * 
+     * @return lista de las primeras 'cantidadFilas' filas de la tabla
+     */
     public List<Fila> head(int cantidadFilas) {
         if (cantidadFilas < 0) {
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
@@ -549,6 +555,13 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return primerasFilas;
     }
 
+    /**
+     * Devuelve una lista con las últimas filas de la tabla.
+     * 
+     * @param cantidadFilas Cantidad de filas que tendrá lista a retornar
+     * 
+     * @return lista de las últimas 'cantidadFilas' filas de la tabla
+     */
     public List<Fila> tail(int cantidadFilas) {
         if (cantidadFilas < 0) {
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
@@ -563,6 +576,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         }
         return ultimasFilas;
     }
+
+    /**
+     * Devuelve una lista de filas aleatorias de la tabla.
+     * 
+     * @param porcentaje Porcentaje de las filas de la tabla a retornar
+     * 
+     * @return lista filas aleatorias
+     */
 
     public List<Fila> muestreo(float porcentaje) {
         if (porcentaje < 0.0 || porcentaje > 100.0) {
