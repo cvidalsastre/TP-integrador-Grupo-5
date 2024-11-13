@@ -14,6 +14,15 @@ import java.util.stream.Collectors;
 
 import enums.OperacionEstadistica;
 
+/**
+ * Clase que representa una tabla.
+ * La misma tiene como estructura de representación interna
+ *  +   columnas: almancenan las listas de series de la tabla
+ *  +   etiquetasFilas: contiene las etiquetas que identifican a cada fila (u observación)
+ *  +   etiquetasColumnas : contiene las etiqutas que identifican a cada columna (o atributo)
+ *  Tanto etiquetasFilas como etiquetasColumnas pueden tener etiquetas numéricas o de cadena.
+ */
+
 public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     //Atributos
@@ -21,21 +30,36 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     private List<Etiqueta> etiquetasFilas;
     private List<Etiqueta> etiquetasColumnas;
 
-    // Constructores
+    /**
+     * Constructor para crear una tabla vacía.
+     *
+     */
     public Tabla() {
         this.columnas = new ArrayList<>();
         this.etiquetasFilas = new ArrayList<>();
         this.etiquetasColumnas = new ArrayList<>();
     }
 
-    // Metodos
+    // Métodos
+     /**
+     * Agrega una columna vacía a la tabla. 
+     * La misma tendrá una etiqueta numérica.
+     * 
+     * @param tipoDeDato El tipo de Dato que tendrá la nueva columna.
+     */
     // Agregar una columna nueva
     public void agregarColumna(Class<?> tipoDeDato) {
         Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas()); // Etiqueta secuencial automática
         agregarColumna(tipoDeDato, etiquetaColumna);
     }
 
-    // Sobrecarga de método para agregar columna con etiqueta específica
+    
+     /**
+     * Agrega una columna vacía a la tabla. 
+     * La misma tendrá una etiqueta numérica.*
+     * @param tipoDeDato El tipo de Dato que tendrá la nueva columna.
+     * @param etiquetaColumna La etiqueta de la nueva columna.
+     */
     public void agregarColumna(Class<?> tipoDeDato, Etiqueta etiquetaColumna) {
         if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) {
             throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
