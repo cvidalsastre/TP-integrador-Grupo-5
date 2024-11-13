@@ -303,18 +303,38 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     }
 
+    /**
+     * Dadas las etiquetas de fila y columna de una celda, se pone a la misma como 'NA'. 
+     * 
+     * @param etiquetaFila La etiqueta de la fila.
+     * @param etiquetaColumna La etiqueta de la columna.
+     * 
+     */
     public void volverNACelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna) {
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         getColumna(etiquetaColumna).getCeldas().get(indiceFila).volverNA();
     }
 
+    /**
+     * Dadas las etiquetas de fila y columna de una celda, devuelve el valor de la misma. 
+     * 
+     * @param etiquetaFila La etiqueta de la fila.
+     * @param etiquetaColumna La etiqueta de la columna.
+     * 
+     */
     public Celda<?> getCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna) {
         int indiceFila = getIndex(etiquetaFila, etiquetasFilas);
         return getColumna(etiquetaColumna).getCeldas().get(indiceFila);
     }
 
-
-
+    /**
+     * Dadas dos lista de etiquetas, indica si todos las etiquetas de la 1era están en la 2da. 
+     * 
+     * @param seleccion Lista de etiquetas a revisar.
+     * @param etiquetas Lista de etiquetas .
+     * 
+     * @return valor de verdad que indica si la lista seleccion está incluída en etiquetas.
+     */
     private boolean estanTodasLasEtiquetas(List<Etiqueta> seleccion, List<Etiqueta> etiquetas) {
         for (Etiqueta e : seleccion) {
             if (!tieneLaEtiqueta(e, etiquetas)) {
