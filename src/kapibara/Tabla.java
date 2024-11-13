@@ -41,6 +41,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     }
 
     // Métodos
+
      /**
      * Agrega una columna vacía a la tabla. 
      * La misma tendrá una etiqueta numérica.
@@ -56,7 +57,8 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     
      /**
      * Agrega una columna vacía a la tabla. 
-     * La misma tendrá una etiqueta numérica.*
+     * La misma tendrá una etiqueta numérica o de cadena.
+     * 
      * @param tipoDeDato El tipo de Dato que tendrá la nueva columna.
      * @param etiquetaColumna La etiqueta de la nueva columna.
      */
@@ -74,14 +76,30 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         }
     }
 
-    // Agregar columnas a partir de una columna ya creada :
-    // SIN ETIQUETA
+    
+     /**
+     * Agrega una columna a la tabla. 
+     * La misma tendrá una etiqueta numérica.
+     * 
+     * @param nuevaColumna La columna que se va agregar a la tabla.
+     * 
+     */
     public void agregarColumnaYC(Columna<?> nuevaColumna) {
         Etiqueta etiquetaColumna = new EtiquetaNumerica(getCantidadColumnas()); // Etiqueta secuencial automática
         agregarColumnaYC(etiquetaColumna, nuevaColumna);
     }
 
-    // CON ETIQUETA
+
+
+     /**
+     * Agrega una columna a la tabla. 
+     * La misma tendrá una etiqueta numérica o de cadena.
+     * 
+     * @param etiquetaColumna La etiqueta de la columna que se va a agregar a la tabla.
+     * @param nuevaColumna La columna que se va agregar a la tabla.
+     *
+     * 
+     */
     public void agregarColumnaYC(Etiqueta etiquetaColumna, Columna<?> nuevaColumna) {
         if (tieneLaEtiqueta(etiquetaColumna, etiquetasColumnas)) { //Verifica si ya existe la columna que se desea crear.
             throw new IllegalArgumentException("Ya existe una columna con esa etiqueta.");
