@@ -122,7 +122,13 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         }
     }
 
-    //Elimina una columna a partir de una etiqueta
+     /**
+     * Elimina la columna con la etiqueta pasada por parámetro. 
+     * 
+     * @param e La etiqueta de la columna a eliminar.
+     * 
+     * 
+     */
     public void eliminarColumna(Etiqueta e) {
         int indiceColumnaABorrar = getIndex(e, etiquetasColumnas);
         columnas.remove(indiceColumnaABorrar);
@@ -130,7 +136,12 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     }
 
-    // Agregar una fila nueva con etiqueta automática si no se especifica
+     /**
+     * Agrega una nueva fila a la tabla con todos los atributos 'NA'. 
+     * La misma tendrá una etiqueta numérica.
+     * 
+     * 
+     */
     public void agregarFila() {
 
         Etiqueta etiquetaFila = new EtiquetaNumerica(getCantidadFilas());
@@ -143,6 +154,12 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         agregarFila(celdas, etiquetaFila);
     }
 
+    /**
+     * Agrega una nueva fila a la tabla con todos los atributos 'NA'. 
+     * La misma tendrá una etiqueta numérica.
+     * 
+     * 
+     */
     // Método para agregar una fila sin necesidad de especificar etiqueta
     public void agregarFila(List<Celda<?>> celdas) {
         Etiqueta etiquetaFila = new EtiquetaNumerica(getCantidadFilas()); // Generar automáticamente la etiqueta
