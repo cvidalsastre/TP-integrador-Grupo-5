@@ -1,5 +1,11 @@
 ## Índice
 
+Hola soy Kapibara, soy un animal muy amigo de los pandas, te invito a revisar mi documentación para que me puedas conocer mejor :)
+
+## [Documentación Web generada con JavaDocs ](https://cvidalsastre.github.io/ALGORITMOS-I-GRUPO-5-DOCS/kapibara/package-summary.html)
+
+![Logo de la libreria](logo.jpg)
+
 - [Proyecto: **Librería de Java**](#proyecto-librería-de-java)
   - [1. Objetivo y Alcance](#1-objetivo-y-alcance)
 - [Objetivo del Proyecto](#objetivo-del-proyecto)
@@ -7,6 +13,7 @@
   - [2. Descripción de Alto Nivel del Sistema](#2-descripción-de-alto-nivel-del-sistema)
   - [3. Requerimientos Funcionales](#3-requerimientos-funcionales)
   - [4. Requerimientos No Funcionales](#4-requerimientos-no-funcionales)
+  - [5. Estructura del repositorio]](#5-Estructura-del-repositorio)
   - [Desarrollado por:](#desarrollado-por)
 
 # Proyecto: **Librería de Java**
@@ -15,7 +22,7 @@
 
 # Objetivo del Proyecto
 
-_El proyecto tiene como objetivo desarrollar una **librería en Java** que permita manipular y analizar datos en forma tabular (2 dimensiones). La librería debe proporcionar estructuras de datos y operaciones que faciliten la manipulación de datos tabulares, como lectura, modificación y análisis de los mismos, sin depender de librerías externas._
+_El proyecto tiene como objetivo desarrollar una **librería en Java** llamada KAPIBARA que permita manipular y analizar datos en forma tabular (2 dimensiones). La librería debe proporcionar estructuras de datos y operaciones que faciliten la manipulación de datos tabulares, como lectura, modificación y análisis de los mismos, sin depender de librerías externas._
 
 _Además, el proyecto contempla la posibilidad de **futuras extensiones** y debe minimizar el impacto de futuras modificaciones en la arquitectura del sistema. Aunque no se hará foco en la eficiencia de las operaciones inicialmente, se considerará la inclusión de mecanismos para medir el **costo temporal** de la ejecución de las mismas._
 
@@ -79,6 +86,16 @@ _Los requerimientos no funcionales definen cómo debe comportarse el sistema en 
 - **RNF 2:** El procesamiento de archivos de hasta 10,000 filas debe completarse en menos de 1 segundo.
 - **RNF 3:** Seguridad, permitir seleccionar columnas privadas para que no sean accesibles para el usuario
 - **RNF 4:** Rendimiento, benchmarking de métodos
+
+## 5. Estructura del repositorio
+
+- **src/kapibara**: Contiene el código fuente principal de la aplicación
+- **src/tests/**: Incluye las pruebas para asegurar la funcionalidad correcta del código.
+- **src/enums/**: Enums.
+- **temp/**: Archivos temporales, por ejemplo cuando se guarda una tabla en los runs de prueba.
+- **data/**: Datasets de prueba.
+- **docs/**: Documentación adicional del proyecto, como guías de usuario, referencias de API y diagramas.
+
 
 ## Desarrollado por:
 
