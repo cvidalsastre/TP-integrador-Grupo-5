@@ -368,7 +368,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
      * @param seleccion Lista de etiquetas a buscar.
      * @param etiquetas Lista de etiquetas.
      * 
-     * @return copia de la lista de etiquetas de la 2da lista que están en la 1era.
+     * @return copia de la lista de etiquetas de la 2da lista que están en la 1era
      */
     private List<Etiqueta> conservarLasQueComparten(List<Etiqueta> seleccion, List<Etiqueta> etiquetas) {
         List<Etiqueta> copiaEtiquetas = new ArrayList<>(etiquetas);
@@ -380,6 +380,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return copiaEtiquetas;
     }
 
+     /**
+     * Devuelve la cantidad de aparciones de una etiqueta en una lista de etiquetas. 
+     * 
+     * @param buscada Etiqueta a buscar.
+     * @param etiquetas Lista de etiquetas.
+     * 
+     * @return número de apariciones de buscada en etiquetas
+     */
     private int contarApariciones(Etiqueta buscada, List<Etiqueta> etiquetas) {
         int numeroDeApariciones = 0;
         for (Etiqueta e : etiquetas) {
@@ -390,6 +398,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return numeroDeApariciones;
     }
 
+
+     /**
+     * Indica si la lista de etiqueta tiene repetidos. 
+     * 
+     * @param etiquetas Lista de etiquetas.
+     * 
+     * @return indica si alguna etiqueta de la lista de etiqueta aparece más de 1 vez
+     */
     private boolean tieneRepetidos(List<Etiqueta> etiquetas) {
         for (Etiqueta e : etiquetas) {
             if (contarApariciones(e, etiquetas) > 1) {
@@ -400,9 +416,13 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     }
 
   
-
-    
-
+    /**
+     * Indica si la lista de etiqueta tiene repetidos. 
+     * 
+     * @param etiquetas Lista de etiquetas.
+     * 
+     * @return indica si alguna etiqueta de la lista de etiqueta aparece más de 1 vez
+     */
     public List<List<Celda<?>>> headLista(int cantidadFilas) {
         if (cantidadFilas < 0) {
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
