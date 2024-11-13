@@ -13,7 +13,7 @@ Hola soy Kapibara, soy un animal muy amigo de los pandas, te invito a revisar mi
   - [2. Descripción de Alto Nivel del Sistema](#2-descripción-de-alto-nivel-del-sistema)
   - [3. Requerimientos Funcionales](#3-requerimientos-funcionales)
   - [4. Requerimientos No Funcionales](#4-requerimientos-no-funcionales)
-  - [5. Estructura del repositorio]](#5-Estructura-del-repositorio)
+  - [5. Estructura del repositorio](#5-Estructura-del-repositorio)
   - [Desarrollado por:](#desarrollado-por)
 
 # Proyecto: **Librería de Java**
