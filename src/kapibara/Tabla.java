@@ -226,7 +226,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     }
 
     /**
-     * A partir de la etiqueta de fila y la cantidad de columnas, devuelve una lista de celdas . 
+     * A partir de la etiqueta de fila y la cantidad de columnas, devuelve una lista de celdas. 
      * 
      * @param etiquetaFila La etiqueta de la fila a retornar.
      * @param cantColumnas La cantidad de columnas de la fila.
@@ -246,6 +246,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return fila;
     }
 
+    /**
+     * Dadas las etiquetas de fila y columna de una celda se le pone un valor de tipo cadena. 
+     * 
+     * @param etiquetaFila La etiqueta de la fila a modificar.
+     * @param etiquetaColumna La etiqueta de la columna a modificar.
+     * @param valor El valor que tomará la celda.
+     * 
+     */
     public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, String valor) {
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
@@ -257,6 +265,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     }
 
+    /**
+     * Dadas las etiquetas de fila y columna de una celda se le pone un valor de tipo numérico. 
+     * 
+     * @param etiquetaFila La etiqueta de la fila a modificar.
+     * @param etiquetaColumna La etiqueta de la columna a modificar.
+     * @param valor El valor que tomará la celda.
+     * 
+     */
     public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, Number valor) {
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
@@ -268,6 +284,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     }
 
+    /**
+     * Dadas las etiquetas de fila y columna de una celda se le pone un valor de tipo booleano. 
+     * 
+     * @param etiquetaFila La etiqueta de la fila a modificar.
+     * @param etiquetaColumna La etiqueta de la columna a modificar.
+     * @param valor El valor que tomará la celda.
+     * 
+     */
     public void editarCelda(Etiqueta etiquetaFila, Etiqueta etiquetaColumna, boolean valor) {
         Class<?> tipoColumna = getColumna(etiquetaColumna).getTipoDeDato();
 
