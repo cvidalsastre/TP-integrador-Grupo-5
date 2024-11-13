@@ -593,6 +593,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return elegirNFilas(tamanioMuesta, etiquetasFilas);
     }
 
+    /**
+     * Devuelve una lista de filas de longitud 'N' elegidas al azar.
+     * 
+     * @param tamanio Cantidad de filas que tendrá lista a retornar
+     * @param etiquetasFilas Etiquetas de las filas de las cuales se seleccionará 'tamanio' filas de forma aleatoria.
+     * 
+     * @return lista de filas elegidas al azar
+     */
     private List<Fila> elegirNFilas(int tamanio, List<Etiqueta> etiquetasFilas) {
         List<Fila> filasRandom = new ArrayList<>();
         // se copia la lista de etiqueta de las filas
@@ -610,6 +618,15 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return filasRandom;
     }
 
+
+    /**
+     * Devuelve una lista de filas 
+     * 
+     * @param seleccionEtiquetasFilas Lista de etiquetas de filas
+     * @param seleccionEtiquetasColumnas Lista de etiquetas de columnas
+     * 
+     * @return lista de filas 
+     */
     public List<Fila> seleccionParcial(List<Etiqueta> seleccionEtiquetasFilas,
             List<Etiqueta> seleccionEtiquetasColumnas) {
 
