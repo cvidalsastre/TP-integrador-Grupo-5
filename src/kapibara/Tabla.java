@@ -716,8 +716,8 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return salida;
     }
 
-    // Verificación simplificada: Ahora hay una única verificación al inicio para
-    // asegurarse de que maxFilas, maxColumnas, y maxLargoCadena son mayores que 0.
+    
+    
     public void visualizar(int maxFilas, int maxColumnas, int maxLargoCadena) {
         System.out.println("maxFilas: " + maxFilas);
         System.out.println("maxColumnas: " + maxColumnas);
@@ -748,9 +748,8 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
-    // Función auxiliar para calcular el ancho máximo de cada columna (incluyendo
-    ////////////////////////////////////////////////////////////////////////////////////// los
-    ////////////////////////////////////////////////////////////////////////////////////// encabezados)
+    // Función auxiliar para calcular el ancho máximo de cada columna (incluyendo los encabezados)
+    ////////////////////////////////////////////////////////////////////////////////////// 
     private int[] calcularAnchos(List<List<Celda<?>>> filas, List<Etiqueta> encabezados) {
         int numColumnas = encabezados.size(); // Número de columnas es igual al tamaño de los encabezados
         int[] anchos = new int[numColumnas];
