@@ -460,7 +460,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     
 
      /**
-     * Devuelve una lista de celdas que formar la fila con la etiqueta pasada por parámetro.
+     * Devuelve una lista de celdas que forman la fila con la etiqueta pasada por parámetro.
      * 
      * @param etiquetaFila Etiqueta de la fila a retornar.
      * 
@@ -475,6 +475,13 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return fila;
     }
 
+     /**
+     * Devuelve una lista de celdas que forman la fila de la posición buscada.
+     * 
+     * @param indexFila Número de fila a buscar.
+     * 
+     * @return lista de celdas de la fila buscada
+     */
     public List<Celda<?>> getListaCeldas(int indexFila) {
         List<Celda<?>> fila = new ArrayList<>();
         for (Columna<?> col : columnas) {
@@ -483,7 +490,13 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return fila;
     }
 
-    // No sé si sirve
+     /**
+     * Devuelve la fila con la etiqueta pasada por parámetro.
+     * 
+     * @param etiquetaFila Etiqueta de la fila a retornar.
+     * 
+     * @return fila buscada
+     */
     public Fila getFila(Etiqueta etiquetaFila) {
         int indexFila = getIndex(etiquetaFila, etiquetasFilas);
         List<Celda<?>> celdasFilas = new ArrayList<>();
@@ -493,6 +506,15 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return new Fila(etiquetaFila, celdasFilas, etiquetasColumnas);
     }
 
+     /**
+     * Devuelve una fila con las columnas indicadas .
+     * 
+     * @param etiquetaFila Etiqueta de la fila a retornar.
+     * @param etiquetasColumnasSel Lista de equitadas elegidas.
+     * 
+     * 
+     * @return fila con las columnas indicadas
+     */
     private Fila getFilaAcotada(Etiqueta etiquetaFila, List<Etiqueta> etiquetasColumnasSel) {
         if (!tieneLaEtiqueta(etiquetaFila, etiquetasFilas)) {
             throw new IllegalArgumentException("La etiqueta de la fila no existe en la tabla");
