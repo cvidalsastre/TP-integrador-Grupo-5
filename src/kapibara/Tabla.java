@@ -201,16 +201,21 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     /**
      * Crea una celda de tipo pasado por parámetro y contenido 'NA'. 
      * 
+     * @param tipo El tipo de la celda.
      * 
-     * @param tipo El tipo de la celda
-     * 
-     * @return celda 'NA' y tipo igual al pasado por parámetro
+     * @return celda 'NA' y tipo igual al pasado por parámetro.
      */
     private <T> Celda<T> crearCeldaNula(Class<T> tipo) {
         return new Celda<>(null); // Crea una celda nula del tipo adecuado
     }
 
-    //Metodo para eliminar una fila a partir de una etiqueta
+    /**
+     * Elimina la fila con etiqueta igual a la que indica el parámetro. 
+     * 
+     * @param e La etiqueta de la fila a eliminar.
+     * 
+     * 
+     */
     public void eliminarFila(Etiqueta e) {
         // Si la etiqueta e no existe getIndex tira excepción
         int indiceFilaABorrar = getIndex(e, etiquetasFilas);
@@ -220,7 +225,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         etiquetasFilas.remove(indiceFilaABorrar);
     }
 
-    // Metodo para obtener una fila con "cantColumnas" columnas
+    /**
+     * A partir de la etiqueta de fila y la cantidad de columnas, devuelve una lista de celdas . 
+     * 
+     * @param etiquetaFila La etiqueta de la fila a retornar.
+     * @param cantColumnas La cantidad de columnas de la fila.
+     * 
+     * @return lista de celdas que se corresponden con las columnas de la fila.
+     */
     public List<Celda<?>> getFilaAcotadaList(Etiqueta etiquetaFila, int cantColumnas) {
         if (cantColumnas > getCantidadColumnas() || cantColumnas <= 0) {
             throw new IllegalArgumentException(
