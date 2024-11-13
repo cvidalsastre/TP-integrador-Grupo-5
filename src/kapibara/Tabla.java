@@ -417,11 +417,11 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
   
     /**
-     * Indica si la lista de etiqueta tiene repetidos. 
+     * Devuelve una lista de lista de celdas con las primeras filas de la tabla. 
      * 
-     * @param etiquetas Lista de etiquetas.
+     * @param cantidadFilas Número de filas a retornar.
      * 
-     * @return indica si alguna etiqueta de la lista de etiqueta aparece más de 1 vez
+     * @return lista de lista de celdas con las primeras 'cantidadFilas' de la tabla
      */
     public List<List<Celda<?>>> headLista(int cantidadFilas) {
         if (cantidadFilas < 0) {
@@ -435,6 +435,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return primerasFilas;
     }
 
+
+    /**
+     * Devuelve una lista de lista de celdas con las últimas filas de la tabla .
+     * 
+     * @param cantidadFilas Número de filas a retornar.
+     * 
+     * @return lista de lista de celdas con las últimas 'cantidadFilas' de la tabla
+     */
     public List<List<Celda<?>>> tailList(int cantidadFilas) {
         if (cantidadFilas < 0) {
             throw new IllegalArgumentException("La cantidad de filas debe ser mayor o igual a cero.");
@@ -451,7 +459,13 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
 
     
 
-    // Obtener una fila completa
+     /**
+     * Devuelve una lista de celdas que formar la fila con la etiqueta pasada por parámetro.
+     * 
+     * @param etiquetaFila Etiqueta de la fila a retornar.
+     * 
+     * @return lista de celdas de la fila buscada
+     */
     public List<Celda<?>> getListaCeldas(Etiqueta etiquetaFila) {
         int indexFila = getIndex(etiquetaFila, etiquetasFilas);
         List<Celda<?>> fila = new ArrayList<>();
