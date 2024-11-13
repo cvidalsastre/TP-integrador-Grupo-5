@@ -155,17 +155,24 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
     }
 
     /**
-     * Agrega una nueva fila a la tabla con todos los atributos 'NA'. 
+     * Agrega una nueva fila a la tabla a partir de una lista de celdas. 
      * La misma tendrá una etiqueta numérica.
      * 
+     * @param celdas La lista de celdas que conformarán la nueva fila
      * 
      */
-    // Método para agregar una fila sin necesidad de especificar etiqueta
     public void agregarFila(List<Celda<?>> celdas) {
         Etiqueta etiquetaFila = new EtiquetaNumerica(getCantidadFilas()); // Generar automáticamente la etiqueta
         agregarFila(celdas, etiquetaFila); // Llama al método sobrecargado
     }
 
+    /**
+     * Agrega una nueva fila a la tabla a partir de una lista de celdas. 
+     * La misma tendrá una etiqueta numérica.
+     * 
+     * @param celdas La lista de celdas que conformarán la nueva fila
+     * 
+     */
     //Metodo para agregar una fila a partir de una lista de celdas y una etiqueta.
     public void agregarFila(List<Celda<?>> celdas, Etiqueta etiquetaFila) {
         if (tieneLaEtiqueta(etiquetaFila, etiquetasFilas)) {
