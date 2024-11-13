@@ -333,7 +333,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
      * @param seleccion Lista de etiquetas a revisar.
      * @param etiquetas Lista de etiquetas .
      * 
-     * @return valor de verdad que indica si la lista seleccion está incluída en etiquetas.
+     * @return valor de verdad que indica si la lista seleccion está incluída en etiquetas
      */
     private boolean estanTodasLasEtiquetas(List<Etiqueta> seleccion, List<Etiqueta> etiquetas) {
         for (Etiqueta e : seleccion) {
@@ -344,6 +344,14 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return true;
     }
 
+    /**
+     * Dada una etiqueta y una lista de etiquetas, indica si etiqueta pertenece la lista. 
+     * 
+     * @param e Etiqueta a buscar.
+     * @param etiquetas Lista de etiquetas .
+     * 
+     * @return valor de verdad que indica si la lista tiene entre sus etiquetas a e
+     */
     private boolean tieneLaEtiqueta(Etiqueta e, List<Etiqueta> etiquetas) {
         for (Etiqueta label : etiquetas) {
             if (e.getValor().equals(label.getValor())) {
@@ -353,6 +361,15 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         return false;
     }
 
+     /**
+     * Devuelve una copia de las etiquetas de la 2da lista que aparecen en la 1era, conservando el 
+     * orden que tienen en la 2da. 
+     * 
+     * @param seleccion Lista de etiquetas a buscar.
+     * @param etiquetas Lista de etiquetas.
+     * 
+     * @return copia de la lista de etiquetas de la 2da lista que están en la 1era.
+     */
     private List<Etiqueta> conservarLasQueComparten(List<Etiqueta> seleccion, List<Etiqueta> etiquetas) {
         List<Etiqueta> copiaEtiquetas = new ArrayList<>(etiquetas);
         for (Etiqueta e : etiquetas) {
