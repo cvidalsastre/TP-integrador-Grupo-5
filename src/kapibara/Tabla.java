@@ -625,7 +625,7 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
      * @param seleccionEtiquetasFilas Lista de etiquetas de filas
      * @param seleccionEtiquetasColumnas Lista de etiquetas de columnas
      * 
-     * @return lista de filas 
+     * @return lista de filas a partir de las lista de etiquetas de filas y columnas 
      */
     public List<Fila> seleccionParcial(List<Etiqueta> seleccionEtiquetasFilas,
             List<Etiqueta> seleccionEtiquetasColumnas) {
@@ -645,13 +645,17 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         List<Etiqueta> etiquetasColumnasSelec = conservarLasQueComparten(seleccionEtiquetasColumnas, etiquetasColumnas);
         List<Etiqueta> etiquetasFilasSelec = conservarLasQueComparten(seleccionEtiquetasFilas, etiquetasFilas);
         for (Etiqueta e : etiquetasFilasSelec) {
-            System.out.println("pppp" + etiquetasColumnasSelec);
-
             tablaRebanada.add(getFilaAcotada(e, etiquetasColumnasSelec));
         }
         return tablaRebanada;
     }
 
+    /**
+     * Imprime por pantalla una lista de etiquetas 
+     * 
+     * @param etiquetas Lista de etiquetas a imprimir.
+     *
+     */
     public void imprimirEncabezados(List<Etiqueta> etiquetas) {
         String salida = " | ";
 
@@ -663,7 +667,12 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         System.out.println(salida);
     }
 
-    // Método para imprimir todas las filas y encabezados
+    /**
+     * Imprime por pantalla una lista de filas con sus respectivas etiquetas de filas y columnas 
+     * 
+     * @param filas Lista de filas a imprimir
+     *  
+     */
     public void imprimirFilas(List<Fila> filas) {
         if (!filas.isEmpty()) {
             // Imprimir los encabezados
@@ -676,6 +685,16 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
         }
     }
 
+    /**
+     * Devuelve una cadena que representa a una fila con la cantidad de columnas indicadas y 
+     * en donde los campos de tipo cadena tiene un largo máximo indicado 
+     * 
+     * @param fila La fila a convertir en cadena
+     * @param maxColumnas La cantidad de filas a usar de la fila
+     * @param maxLargoCadena El largo máximo de los campos de tipo cadena
+     * 
+     *  @return cadena que representa a la fila
+     */
     private String filaACadena(Fila fila, int maxColumnas, int maxLargoCadena) {
         String salida = "*" + fila.getEtiquetaFila().toString() + "*" + " | ";
         maxColumnas = Math.min(maxColumnas, fila.getCeldasFila().size());
