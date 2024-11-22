@@ -7,5 +7,6 @@ public enum OperacionEstadistica {
     CUENTA,
     MEDIA,
     VARIANZA,
-    DESVIO_ESTANDAR
+    DESVIO_ESTANDAR,
+    MODA
 }   

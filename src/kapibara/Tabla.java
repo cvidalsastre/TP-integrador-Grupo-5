@@ -1230,6 +1230,13 @@ public class Tabla implements Visualizable, Agrupable, Ordenable, Filtrable {
                 double varianza = valores.stream().mapToDouble(Number::doubleValue).map(v -> Math.pow(v - media, 2))
                         .average().orElse(Double.NaN);
                 return Math.sqrt(varianza);
+            case MODA:
+                return valores.stream()
+                        .collect(Collectors.groupingBy(Number::doubleValue, Collectors.counting()))
+                        .entrySet().stream()
+                        .max(Map.Entry.comparingByValue())
+                        .map(Map.Entry::getKey)
+                        .orElse(Double.NaN);
             default:
                 throw new IllegalArgumentException("Operación no soportada: " + operacion);
         }
